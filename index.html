@@ -7,17 +7,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Barlow:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0b0d10; --panel:#14171c; --panel2:#1c2027; --line:#262b33;
+  --bg:#141114; --panel:#1e1a1d; --panel2:#282227; --line:#3a3439;
   --yellow:#f5b301; --blue:#3d8bd4; --green:#4aa354; --teal:#1a7a6e;
-  --purple:#9b59d0; --orange:#e07b2a; --red:#d34f4f; --rose:#c2274a; --rose2:#e0577a;
-  --txt:#e8e6df; --dim:#8a8f99;
+  --purple:#9b59d0; --orange:#e07b2a; --red:#DA1D1D; --rose:#A80925; --rose2:#DA1D1D;
+  --txt:#cfc9cd; --dim:#84838B;
   --elev1:0 2px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
   --elev2:0 6px 18px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:14px;min-height:100vh;
   background-image:repeating-linear-gradient(115deg,transparent 0 3px,rgba(255,255,255,.007) 3px 4px),
-    radial-gradient(1100px 380px at 50% -120px,rgba(194,39,74,.06),transparent)}
+    radial-gradient(1100px 380px at 50% -120px,rgba(168,9,37,.08),transparent)}
 *{transition:background-color .12s,border-color .12s,box-shadow .12s,transform .12s,color .12s}
 @media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 h1,h2,h3,.disp{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.04em}
@@ -31,9 +31,9 @@ header{padding:14px 18px 12px;border-bottom:1px solid var(--line);display:flex;f
 .hqbig .hqnum{font-family:'JetBrains Mono';font-weight:700;font-size:38px;color:var(--rose2);line-height:1}
 .hqbig .hqarrow{font-family:'Oswald';font-size:15px;color:var(--dim)}
 .hqbig .hqlbl{font-size:9px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;align-self:center}
-.patch{font-family:'Oswald';font-weight:700;font-size:15px;letter-spacing:.22em;color:#fff;background:linear-gradient(160deg,#9e1f3d,var(--rose));
+.patch{font-family:'Oswald';font-weight:700;font-size:15px;letter-spacing:.22em;color:#fff;background:linear-gradient(160deg,#7d0a1e,var(--rose));
   padding:5px 12px 5px 14px;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
-  border:1px solid #e0577a;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+  border:1px solid #DA1D1D;text-shadow:0 1px 0 rgba(0,0,0,.4)}
 .callsign{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
 .callsign i{color:var(--rose);font-style:normal}
 header h1{font-size:22px;font-weight:700}
@@ -47,7 +47,7 @@ nav button{display:flex;flex-direction:column;align-items:center;gap:4px;min-wid
   padding:8px 10px;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;
   box-shadow:var(--elev1)}
 nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-nav button.on{background:linear-gradient(180deg,#7d1c34,var(--rose));color:#fff;border-color:var(--rose2);
+nav button.on{background:linear-gradient(180deg,#7d0a1e,var(--rose));color:#fff;border-color:var(--rose2);
   box-shadow:inset 0 2px 6px rgba(0,0,0,.45)}
 nav button:hover{color:var(--txt);transform:translateY(-1px)}
 nav button:active{transform:translateY(1px);box-shadow:inset 0 2px 6px rgba(0,0,0,.5)}
@@ -289,9 +289,31 @@ nav button:focus-visible,button:focus-visible{outline:2px solid var(--yellow);ou
 .mchip.mr{background:rgba(220,70,70,.15);color:var(--red);border:1px solid var(--red)}
 .mchip.my{background:rgba(255,200,60,.12);color:var(--yellow);border:1px solid var(--yellow)}
 .mchip.mg{background:rgba(80,200,120,.12);color:var(--green);border:1px solid var(--green)}
+.mchip.mb{background:rgba(61,139,212,.12);color:var(--blue);border:1px solid var(--blue)}
+.tfcap{width:100%;max-width:560px;text-align:left;font-family:'Oswald';font-size:10.5px;letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin:10px 0 2px;border-bottom:1px solid var(--line);padding-bottom:3px}
+.hxrow{display:flex;gap:8px;justify-content:center;margin:2px 0}
+.hxc{display:flex;flex-direction:column;align-items:center;gap:2px;width:58px}
+.hex{width:46px;height:52px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';font-size:10.5px;font-weight:700;
+  background:var(--panel2);color:var(--dim)}
+.hxlb{font-size:8px;color:var(--dim);text-align:center;line-height:1.15;font-family:'Oswald';letter-spacing:.03em;text-transform:uppercase}
+.hex.max{background:#1e3324;color:var(--green)}
+.hex.go{background:linear-gradient(160deg,#7d0a1e,var(--rose));color:#fff;box-shadow:0 0 10px rgba(218,29,29,.4)}
+.hex.run{background:#16283a;color:var(--blue)}
+.hex.no{background:#221e21;color:#5a555a}
+.hex.lock{background:#191519;color:#4a4448}
+.hxarr{text-align:center;color:var(--dim);font-size:11px;line-height:1;margin:1px 0}
 .ustbtn{width:22px;height:22px;border-radius:5px;border:1px solid var(--line);background:linear-gradient(180deg,#1c2027,#14171c);
   color:var(--txt);font-size:14px;line-height:1;cursor:pointer;box-shadow:var(--elev1)}
 .ustbtn:active{transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+.bkgrid{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:8px}
+.bkgrid>div{display:flex;flex-direction:column;gap:2px}
+.bklb{font-family:'Oswald';font-size:9.5px;letter-spacing:.16em;color:var(--dim);text-transform:uppercase}
+.bknum{font-family:'JetBrains Mono';font-weight:700;font-size:19px;line-height:1.1}
+.bkchips{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.bkchips span{font-size:10.5px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:5px;padding:2px 8px;color:var(--dim)}
+.tierline{font-family:'Oswald';font-size:11px;letter-spacing:.1em;color:var(--dim);margin-top:8px;text-transform:uppercase}
+.tierline b{color:var(--purple)}
 </style>
 </head>
 <body>
@@ -325,8 +347,8 @@ nav button:focus-visible,button:focus-visible{outline:2px solid var(--yellow);ou
 <div class="tab on" id="tab-road">
   <div id="simpleRoad" style="margin-bottom:16px"></div>
   <div id="t9meter"></div>
-  <div class="bottleneck">⚠ <b>RUTA CRÍTICA T9→T10:</b>
-    <span class="rz">Lab 26 + Walls 26 (9 ago) → HQ 27 (quemar reserva → 18 ago) → Shooter 26→27 (15.6d) → <b>T9 meta mar 1 sep</b>. Después: camps 27 + AC 27 → HQ 28 (~oct) → HQ 29 (~dic) → HQ 30 (~feb) → Lab 30 (~mar 2027) → UST del banco → <b>T10</b>.</span></div>
+  <div class="bottleneck">⚠ <b>RUTA:</b>
+    <span class="rz mono" style="font-size:12px">Lab+Walls <b>9ago</b> → HQ27 <b>18ago</b> → Sh27 → <b style="color:var(--purple)">★T9 1sep</b> → HQ28 <b>oct</b> → HQ29 <b>dic</b> → HQ30 <b>feb</b> → Lab30 <b>mar27</b> → <b style="color:var(--purple)">★T10 INVASOR</b></span></div>
   <div class="strip">
     <div class="stat"><div class="lb">Fase actual</div><div class="vl" id="stFase">—</div></div>
     <div class="stat t9"><div class="lb">Objetivo T9</div><div class="vl">Shooter 27 (fase HQ 27)</div></div>
@@ -552,7 +574,7 @@ const DEFAULT_TASKS = [
  // fase 27 (hito T9)
  {id:'hq28', b:'HQ', k:'hq', f:27,t:28, food:806.5, z:157.7, time:null, pr:false, ph:27},
  {id:'lab27', b:'Laboratory', k:'lab', f:26,t:27, food:505.6, z:100.7, time:'47d 21:38:52', pr:false, ph:27},
- {id:'as27', b:'Assaulter Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:'47d 21:00:00', pr:false, ph:27, t9:true},
+ {id:'as27', b:'Assaulter Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:'47d 21:00:00', pr:false, ph:27},
  {id:'ac27', b:'Alliance Center', k:'ac', f:26,t:27, food:290.0, z:37.6, time:null, pr:false, ph:27},
  {id:'sh27', b:'Shooter Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:null, pr:false, ph:27},
  // fase 28
@@ -561,7 +583,7 @@ const DEFAULT_TASKS = [
  {id:'as28', b:'Assaulter Camp', k:'camp', f:27,t:28, food:117.8, z:70.7, time:null, pr:true, ph:28},
  {id:'sh28', b:'Shooter Camp', k:'camp', f:27,t:28, food:117.8, z:70.7, time:null, pr:true, ph:28},
  // fase 29
- {id:'hq30', b:'HQ', k:'hq', f:29,t:30, food:1400, z:277.1, time:null, pr:false, ph:29},
+ {id:'hq30', b:'HQ', k:'hq', f:29,t:30, food:1685, z:308.5, time:null, pr:false, ph:29},
  {id:'lab29', b:'Laboratory', k:'lab', f:28,t:29, food:990.9, z:198.6, time:'80d 20:08:41', pr:true, ph:29, timeOK:true},
  {id:'sh29', b:'Shooter Camp', k:'camp', f:28,t:29, food:164.9, z:98.6, time:null, pr:true, ph:29},
  // RUTA T10: Lab 30 abre el árbol UST (popup in-game confirmado: "Lv.30 Laboratory Required").
@@ -1288,6 +1310,52 @@ async function load(){
     ];
     state.seedV=63;
   }
+  // ===== SEED v64: hitos telegráficos (menos texto, más directo) + paleta gris-rojo =====
+  if(!state.seedV || state.seedV<64){
+    state.planT9.hitos = [
+      {q:'HQ26 ✓ · Lab26+Walls26 ▶', f:'2026-07-28'},
+      {q:'HQ27 ▶ (quemar 305h) + camps 26 ▶', f:'2026-08-09'},
+      {q:'HQ27 ✓ → Sh27 + Lab27 + AC ▶', f:'2026-08-18'},
+      {q:'★ T9 ASALTANTE (mar VS)', f:'2026-09-01'},
+      {q:'Gate HQ28 ✓ (camps27 + AC27)', f:'2026-09-17'},
+      {q:'HQ28 ✓ (− pool → mar VS)', f:'2026-10-14'},
+      {q:'Lab28 + camps28 ✓ (paralelo, NO acelerar)', f:'2026-11-03'},
+      {q:'HQ29 ✓ (− pool)', f:'2026-12-07'},
+      {q:'Lab29 + Sh29 ✓', f:'2027-01-02'},
+      {q:'HQ30 ✓ (− pool)', f:'2027-02-16'},
+      {q:'🏦 Banco 1.49M LLENO — converge con Lab30', f:'2027-02-28'},
+      {q:'LAB30 → UST (🩸 1º) → ★ T10 INVASOR', f:'2027-03-22'}
+    ];
+    state.seedV=64;
+  }
+  // ===== SEED v65: OCR árboles completos (31 jul) — Cockpit pide escudos Lv.5×3 (faltan 12 niv ≈8K + Cockpit 2.2K);
+  //       HQ Mgmt 51%; AR: One more! bloqueado tras Event King → descartado; balance badges ~4.4K (confirmar).
+  //       Infografía comunidad valida secuencia: AR→Elite→MS45→PS→UR Lv10→(EventKing solo pagando)→HT→MS100. =====
+  if(!state.seedV || state.seedV<65){ state.seedV=65; }
+  // ===== SEED v66: OCR con nombres exactos — UR ya desbloqueado 2/10 (era el "vehículo"), el escudo
+  //       final = Recharge Shield tras peaje (~194K, NO pre-T10). Presupuesto pre-banco cerrado: ~17K
+  //       (HT→Cockpit ~10K + UR 2→10 ~7K). Balance badges confirmado 4.4K. Cero capturas pendientes. =====
+  if(!state.seedV || state.seedV<66){ if(state.badges&&!state.badges.banco) state.badges.banco=4400; state.seedV=66; }
+  // ===== SEED v67: verificación prereqs HQ 27-30 (4 fuentes) — cadena confirmada: 27=Walls26, 28=AC27,
+  //       29=Assaulter28 (wiki discrepa con "Raiders"; 3 vs 1 + patrón de ciclo → Assaulter; verificar
+  //       popup in-game al cerrar HQ27). COSTO HQ 29→30 corregido a base KOKP+5.3% (única tabla validada
+  //       contra pago real): 1.4G/277.1 → 1.685G/308.5 (+285M F/W, +31M zent al pago más grande de la ruta). =====
+  if(!state.seedV || state.seedV<67){
+    const t=state.tasks.find(x=>x.id==='hq30'); if(t){ t.food=1685; t.z=308.5; }
+    state.seedV=67;
+  }
+  // ===== SEED v68: planificador gate-aware (LPT) — verificación del Gantt confirmó la regla de camps
+  //       pero reveló a Rider como cuello evitable del gate HQ28 (2 semanas de holgura perdida). =====
+  if(!state.seedV || state.seedV<68){ state.seedV=68; }
+  // ===== SEED v69: PRIORIDAD T9 = SHOOTER — el LPT del v68 degradaba sh27 (cadena corta) tras
+  //       Rider/AC. Ahora t9 gana sobre gateFeed; as27 pierde marca t9 legada y el pool va a sh27. =====
+  if(!state.seedV || state.seedV<69){
+    const t=state.tasks.find(x=>x.id==='as27'); if(t) delete t.t9;
+    state.seedV=69;
+  }
+  // ===== SEED v70: Shooter 27 arranca EN EL INSTANTE en que cierra HQ 27 (t9 sobre REQ_IDS en el sort;
+  //       Lab 27 espera su turno — tiene holgura, el gate lo marcan Rider/AC). =====
+  if(!state.seedV || state.seedV<70){ state.seedV=70; }
   document.getElementById('syncstate').textContent = CLOUD?'Guardado en la nube':'Guardado en este dispositivo';
   renderAll();
 }
@@ -1574,14 +1642,28 @@ function simulate(){
   const accrualHdia = rv.accrualHdia!=null?rv.accrualHdia:8; // ~250h/mes de VS/bounties
   let poolH0 = (rv.universal_h||0)+(rv.construction_h||0);
   let poolSpentH = 0;
-  const esSerial = t => t.k==='hq' || t.id==='sh27' || t.id==='as27' || t.t10===true || t.id==='lab30';
+  const esSerial = t => t.k==='hq' || t.id==='sh27' || t.t10===true || t.id==='lab30';
   const poolAt = tm => Math.max(0, poolH0 + accrualHdia*((tm-now)/86400000) - poolSpentH);
   let guard=0;
+  // v68: planificador consciente del GATE — las cadenas que alimentan el próximo HQ (prereqs del juego
+  // + MIGUEL_HOLD) van primero, la de MÁS trabajo restante antes (LPT). Evita que el gate espere 2
+  // semanas a un camp que arrancó tarde (bug detectado: Rider 27 cerraba 27-sep vs óptimo ~13-sep).
+  const gateFeed=(t)=>{
+    const nextHq=['hq27','hq28','hq29','hq30'].find(id=>{const x=task(id); return x&&x.status!=='completado'&&!sched[id];});
+    if(!nextHq) return 0;
+    const gids=[...(HQ_PREREQ[nextHq]||[]),...(MIGUEL_HOLD[nextHq]||[])];
+    let cur=t, sum=0, hops=0;              // camina la cadena del edificio hasta el gate (o se rinde)
+    while(cur&&hops++<5){ sum+=baseDays(cur)||0;
+      if(gids.includes(cur.id)) return sum;
+      cur=state.tasks.find(x=>x.b===t.b&&x.f===cur.t);
+    }
+    return 0;
+  };
   while(pending.length&&guard++<400){
     let bi=0; for(let i=1;i<3;i++) if(free[i]<free[bi]) bi=i;
     const tm=free[bi];
     const cands=pending.filter(t=>legalAt(t,tm)&&(bldFree[t.b]==null||bldFree[t.b]<=tm))
-      .sort((a,b)=>(REQ_IDS.has(b.id)?1:0)-(REQ_IDS.has(a.id)?1:0)||PRIO[a.k]-PRIO[b.k]||fillerRank(a)-fillerRank(b)||a.ph-b.ph||a.t-b.t);
+      .sort((a,b)=>((b.t9?1:0)-(a.t9?1:0))||(REQ_IDS.has(b.id)?1:0)-(REQ_IDS.has(a.id)?1:0)||PRIO[a.k]-PRIO[b.k]||(gateFeed(b)-gateFeed(a))||fillerRank(a)-fillerRank(b)||a.ph-b.ph||a.t-b.t); // v70: T9 PRIMERO, sobre todo (el Lab espera; el gate no se mueve)
     if(!cands.length){
       const ev=[...Object.values(comp),...Object.values(bldFree)].filter(x=>x>tm);
       if(!ev.length) break;
@@ -1757,6 +1839,7 @@ function renderT9Meter(){
         return (i?'<span class="pipbar'+(c[1]?' fill':'')+'"></span>':'')+
           '<span class="pip '+cls+(c[2]?' star':'')+'"><span class="dot"></span><span class="plb">'+c[0]+'</span></span>';
       }).join('')+'</div>';})()}
+    <div class="tierline">T8 MATÓN → <b>★T9 ASALTANTE · 1 SEP</b> → ★T10 INVASOR · MAR 2027</div>
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
       <span class="t9delta ${dRecorte>=0?'good':'bad'}">${dRecorte>=0?'▲ '+dRecorte+' días de margen':'▼ '+Math.abs(dRecorte)+' días sobre la meta'} vs meta 1 sep (mar VS)</span>
       <span class="t9sub">Camp 26→27 = 15.6d reales (47.9 base × 0.3261). La proyección descuenta reserva + acumulación VS en tramos seriales.</span>
@@ -1925,59 +2008,84 @@ function renderTechList(){ // FLOWCHART (seed v58/59): camino crítico T10 + map
         <span class="cum">${l>=max?'✓ completo':'restan '+(tot-sp).toLocaleString()}</span></div>`;}).join('')}</div>`).join('');
   const pct=Math.min(100,ustRest>0?b.banco/ustRest*100:100);
   const s1=`<div class="tfwrap">
-    <div class="tfnode tf-bank"><b>🏦 BANCO DE BADGES vs ÁRBOL RESTANTE</b>
+    <div class="tfnode tf-bank"><b>🏦 BANCO DE BADGES</b>
+      <div class="bkgrid">
+        <div><span class="bklb">Banco</span><input type="number" id="bancoIn" value="${b.banco}" onchange="saveBanco()"></div>
+        <div><span class="bklb">Restante árbol</span><span class="bknum" style="color:var(--rose2)">${ustRest.toLocaleString()}</span></div>
+        <div><span class="bklb">Cubierto</span><span class="bknum" style="color:${pct>=100?'var(--green)':pct>=50?'var(--yellow)':'var(--txt)'}">${pct.toFixed(1)}%</span></div>
+        ${ustSpent>0?`<div><span class="bklb">Investigado</span><span class="bknum" style="color:var(--green)">${ustSpent.toLocaleString()}</span></div>`:''}
+      </div>
       <div class="tfbar"><div style="width:${pct.toFixed(1)}%"></div></div>
-      <div class="tfrow"><input type="number" id="bancoIn" value="${b.banco}" onchange="saveBanco()"> / <b>${ustRest.toLocaleString()}</b> restantes · cubierto <b>${pct.toFixed(1)}%</b>${ustSpent>0?' · investigado '+ustSpent.toLocaleString():''}</div>
-      <span>Ingreso ${b.ingresoMesK}K/mes → lleno ~feb-mar 2027 · TODO badge entra aquí. AR cerrado ✓ · UR permitido (no retrasa T10)<br>📗 <b>Regla de excedente:</b> cuando la proyección marque "banco lleno ≥2 meses antes de Lab 30", el excedente se libera para nodos Assaulter de Military Strategies y Urgent Rescue.<br>🔬 <b>Research speedups:</b> reserva intacta para nodos UST (cuestan tiempo de lab, no solo badges) — quemar en miércoles VS Ciencia.</span></div>
+      <div class="bkchips"><span>🏦 100% al banco</span><span>❄ AR·MS·StS·FAA cerrados</span><span>🔬 Research spd → UST (mié VS)</span><span>🩸 Assaulter 1º</span><span>📈 ${b.ingresoMesK}K/mes → lleno feb-mar 27</span></div></div>
     ${A}
-    ${N('🔒 LAB 30','tf-lock','Única puerta del UST (popup ✓). Camino natural ~oct 2027, comprimible con speedups — ver Gantt')}
+    ${N('🔒 LAB 30','tf-lock','abre UST · ~mar 2027')}
     ${A}
-    ${N('🚁 ÁRBOL UST — 22 nodos · '+ustTotal.toLocaleString()+' 🎖️ total','tf-run','marca tus niveles con −/+ · restante: <b>'+ustRest.toLocaleString()+'</b> · nodos caros a miércoles VS Ciencia')}
+    ${N('🚁 ÁRBOL UST · 22 nodos · '+ustTotal.toLocaleString()+' 🎖️','tf-run','marca niveles con − / +')}
     ${ustGrid}
     ${A}
-    ${N('🏆 T10 DESBLOQUEADO','tf-goal','todas las tropas · +~20M poder con árbol completo')}
+    ${N('🏆 T10 · INVASOR','tf-goal','T8 Matón → T9 Asaltante → <b>T10 Invasor</b> · +~20M poder')}
   </div>`;
   // --- Sección 2: mapa de árboles con llevo/meta (rojo=falta · amarillo=excedente hundido · verde=en meta) ---
   const s2=`<h3 style="margin:18px 0 6px">🌳 Mapa de árboles — llevo / meta recomendada</h3>
-  <div class="tflegend"><span><i style="background:rgba(220,70,70,.3)"></i>🔴 falta para la meta</span><span><i style="background:rgba(255,200,60,.3)"></i>🟡 excedente sobre meta (hundido — NI UN BADGE MÁS)</span><span><i style="background:rgba(80,200,120,.3)"></i>🟢 en meta</span></div>
+  <div class="tflegend"><span><i style="background:rgba(220,70,70,.3)"></i>🔴 falta (badges o dato)</span><span><i style="background:rgba(255,200,60,.3)"></i>🟡 excedente (hundido — NI UN BADGE MÁS)</span><span><i style="background:rgba(80,200,120,.3)"></i>🟢 en meta</span><span><i style="background:rgba(61,139,212,.3)"></i>🔵 en curso</span></div>
   <div class="tfwrap">
+    <div class="tfcap">Cadena real de prerequisitos</div>
     <div class="tftier">
-      ${N('New Home','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
-      ${N('Shelter Building','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
-      ${N('Elite Troops','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
+      ${N('New Home','tf-done','<span class="mchip mg">100/100 ✓</span>')}
+      ${N('Shelter Building','tf-done','<span class="mchip mg">100/100 ✓</span>')}
+      ${N('Elite Troops','tf-done','<span class="mchip mg">100/100 ✓</span>')}
     </div>
     ${A}
     <div class="tftier">
-      ${N('HQ Management','tf-run','en curso / meta 100% <span class="mchip mg">gratis (0 badges) — sigue en Lab 1</span>')}
-      ${N('Hero Training','tf-run','¿% actual? / meta ≈50% (Cockpit) <span class="mchip mr">📸 capturar % — al pasar Cockpit: PARAR</span>')}
-      ${N('Alliance Recognition','tf-done','64% / meta 64% <span class="mchip mg">✓ CERRADO — multiplicadores listos. Event King NO</span>')}
+      ${N('HQ Management','tf-run','←Shelter 100 <span class="mchip mb">51/100 ▶ gratis</span>')}
+      ${N('Military Strategies','tf-frozen','←Elite 100 <span class="mchip my">59/45 · +14 ❄</span>')}
     </div>
     ${A}
     <div class="tftier">
-      ${N('Military Strategies','tf-frozen','59% / meta 45% <span class="mchip my">+14% excedente ❄ congelado (destino del excedente futuro: nodos Assaulter)</span>')}
-      ${N('Siege to Seize','tf-frozen','16% / meta 0% <span class="mchip my">+16% excedente ❄ congelado</span>')}
-      ${N('Fully Armed Alliance','tf-frozen','2% / meta 0% <span class="mchip my">+2% excedente ❄ árbol de lujo</span>')}
+      ${N('Peace Shield','tf-warn','←MS 45 <span class="mchip mb">33 · UR desbloqueado ✓</span>')}
+      ${N('Siege to Seize','tf-frozen','←MS 40 <span class="mchip my">16/0 · +16 ❄</span>')}
     </div>
     ${A}
     <div class="tftier">
-      ${N('Peace Shield','tf-warn','33% / meta = hasta Urgent Rescue <span class="mchip mr">falta: peaje Combat Policy 0/20 + Interceptions 0/20 — 📸 popup del chaleco define el número</span>')}
+      ${N('Urgent Rescue','tf-run','←PS <span class="mchip mr">2/10 → 10 · ~7K · GO YA</span>')}
+      ${N('Field / Trainings','tf-frozen','←StS 100 <span class="mchip mg">0/0 · post-T10 ✓</span>')}
     </div>
-    ${A}
+    <div class="tfcap">Independientes — sin cadena entre sí</div>
     <div class="tftier">
-      ${N('Urgent Rescue','tf-lock','0/10 / meta 10/10 <span class="mchip mr">si peaje total ≤ ~85K → hacerlo (−20% muertes SvS). No retrasa T10</span>')}
+      ${N('Hero Training','tf-run','<span class="mchip mb">escudos 1·2·0/5 → 5×3 → Cockpit (~10K) → PARAR</span>')}
+      ${N('Alliance Recognition','tf-done','<span class="mchip mg">✓ CERRADO al cerrar nodo en curso · One more! 🔒tras Event King = NO</span>')}
+      ${N('Fully Armed Alliance','tf-frozen','<span class="mchip my">2/0 · +2 ❄</span>')}
     </div>
-    ${A}
+    <div class="tfcap">Puerta T10 — NO depende de ningún árbol</div>
     <div class="tftier">
-      ${N('Field / Sh-Ass-Rd Training','tf-frozen','0% / meta 0% <span class="mchip mg">✓ en meta — NO son prerequisito de T10. Post-T10</span>')}
-      ${N('UST (T10)','tf-lock','0% / meta 100% <span class="mchip mr">falta 1,488,270 🎖️ — vía banco 🔒 Lab 30</span>')}
+      ${N('UST (T10)','tf-lock','🔒 SOLO Lab 30 <span class="mchip mr">0/100 · banco 1.49M</span>')}
     </div>
   </div>`;
-  box.innerHTML=s1+s2+`<div class="tfnode tf-warn" style="width:100%;max-width:560px;text-align:left;margin-top:14px">
-    <b>🚀 CHECKLIST DE ARRANQUE — antes de iniciar cada tramo serial (HQ 28/29/30, Lab 30)</b>
-    <span>① Título de gobierno de CONSTRUCCIÓN activo (pedirlo tras Capital Clash — gratis, cualquier jugador puede)<br>
-    ② Ayudas de alianza COMPLETAS antes de quemar speedups (cada ayuda recorta gratis)<br>
-    ③ Quemar speedups en martes VS Construcción + ventana Full Preparedness (08:00/20:00 AT) = triple cobro: tiempo + pts VS + pts Full Prep<br>
-    ④ Cuadrar el cierre a martes o viernes VS</span></div>`;
+  const HX=(lv,lb,cls)=>`<div class="hxc"><div class="hex ${cls}">${lv}</div><div class="hxlb">${lb}</div></div>`;
+  const s3=`<h3 style="margin:18px 0 4px">🪞 Espejos in-game — mismo orden que el juego (arriba → abajo)</h3>
+  <div class="tflegend"><span><i style="background:#1e3324"></i>MAX ✓</span><span><i style="background:#7d0a1e"></i>🔥 SUBIR (tu meta)</span><span><i style="background:#16283a"></i>en curso</span><span><i style="background:#221e21"></i>NO tocar</span><span><i style="background:#191519"></i>🔒</span></div>
+
+  <div class="tfcap">HERO TRAINING → meta: Cockpit, luego PARAR</div>
+  <div class="hxrow">${HX('MAX','ATK roja','max')}${HX('MAX','ATK azul','max')}${HX('MAX','ATK amar.','max')}${HX('MAX','Héroe','max')}</div>
+  <div class="hxarr">↓</div>
+  <div class="hxrow">${HX('1/5','Rose Barrier','go')}${HX('2/5',"Dawn's Light ▶",'go')}${HX('0/5','Shield Order','go')}</div>
+  <div class="hxarr">↓ los 3 a 5/5 (~8K 🎖️) abren ↓</div>
+  <div class="hxrow">${HX('0/1','🎯 COCKPIT +20/héroe · 11d20h → spd mié','go')}</div>
+  <div class="hxarr">↓ después de Cockpit: NADA MÁS ↓</div>
+  <div class="hxrow">${HX('0/3','soldado','no')}${HX('0/10','mujer 1','no')}${HX('0/10','mujer 2','no')}</div>
+
+  <div class="tfcap">PEACE SHIELD → meta: Urgent Rescue 2→10 · GO YA (~7K 🎖️)</div>
+  <div class="hxrow">${HX('MAX','Auto Repair','max')}${HX('MAX','Combat Policy','max')}${HX('9/10','Interceptions','run')}</div>
+  <div class="hxrow">${HX('2/10','Mobility 🐎','run')}${HX('5/10','Melee 🩸','run')}${HX('5/10','Weapon 🎯','run')}</div>
+  <div class="hxrow">${HX('2/5','Quick Asm.','run')}${HX('4/5','Arms Asm.','run')}${HX('4/5','Target Tr.','run')}</div>
+  <div class="hxarr">↓ DISPONIBLE HOY ↓</div>
+  <div class="hxrow">${HX('2/10','🎯 URGENT RESCUE −20% muertes SvS','go')}</div>
+  <div class="hxrow">${HX('0/10','Str. Armor 🐎','run')}${HX('1/10','Shield Up 🩸','run')}${HX('1/10','Tact. Cover 🎯','run')}</div>
+  <div class="hxarr">↓ peaje 0/20×2 → protege Recharge Shield (~194K) = NO pre-T10 ↓</div>
+  <div class="hxrow">${HX('0/20','Combat P. 2','no')}${HX('0/20','Intercep. 2','no')}${HX('0/10','Recharge Sh.','no')}</div>`;
+  box.innerHTML=s1+s2+s3+`<div class="tfnode tf-warn" style="width:100%;max-width:560px;text-align:left;margin-top:14px">
+    <b>🚀 ARRANQUE SERIAL (HQ 28/29/30 · Lab 30)</b>
+    <div class="bkchips"><span>① 🏛 título gobierno</span><span>② 🤝 ayudas full</span><span>③ 🔥 mar VS + Full Prep</span><span>④ 📅 cierre mar/vie</span></div></div>`;
 }
 function saveBanco(){ if(!state.badges) return; state.badges.banco=+document.getElementById('bancoIn').value||0; persist(); renderTech(); }
 function ustAdj(id,d){ if(!state.ust) state.ust={}; const MAXES={fu:10,au:10,fp:10,mc:10,wu:10,me:10,su:10,cc:10,sa:10,pr:10,fp2:10,fu2:10,au2:10,dc:5,mc2:15,su2:15,wu2:15,cc2:15,me2:15,sa2:15,rs:20,sut:1};
