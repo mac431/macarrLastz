@@ -1,0 +1,2391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LAST Z · Roadmap T9→T10 · [HALO]Macarr</title>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Barlow:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d10; --panel:#14171c; --panel2:#1c2027; --line:#262b33;
+  --yellow:#f5b301; --blue:#3d8bd4; --green:#4aa354; --teal:#1a7a6e;
+  --purple:#9b59d0; --orange:#e07b2a; --red:#d34f4f; --rose:#c2274a; --rose2:#e0577a;
+  --txt:#e8e6df; --dim:#8a8f99;
+  --elev1:0 2px 6px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.04);
+  --elev2:0 6px 18px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Barlow',sans-serif;font-size:14px;min-height:100vh;
+  background-image:repeating-linear-gradient(115deg,transparent 0 3px,rgba(255,255,255,.007) 3px 4px),
+    radial-gradient(1100px 380px at 50% -120px,rgba(194,39,74,.06),transparent)}
+*{transition:background-color .12s,border-color .12s,box-shadow .12s,transform .12s,color .12s}
+@media(prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+h1,h2,h3,.disp{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.04em}
+.mono{font-family:'JetBrains Mono',monospace}
+
+header{padding:14px 18px 12px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:10px;
+  background:linear-gradient(180deg,#181c22,#0b0d10);box-shadow:inset 0 -4px 0 -3px var(--rose), 0 4px 14px rgba(0,0,0,.4)}
+.hrow{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.hqbig{display:flex;align-items:baseline;gap:8px;background:linear-gradient(180deg,#1c2027,#14171c);border:1px solid var(--line);
+  border-radius:8px;padding:6px 16px;box-shadow:var(--elev1)}
+.hqbig .hqnum{font-family:'JetBrains Mono';font-weight:700;font-size:38px;color:var(--rose2);line-height:1}
+.hqbig .hqarrow{font-family:'Oswald';font-size:15px;color:var(--dim)}
+.hqbig .hqlbl{font-size:9px;color:var(--dim);letter-spacing:.18em;text-transform:uppercase;align-self:center}
+.patch{font-family:'Oswald';font-weight:700;font-size:15px;letter-spacing:.22em;color:#fff;background:linear-gradient(160deg,#9e1f3d,var(--rose));
+  padding:5px 12px 5px 14px;clip-path:polygon(0 0,100% 0,100% calc(100% - 8px),calc(100% - 8px) 100%,0 100%);
+  border:1px solid #e0577a;text-shadow:0 1px 0 rgba(0,0,0,.4)}
+.callsign{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.12em;color:var(--dim);text-transform:uppercase}
+.callsign i{color:var(--rose);font-style:normal}
+header h1{font-size:22px;font-weight:700}
+header h1 .z{color:var(--rose2)}
+.badge{font-size:11px;padding:3px 9px;border:1px solid var(--line);border-radius:3px;color:var(--dim)}
+#syncdot{width:8px;height:8px;border-radius:50%;background:var(--green);display:inline-block;margin-right:5px}
+
+nav{display:flex;gap:6px;padding:10px 14px;border-bottom:1px solid var(--line);background:transparent;overflow-x:auto;scrollbar-width:none}
+nav button{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:76px;cursor:pointer;
+  background:linear-gradient(180deg,#1c2027,#14171c);border:1px solid var(--line);border-radius:8px;color:var(--dim);
+  padding:8px 10px;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.06em;font-size:11.5px;
+  box-shadow:var(--elev1)}
+nav button svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+nav button.on{background:linear-gradient(180deg,#7d1c34,var(--rose));color:#fff;border-color:var(--rose2);
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.45)}
+nav button:hover{color:var(--txt);transform:translateY(-1px)}
+nav button:active{transform:translateY(1px);box-shadow:inset 0 2px 6px rgba(0,0,0,.5)}
+#topFlag{position:relative;background:linear-gradient(90deg,#1c1216,#14171c);border-bottom:1px solid var(--line);
+ padding:10px 18px 10px 26px;font-size:14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+#topFlag::before{content:'';position:absolute;left:0;top:0;bottom:0;width:9px;
+ background:repeating-linear-gradient(135deg,var(--rose) 0 6px,#5a1220 6px 12px)}
+#topFlag .fico{font-size:18px}
+#topFlag b{color:var(--rose2)}
+#topFlag .ft9{color:var(--purple);font-weight:700}
+#topFlag .fpay{font-size:12px;padding:2px 8px;border-radius:3px}
+#topFlag .fpay.ok{background:rgba(74,163,84,.2);color:var(--green)}
+#topFlag .fpay.no{background:rgba(211,79,79,.2);color:var(--red)}
+#topFlag.libre{border-bottom-color:var(--red);background:linear-gradient(90deg,#2a0808,#14141c);animation:blink 1.4s infinite}
+main{padding:22px 18px;max-width:1400px;margin:0 auto}
+.card{box-shadow:var(--elev1)}
+.card:hover,.stat:hover{transform:translateY(-1px)}
+.tab{display:none}.tab.on{display:block}
+
+/* ---- summary strip ---- */
+.strip{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.stat{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:8px;
+  padding:12px 16px;flex:1;min-width:150px;box-shadow:var(--elev1)}
+.stat .lb{font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:.1em}
+.stat .vl{font-size:20px;font-family:'Oswald';color:var(--yellow);margin-top:2px}
+.stat.t9 .vl{color:var(--purple)}
+
+/* ---- roadmap ---- */
+.phases{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
+.phase{min-width:250px;flex:1;background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.phase.hito{border-color:var(--purple);box-shadow:0 0 14px rgba(155,89,208,.25)}
+.phase.actual{border-color:var(--yellow)}
+.phead{padding:9px 12px;background:var(--panel2);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.phead h3{font-size:15px}
+.phead .tag{font-size:9px;padding:2px 7px;border-radius:3px;text-transform:uppercase;letter-spacing:.08em}
+.tag.aqui{background:var(--yellow);color:#000}.tag.t9tag{background:var(--purple);color:#fff}
+.preq{padding:6px 12px;font-size:11px;color:var(--dim);border-bottom:1px dashed var(--line)}
+.preq b{color:var(--txt)}
+.tasks{padding:8px}
+.task{border-radius:5px;padding:7px 9px;margin-bottom:6px;cursor:pointer;border:1px solid transparent;position:relative;
+  transition:transform .08s}
+.task:hover{transform:translateX(3px);border-color:rgba(255,255,255,.25)}
+.task .tt{display:flex;justify-content:space-between;font-weight:700;font-size:13px}
+.task .cc{font-size:11px;opacity:.9;margin-top:2px}
+.task .tm{font-size:10px;opacity:.75;margin-top:1px}
+.task.b-hq{background:linear-gradient(135deg,#7a5a00,#a87c04)}
+.task.b-lab{background:linear-gradient(135deg,#1b4a75,#2e6ba8)}
+.task.b-camp{background:linear-gradient(135deg,#1f5228,#337a3e)}
+.task.b-ac{background:linear-gradient(135deg,#0f4a42,#1a7a6e)}
+.task.b-walls{background:linear-gradient(135deg,#5a4a12,#8a6f18)}
+.task.b-hosp{background:linear-gradient(135deg,#7a2028,#b03040)}
+.task.t9{background:linear-gradient(135deg,#4a2270,#7a3fb0);border:1px solid var(--purple)}
+.task.pr{outline:2px dashed var(--orange);outline-offset:-2px}
+.task.done{opacity:.38;filter:saturate(.4)}
+.task.done .tt::after{content:" ✓";color:#7dff8a}
+.task.active{outline:2px solid var(--yellow);outline-offset:-2px}
+.chip{position:absolute;top:-6px;right:-4px;font-size:9px;background:var(--orange);color:#000;padding:1px 5px;border-radius:3px;font-weight:700}
+.chip.bld{background:var(--yellow)}
+/* etiquetas de tipo (ajuste 1,3) */
+.tlab{display:inline-block;font-size:8.5px;font-weight:700;padding:1px 5px;border-radius:3px;margin-right:3px;
+ text-transform:uppercase;letter-spacing:.04em;vertical-align:middle;font-family:'Oswald'}
+.tl-hq{background:#a87c04;color:#000}
+.tl-req{background:var(--red);color:#fff}
+.tl-prep{background:#3a3a48;color:#cfcfe0}
+.tl-t9{background:var(--purple);color:#fff}
+.tl-done{background:var(--green);color:#000}
+.tl-locked{background:#1a1a24;color:var(--dim);border:1px solid var(--line)}
+.tl-pr{background:var(--orange);color:#000}
+.task.reqhq{border:2px solid var(--red)}
+/* panel cuello de botella (ajuste 4) */
+.bottleneck{position:relative;background:linear-gradient(90deg,#231014,#14171c);border:1px solid #3a1a22;border-radius:8px;
+  padding:12px 14px 12px 24px;margin-bottom:16px;font-size:13px;overflow:hidden;box-shadow:var(--elev1)}
+.bottleneck::before{content:'';position:absolute;left:0;top:0;bottom:0;width:8px;
+  background:repeating-linear-gradient(135deg,var(--red) 0 6px,#4a1414 6px 12px)}
+.bottleneck b{color:var(--red)}
+.bottleneck .rz{color:var(--dim);font-size:12px}
+/* sub-secciones de columna (ajuste 6) */
+.subsec{font-size:9.5px;color:var(--yellow);text-transform:uppercase;letter-spacing:.08em;font-family:'Oswald';margin:8px 4px 4px}
+.subsec.prep{color:var(--dim)}
+.colnext{font-size:11px;color:var(--dim);padding:4px 12px 8px;border-bottom:1px dashed var(--line)}
+.colnext b{color:var(--txt)}
+/* edificios recomendados para builder libre */
+.freebld{background:var(--panel);border:1px solid var(--orange);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+.freebld h3{font-size:13px;color:var(--orange);margin-bottom:8px}
+.freebld ul{padding-left:18px;font-size:12.5px;line-height:1.6}
+.freebld b{color:var(--txt)}
+/* medidor T9 */
+.t9box{position:relative;background:linear-gradient(160deg,#1c1428,#14171c 65%);border:1px solid #2e2540;
+  clip-path:polygon(14px 0,100% 0,100% calc(100% - 14px),calc(100% - 14px) 100%,0 100%,0 14px);
+  padding:18px 20px;margin-bottom:18px;box-shadow:var(--elev2)}
+.t9box:hover{transform:translateY(-1px)}
+.rvt{position:absolute;width:4px;height:4px;border-radius:50%;background:#3c3550;
+  box-shadow:inset 0 -1px 1px rgba(0,0,0,.7),0 1px 0 rgba(255,255,255,.07)}
+.pips{display:flex;align-items:center;gap:0;margin:10px 0 12px;flex-wrap:wrap}
+.pip{display:flex;flex-direction:column;align-items:center;gap:3px;min-width:52px}
+.pip .dot{width:14px;height:14px;border-radius:50%;border:2px solid var(--line);background:#0e1013}
+.pip.done .dot{background:#2c2438;border-color:#4a3f60}
+.pip.done .plb{color:#5a5470}
+.pip.cur .dot{background:var(--purple);border-color:#c9a0ee;box-shadow:0 0 8px rgba(155,89,208,.5)}
+.pip.cur .plb{color:var(--purple);font-weight:700}
+.pip.star .dot{border-radius:3px;transform:rotate(45deg)}
+.pip .plb{font-family:'Oswald';font-size:9.5px;letter-spacing:.08em;color:var(--dim)}
+.pipbar{flex:1;height:2px;background:var(--line);min-width:10px;margin-bottom:14px}
+.pips .done+.pipbar,.pipbar.fill{background:#4a3f60}
+.t9box .t9head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.t9box h3{font-size:15px;color:var(--purple)}
+.t9box .t9date{font-family:'Oswald';font-size:22px;color:var(--purple)}
+.t9box .t9sub{font-size:11px;color:var(--dim)}
+.t9track{height:14px;background:#0e0e15;border-radius:7px;position:relative;overflow:hidden;margin-bottom:6px}
+.t9fill{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#7a3fb0,#9b59d0);border-radius:7px;transition:width .5s}
+.t9marks{display:flex;justify-content:space-between;font-size:9px;color:var(--dim);margin-bottom:10px}
+.t9delta{font-size:12px;padding:3px 8px;border-radius:4px;font-weight:700}
+.t9delta.good{background:rgba(74,163,84,.2);color:var(--green)}
+.t9delta.bad{background:rgba(211,79,79,.2);color:var(--red)}
+.t9hint{background:rgba(255,255,255,.03);border-left:3px solid var(--rose2);padding:8px 12px;border-radius:4px;font-size:13px;margin-top:10px}
+.t9hint b{color:var(--rose2)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--dim)}
+.legend span::before{content:"■ ";font-size:13px}
+.lg-hq::before{color:#a87c04}.lg-lab::before{color:#2e6ba8}.lg-camp::before{color:#337a3e}
+.lg-ac::before{color:#1a7a6e}.lg-walls::before{color:#8a6f18}.lg-t9::before{color:var(--purple)}
+.lg-pr::before{color:var(--orange)}
+
+/* ---- builders ---- */
+.builders{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.bcard{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px}
+.bcard h3{font-size:16px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.bnum{width:26px;height:26px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;
+  font-family:'Oswald';font-size:14px;color:#000}
+.b1 .bnum{background:var(--yellow)}.b2 .bnum{background:var(--blue)}.b3 .bnum{background:var(--green)}
+.count{font-size:26px;text-align:center;padding:12px 0;color:var(--yellow);letter-spacing:.03em}
+.count.libre{color:var(--dim);font-size:16px}
+.count.venci{color:var(--red);animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.4}}
+.bcur{font-size:13px;text-align:center;color:var(--txt);min-height:20px}
+.bmeta{font-size:11px;color:var(--dim);text-align:center;margin-top:4px}
+.brow{display:flex;gap:6px;margin-top:10px}
+select,input[type=datetime-local],input[type=text],input[type=number]{
+  background:#0e0e15;border:1px solid var(--line);color:var(--txt);padding:7px 8px;border-radius:4px;
+  font-family:'Barlow';font-size:13px;width:100%}
+button.act{background:var(--yellow);color:#000;border:none;padding:8px 14px;border-radius:4px;cursor:pointer;
+  font-family:'Oswald';text-transform:uppercase;font-size:12px;letter-spacing:.05em;font-weight:700}
+button.act:hover{filter:brightness(1.1)}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--dim);padding:8px 12px;border-radius:4px;
+  cursor:pointer;font-size:12px}
+button.ghost:hover{color:var(--txt);border-color:var(--dim)}
+.martes{margin-top:14px;background:var(--panel);border:1px solid var(--yellow);border-radius:8px;padding:12px 14px;font-size:13px}
+.martes b{color:var(--yellow)}
+.nextbox{background:linear-gradient(135deg,#1a1408,#14141c);border:2px solid var(--yellow);border-radius:8px;padding:12px 14px;margin-bottom:14px}
+.nextbox h3{font-size:13px;color:var(--yellow);margin-bottom:8px}
+.nq{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.nq:last-child{border-bottom:none}
+.nq .pos{width:22px;height:22px;border-radius:50%;background:var(--yellow);color:#000;display:inline-flex;align-items:center;justify-content:center;font-family:'Oswald';font-size:12px;flex-shrink:0}
+.nq.blocked .pos{background:var(--line);color:var(--dim)}
+.nq .why{color:var(--dim);font-size:11px;margin-left:auto;text-align:right}
+/* gantt */
+.tl{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;overflow-x:auto}
+.gmonths{display:block;font-size:9.5px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin:0 0 6px 110px;position:relative;height:14px;min-width:700px}
+.gmonths span{position:absolute;border-left:1px solid var(--line);padding-left:4px}
+.grow{display:flex;align-items:center;margin-bottom:6px}
+.grow .gnm{width:110px;font-size:11px;font-weight:700;flex-shrink:0;position:sticky;left:0;z-index:5;background:var(--panel);padding-right:6px}
+.glane{flex:1;height:24px;background:#0e0e15;border-radius:4px;position:relative;min-width:700px}
+.gbar{position:absolute;top:3px;bottom:3px;border-radius:3px;font-size:9px;display:flex;align-items:center;justify-content:center;min-width:14px;
+ color:#fff;font-weight:700;white-space:nowrap;overflow:hidden;text-shadow:0 1px 2px rgba(0,0,0,.7)}
+.gbar.g-hq{background:linear-gradient(135deg,#7a5a00,#a87c04)}
+.gbar.g-lab{background:linear-gradient(135deg,#1b4a75,#2e6ba8)}
+.gbar.g-walls{background:linear-gradient(135deg,#5a4a12,#8a6f18)}
+.gbar.g-hosp{background:linear-gradient(135deg,#7a2028,#b03040)}
+.gbar.g-ac{background:linear-gradient(135deg,#0f4a42,#1a7a6e)}
+.gbar.g-camp{background:linear-gradient(135deg,#1f5228,#337a3e)}
+.gbar.g-t9{background:linear-gradient(135deg,#4a2270,#7a3fb0)}
+.gbar.gest{outline:2px dashed var(--orange);outline-offset:-2px}
+.gbar.grun{outline:2px solid var(--yellow);outline-offset:-2px}
+.gbar.pre-hi{box-shadow:0 0 0 2px var(--red),0 0 12px rgba(211,79,79,.5);z-index:4}
+.gbar.pre-hi::after{content:"🔒 REQ";position:absolute;top:-14px;left:0;font-size:8px;color:var(--red);font-weight:700}
+.gbar.hq-hi{box-shadow:0 0 0 2px var(--yellow);z-index:4}
+.gbar.gdone{opacity:.35}
+.ghoy{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--red);z-index:3}
+.gmark{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--purple);z-index:3}
+.gmark.mh{background:var(--yellow)}
+
+/* ---- reader ---- */
+.reader{max-width:640px;margin:0 auto}
+.drop{border:2px dashed var(--line);border-radius:10px;padding:34px;text-align:center;cursor:pointer;color:var(--dim)}
+.drop:hover{border-color:var(--yellow);color:var(--txt)}
+.drop.busy{border-color:var(--blue);color:var(--blue)}
+#preview{max-width:100%;border-radius:8px;margin-top:12px;border:1px solid var(--line)}
+.result{background:var(--panel);border:1px solid var(--green);border-radius:8px;padding:14px;margin-top:14px}
+.result table{width:100%;border-collapse:collapse;font-size:13px}
+.result td{padding:5px 8px;border-bottom:1px solid var(--line)}
+.result td:first-child{color:var(--dim);width:40%}
+.err{background:var(--panel);border:1px solid var(--red);border-radius:8px;padding:12px;margin-top:12px;color:var(--red);font-size:13px}
+
+/* ---- modal ---- */
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:50}
+#modal.on{display:flex}
+.mbox{background:var(--panel);border:1px solid var(--yellow);border-radius:10px;padding:20px;width:min(440px,92vw)}
+.mbox h3{margin-bottom:12px;color:var(--yellow)}
+.frow{margin-bottom:10px}
+.frow label{display:block;font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.f2{display:flex;gap:8px}
+.mfoot{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-wrap:wrap}
+.stbtns{display:flex;gap:6px;flex-wrap:wrap}
+.stbtns button{flex:1;background:#0e0e15;border:1px solid var(--line);color:var(--dim);padding:7px 4px;border-radius:4px;cursor:pointer;font-size:11px}
+.stbtns button.sel{border-color:var(--yellow);color:var(--yellow)}
+.prtog{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:4px}
+.foot{text-align:center;padding:16px;color:var(--dim);font-size:11px;border-top:1px solid var(--line);margin-top:24px}
+@media(max-width:700px){.phases{flex-direction:column}.phase{min-width:unset}
+  header{gap:8px;padding:10px 12px} header h1{font-size:17px} .patch{font-size:12px;padding:4px 9px 4px 11px}
+  #labCards{grid-template-columns:1fr !important}
+  nav{overflow-x:auto;scrollbar-width:none} nav button{padding:10px 12px;font-size:12px;white-space:nowrap}}
+nav button:focus-visible,button:focus-visible{outline:2px solid var(--yellow);outline-offset:-2px}
+/* ===== TECH FLOWCHART (seed v58/59) ===== */
+.tfwrap{display:flex;flex-direction:column;align-items:center;gap:0}
+.tftier{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;width:100%}
+.tfnode{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:8px 12px;font-size:12px;min-width:120px;text-align:center;position:relative}
+.tfnode b{display:block;font-size:12.5px}
+.tfnode span{display:block;color:var(--dim);font-size:10.5px;margin-top:3px;line-height:1.35}
+.tf-done{border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}
+.tf-run{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.tf-frozen{border-color:var(--line);opacity:.55}
+.tf-lock{border-style:dashed;opacity:.7}
+.tf-warn{border-color:var(--orange)}
+.tf-goal{border-color:var(--yellow);box-shadow:0 0 12px rgba(255,200,60,.25);background:linear-gradient(180deg,rgba(255,200,60,.08),transparent)}
+.tfarr{color:var(--dim);font-size:15px;line-height:1;padding:5px 0;text-align:center}
+.tf-bank{width:100%;max-width:520px;text-align:left;border-color:var(--teal)}
+.tfbar{height:10px;background:rgba(255,255,255,.06);border-radius:5px;overflow:hidden;margin:6px 0}
+.tfbar>div{height:100%;background:linear-gradient(90deg,var(--teal),var(--green));border-radius:5px;min-width:2px}
+.tfrow{display:flex;align-items:center;gap:6px;font-size:12px}
+.tfrow input{width:110px;background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:5px;padding:3px 6px;font-size:12px}
+.tfgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;width:100%;max-width:560px}
+.tfstep{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:6px 8px;font-size:11px}
+.tfstep b{font-size:11.5px}
+.tfstep .cost{color:var(--yellow);font-weight:600}
+.tfstep .cum{color:var(--dim);font-size:10px;display:block}
+.tfstep.big{border-color:var(--purple);box-shadow:inset 0 0 0 1px var(--purple)}
+.tflegend{display:flex;flex-wrap:wrap;gap:10px;font-size:10.5px;color:var(--dim);margin:8px 0 4px;justify-content:center}
+.tflegend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:3px;vertical-align:-1px;border:1px solid var(--line)}
+.mchip{display:inline-block;font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;margin-top:3px}
+.mchip.mr{background:rgba(220,70,70,.15);color:var(--red);border:1px solid var(--red)}
+.mchip.my{background:rgba(255,200,60,.12);color:var(--yellow);border:1px solid var(--yellow)}
+.mchip.mg{background:rgba(80,200,120,.12);color:var(--green);border:1px solid var(--green)}
+.ustbtn{width:22px;height:22px;border-radius:5px;border:1px solid var(--line);background:linear-gradient(180deg,#1c2027,#14171c);
+  color:var(--txt);font-size:14px;line-height:1;cursor:pointer;box-shadow:var(--elev1)}
+.ustbtn:active{transform:translateY(1px);box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hrow">
+    <span class="patch">HALO</span>
+    <h1>LAST <span class="z">Z</span> ROADMAP</h1>
+    <span class="badge" style="margin-left:auto"><span id="syncdot"></span><span id="syncstate">Cargando…</span></span>
+  </div>
+  <div class="hrow">
+    <div class="hqbig"><span class="hqlbl">HQ<br>actual</span><span class="hqnum" id="hqNow">–</span><span class="hqarrow">→ 30 → T10</span></div>
+    <span class="callsign">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #722<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.3261</b> × BASE</span>
+  </div>
+</header>
+
+<nav>
+  <button class="on" data-tab="road"><svg viewBox="0 0 24 24"><path d="M4 20V10l8-6 8 6v10h-5v-6h-6v6z"/></svg>Roadmap</button>
+  <button data-tab="gantt"><svg viewBox="0 0 24 24"><path d="M4 6h9M4 12h14M4 18h7"/><rect x="4" y="4.5" width="9" height="3" rx="1"/><rect x="4" y="10.5" width="14" height="3" rx="1"/><rect x="4" y="16.5" width="7" height="3" rx="1"/></svg>Gantt</button>
+  <button data-tab="build"><svg viewBox="0 0 24 24"><path d="M5 19l6-6M14 5l5 5M12 7l5 5M9 21l-4-4 2-2 4 4zM14 5a3 3 0 014 4l-2-1-1-1z"/></svg>Builders</button>
+  <button data-tab="res"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="1"/><path d="M4 12h16M9 7v13M15 7v13M8 4h8l1 3H7z"/></svg>Recursos</button>
+  <button data-tab="metas"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Metas</button>
+  <button data-tab="veh"><svg viewBox="0 0 24 24"><rect x="3" y="10" width="18" height="7" rx="3.5"/><circle cx="7.5" cy="13.5" r="1.4"/><circle cx="12" cy="13.5" r="1.4"/><circle cx="16.5" cy="13.5" r="1.4"/><path d="M8 10V7h8v3"/></svg>Vehículo</button>
+  <button data-tab="tech"><svg viewBox="0 0 24 24"><path d="M9 3l4 4M11 5l-5 5 3 3 5-5M6 13l-2 5 3 1 3-4M4 21h14M12 17a6 6 0 006-6"/></svg>Tech</button>
+  <button data-tab="ia"><svg viewBox="0 0 24 24"><path d="M12 12L19 5M12 12a7 7 0 107 7"/><circle cx="12" cy="12" r="1.6"/><path d="M12 12a7 7 0 017 7"/></svg>Scan Data</button>
+</nav>
+<div id="topFlag"></div>
+
+<main>
+<!-- ============ ROADMAP ============ -->
+<div class="tab on" id="tab-road">
+  <div id="simpleRoad" style="margin-bottom:16px"></div>
+  <div id="t9meter"></div>
+  <div class="bottleneck">⚠ <b>RUTA CRÍTICA T9→T10:</b>
+    <span class="rz">Lab 26 + Walls 26 (9 ago) → HQ 27 (quemar reserva → 18 ago) → Shooter 26→27 (15.6d) → <b>T9 meta mar 1 sep</b>. Después: camps 27 + AC 27 → HQ 28 (~oct) → HQ 29 (~dic) → HQ 30 (~feb) → Lab 30 (~mar 2027) → UST del banco → <b>T10</b>.</span></div>
+  <div class="strip">
+    <div class="stat"><div class="lb">Fase actual</div><div class="vl" id="stFase">—</div></div>
+    <div class="stat t9"><div class="lb">Objetivo T9</div><div class="vl">Shooter 27 (fase HQ 27)</div></div>
+    <div class="stat"><div class="lb">Tareas completadas</div><div class="vl" id="stDone">—</div></div>
+    <div class="stat"><div class="lb">Datos prorrateados (PR) restantes</div><div class="vl" id="stPR">—</div></div>
+  </div>
+  <div class="freebld">
+    <h3>👷 ¿Builder libre sin tarea crítica? Úsalo en (orden de prioridad):</h3>
+    <ul>
+      <li><b>Assaulter Camp / Shooter Camp</b> — adelántalos ahora; cuando llegues a HQ 27 ya estarán cerca de nivel 27 y entrenas T9 casi de inmediato. El tool los recomienda solo. Máximo valor.</li>
+      <li><b>Alliance Center</b> — segunda opción de relleno.</li>
+      <li><b>Infirmary / Hospital</b> — más capacidad de curación = menos tropas muertas en combate y VS.</li>
+      <li><b>Generadores de recursos</b> (Zent, Farm, Woodland) o Military Center — si ya no queda nada más barato.</li>
+    </ul>
+    <p style="font-size:11px;color:var(--dim);margin-top:6px">Nunca dejes un builder idle. En cuanto HQ/Lab/Walls se vuelvan legales, el motor siempre los prioriza sobre esto — el relleno nunca atrasa el camino crítico.</p>
+  </div>
+  <div class="legend" style="margin-bottom:8px">
+    <span style="color:var(--red)">■ REQ HQ = requisito del próximo HQ</span>
+    <span style="color:#cfcfe0">■ PREP = adelanto recomendado</span>
+    <span style="color:var(--purple)">■ T9 = objetivo tropas T9</span>
+    <span style="color:var(--green)">■ DONE</span>
+    <span style="color:var(--dim)">■ LOCKED = bloqueado por nivel HQ</span>
+    <span style="color:var(--orange)">■ PR = provisional</span>
+  </div>
+  <p style="color:var(--dim);font-size:12px;margin-bottom:10px">
+    Cada columna: alcanza el HQ indicado y prepara los edificios de abajo, requisitos del <b>próximo</b> HQ. Toca una tarjeta para editar.
+  </p>
+  <div class="phases" id="phases"></div>
+  <div class="legend">
+    <span class="lg-hq">HQ</span><span class="lg-lab">Laboratory</span><span class="lg-camp">Camps</span>
+    <span class="lg-ac">Alliance</span><span class="lg-walls">City Walls</span><span class="lg-t9">Hito T9</span>
+    <span class="lg-pr">PR = prorrateado</span>
+  </div>
+</div>
+
+<!-- ============ GANTT ============ -->
+<div class="tab" id="tab-gantt">
+  <div class="strip">
+    <div class="stat"><div class="lb">HQ 27 proyectado</div><div class="vl" id="gHq27">—</div></div>
+    <div class="stat t9"><div class="lb">★ T9 proyectado</div><div class="vl" id="gT9">—</div></div>
+    <div class="stat"><div class="lb">HQ 30 proyectado</div><div class="vl" id="gHq30">—</div></div>
+  </div>
+  <div class="tl" id="ganttBox"></div>
+  <p style="color:var(--dim);font-size:12px">
+    Simulación en vivo: los 3 builders toman tareas por prioridad respetando que <b style="color:var(--txt)">el HQ debe estar
+    terminado</b> (no en construcción) para subir edificios a ese nivel. Borde punteado = duración base interpolada.
+    El gráfico se recalcula solo cada vez que marcas tareas o actualizas builders.
+  </p>
+</div>
+
+<!-- ============ RECURSOS ============ -->
+<div class="tab" id="tab-res">
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="color:var(--yellow)">💰 Recursos ABIERTOS (sin contar cofres)</h3>
+    <p style="color:var(--dim);font-size:12px;margin-bottom:10px">Del panel Resources del juego: abierto = Total RSS − Total Items. Actualiza esto cada vez que subas capturas.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Food abierto (M)</label><input type="number" step="0.1" id="rFood"></div>
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Wood abierto (M)</label><input type="number" step="0.1" id="rWood"></div>
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Zents abiertos (M)</label><input type="number" step="0.1" id="rZents"></div>
+      <div style="align-self:flex-end"><button class="act" onclick="saveRes()">Guardar</button></div>
+    </div>
+    <div style="font-size:11px;color:var(--dim);margin-top:8px" id="rUpdated"></div>
+  </div>
+  <div class="card" style="margin-bottom:14px;border-color:var(--green)">
+    <h3 style="color:var(--green)">🚚 Ingreso diario estimado <span id="marchTxt" style="font-weight:400;color:var(--dim);font-size:11px;margin-left:6px"></span></h3>
+    <p style="color:var(--dim);font-size:12px;margin-bottom:10px">Recolección diaria por marchas (antes del multiplicador). Con ApocAid: 4ta marcha activa, ×1.33 aplicado automático.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Food/día (M)</label><input type="number" step="0.5" id="iFood"></div>
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Wood/día (M)</label><input type="number" step="0.5" id="iWood"></div>
+      <div style="flex:1;min-width:110px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Zents/día (M)</label><input type="number" step="0.5" id="iZ"></div>
+      <div style="align-self:flex-end"><button class="act" onclick="saveIncome()">Guardar</button></div>
+    </div>
+  </div>
+  <div id="resAlerts"></div>
+</div>
+
+<!-- ============ BUILDERS ============ -->
+<div class="tab" id="tab-build">
+  <div class="nextbox" id="nextBox"></div>
+  <div class="builders" id="builderCards"></div>
+  <div class="martes" id="martesBox"></div>
+  <p style="color:var(--dim);font-size:12px;margin-top:12px">
+    Asigna la tarea y la <b>fecha/hora de fin que muestra el juego</b> (ya incluye tus buffs).
+    Al marcar "Terminó", la tarea pasa a completada en el roadmap y el builder queda libre para la siguiente prioridad.
+  </p>
+</div>
+
+<!-- ============ METAS ============ -->
+<div class="tab" id="tab-metas">
+  <div id="goalLights"></div>
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="margin-bottom:4px">📈 Trayectoria de recursos vs pagos (45 días)</h3>
+    <p style="color:var(--dim);font-size:11.5px;margin-bottom:8px">Línea = recursos abiertos proyectados (actual + ingreso diario − pagos al iniciarse). Si una línea cae bajo cero antes de un pago ⚠, hay que ajustar ingreso o fecha.</p>
+    <div id="goalChart" style="overflow-x:auto"></div>
+  </div>
+  <div id="goalT9"></div>
+</div>
+
+<!-- ============ VEHÍCULO ============ -->
+<div class="tab" id="tab-veh">
+  <div class="card" style="border-color:var(--purple);margin-bottom:14px">
+    <h3 style="color:var(--purple);margin-bottom:8px">🚙 Cheetah Armored Vehicle</h3>
+    <p style="color:var(--dim);font-size:12px;margin-bottom:10px">Suma poder de F1 vía Weapon Mod / Chassis / Wheels. No es prioridad de builders — solo economía de Blueprints/Wrench aparte.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px">
+      <div style="flex:1;min-width:100px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Nivel vehículo</label><input type="number" id="vLevel"></div>
+      <div style="flex:1;min-width:100px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Poder actual</label><input type="number" id="vPower"></div>
+      <div style="flex:1;min-width:100px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Elite Modifier %</label><input type="number" step="0.1" id="vElite"></div>
+      <div style="flex:1;min-width:100px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Blueprints</label><input type="number" id="vBp"></div>
+      <div style="flex:1;min-width:100px"><label style="font-size:10px;color:var(--dim);text-transform:uppercase">Wrench</label><input type="number" id="vWr"></div>
+    </div>
+    <button class="act" onclick="saveVeh()">Guardar</button>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="margin-bottom:8px">Slots de modificación</h3>
+    <p style="color:var(--dim);font-size:11.5px;margin-bottom:8px">Marca los que ya completaste. El costo en Blueprints sube por slot — prioriza el más barato disponible primero.</p>
+    <div id="vSlots"></div>
+    <div class="brow" style="margin-top:8px">
+      <input type="text" id="vNewName" placeholder="Nombre del slot (ej. Chassis)" style="flex:2">
+      <input type="number" id="vNewCost" placeholder="Costo BP" style="flex:1">
+      <button class="ghost" onclick="addVehSlot()">+ Agregar</button>
+    </div>
+  </div>
+  <div class="freebld" style="border-color:var(--purple)">
+    <h3 style="color:var(--purple)">💡 Ruta real (LDShop guide, confirmada)</h3>
+    <ul style="padding-left:18px;font-size:12.5px;line-height:1.6">
+      <li><b>Orden de prioridad general:</b> primero T9/T10 tropas (ya es tu ruta) → luego mods clave de vehículo → nunca al revés. Un jugador con T10 y Hercules básico supera a uno con Destroyer pero tropas débiles.</li>
+      <li><b>En Cheetah (donde estás):</b> prioriza <b>Magnetic Storm Shield (nivel 65)</b> — sube defensa de héroes, es el primer hito real. Después de asegurarlo, deja de invertir de más y ahorra Wrenches para Hercules (~1,670 Wrenches para desbloquear).</li>
+      <li><b>En Hercules (después):</b> el mod clave es <b>War Frenzy</b> (nivel 105, ataque de héroe). <b>Expert Modifier se desbloquea justo en nivel 100</b> (mismo punto donde Elite Modifier llega a 100% y se abren los Componentes de vehículo). Tu 27% actual = <b>nivel 75</b> — te faltan 5 tramos (75→100). Prepara 170-200K blueprints antes de activarlo (tienes 36.7K, aún lejos — sin riesgo de gastarlo por accidente).</li>
+      <li><b>¿Tienes a Mia?</b> Su pasiva genera Blueprints diarios + EXP de vehículo + daño de skill, sin necesidad de ponerla en formación. Subirla a 5 estrellas ahorra muchísimo recurso a largo plazo — si la tienes, es prioridad.</li>
+      <li><b>Advanced Mod License:</b> da upgrades semanales gratis + chance de crítico. Vale la pena aunque implique gasto pequeño, sobre todo más adelante cuando los costos suban.</li>
+      <li><b>Guarda tus Wrenches</b> para eventos de Alliance Duel / Full Preparedness — dan bonos de eficiencia ahí.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ============ TECH (2 LABS) ============ -->
+<div class="tab" id="tab-tech">
+  <div class="bottleneck" style="border-color:var(--teal,#3ab5a5)">🏦 <b>Ruta T10 = BADGES. Regla: banco intacto hasta Lab 30.</b>
+    <span class="rz">— UST requiere SOLO Lab 30 (popup in-game ✓). Meta: 1,488,270 badges (wiki+DWD verificados). Los badges llegan ANTES que el Lab → gastar en Urgent Rescue no retrasa T10.</span></div>
+  <div id="labCards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px"></div>
+  <div class="card" style="margin-bottom:14px">
+    <h3 style="margin-bottom:8px">🗺️ Camino crítico de tecnología → T10</h3>
+    <div id="techList"></div>
+  </div>
+</div>
+
+<!-- ============ LECTOR IA ============ -->
+<div class="tab" id="tab-ia">
+  <div class="reader">
+    <h2 style="margin-bottom:10px">Lector de capturas</h2>
+    <p style="color:var(--dim);font-size:13px;margin-bottom:14px">
+      Sube la captura de una pantalla de upgrade del juego. La IA extrae edificio, nivel, costos y tiempo,
+      y te propone actualizar la celda correspondiente del roadmap (quitando su marca PR).
+    </p>
+    <div class="drop" id="drop">📷 Toca aquí para subir una captura<br><small>PNG o JPG · pantalla de upgrade</small></div>
+    <div id="iaAviso" style="display:none;margin-top:12px;background:var(--panel);border:1px solid var(--orange);border-radius:8px;padding:12px;font-size:13px">
+      ⚠ El lector IA solo funciona cuando esta herramienta corre <b>dentro de Claude</b> (como artifact en el chat).<br><br>
+      <b>Plan B (igual de rápido):</b> envía la captura directamente en el chat de Claude, pide los valores, y escríbelos aquí tocando la celda del roadmap — la marca PR se quita con un checkbox.
+    </div>
+    <input type="file" id="file" accept="image/png,image/jpeg" style="display:none">
+    <img id="preview" style="display:none">
+    <div id="iaOut"></div>
+  </div>
+</div>
+</main>
+
+<!-- ============ MODAL EDICIÓN ============ -->
+<div id="modal">
+  <div class="mbox">
+    <h3 id="mTitle">Editar tarea</h3>
+    <div class="frow"><label>Estado</label>
+      <div class="stbtns" id="mStatus">
+        <button data-s="pendiente">Pendiente</button>
+        <button data-s="encurso">En curso</button>
+        <button data-s="completado">Completado</button>
+      </div>
+    </div>
+    <div class="f2">
+      <div class="frow" style="flex:1"><label>Food / Wood (M)</label><input type="number" step="0.1" id="mFood"></div>
+      <div class="frow" style="flex:1"><label>Zents (M)</label><input type="number" step="0.1" id="mZents"></div>
+    </div>
+    <div class="frow"><label>Tiempo base (ej. 26d 09:28:36)</label><input type="text" id="mTime" placeholder="Pendiente"></div>
+    <div class="prtog"><input type="checkbox" id="mPR"><label for="mPR" style="margin:0;text-transform:none;font-size:13px;color:var(--txt)">Dato prorrateado (PR) — sin confirmar</label></div>
+    <div class="mfoot">
+      <button class="ghost" onclick="closeModal()">Cancelar</button>
+      <button class="act" onclick="saveModal()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">Fuentes base: Bacon's Guide · Last Z Wiki · Z Tools · capturas in-game de Macarr — M = millones · 1G = 1000M</div>
+
+<script>
+/* ================= DATOS INICIALES ================= */
+const DEFAULT_TASKS = [
+ // fase 24 (ahora)
+ {id:'hq25', b:'HQ', k:'hq', f:24,t:25, food:316.5, z:62.0, time:null, pr:false, ph:24},
+ {id:'rc24', b:'Rider Camp', k:'camp', f:23,t:24, food:null, z:null, time:null, pr:true, ph:24},
+ {id:'cw22', b:'City Walls', k:'walls', f:21,t:22, food:41.0, z:16.4, time:'14d 12:25:29', pr:false, ph:24},
+ {id:'cw23', b:'City Walls', k:'walls', f:22,t:23, food:51.2, z:20.5, time:null, pr:false, ph:24},
+ {id:'cw24', b:'City Walls', k:'walls', f:23,t:24, food:64.0, z:25.6, time:null, pr:false, ph:24},
+ {id:'ac23', b:'Alliance Center', k:'ac', f:22,t:23, food:75.0, z:9.7, time:'8d 22:06:28', pr:false, ph:24},
+ {id:'ac24', b:'Alliance Center', k:'ac', f:23,t:24, food:98.6, z:12.8, time:'12d 00:00:00', pr:false, ph:24},
+ {id:'mc23', b:'Military Center', k:'ac', f:22,t:23, food:75.0, z:9.7, time:null, pr:true, ph:24},
+ {id:'hosp15', b:'Hospital', k:'hosp', f:14,t:15, food:1.07, z:0.257, time:'1d 04:42:34', pr:false, ph:25},
+ // fase 25
+ {id:'hq26', b:'HQ', k:'hq', f:25,t:26, food:466.5, z:91.4, time:'49d 03:28:39', pr:false, ph:25},
+ {id:'lab25', b:'Laboratory', k:'lab', f:24,t:25, food:292.4, z:58.5, time:'26d 09:28:36', pr:false, ph:25},
+ {id:'rc25', b:'Rider Camp', k:'camp', f:24,t:25, food:54.4, z:32.6, time:'26d 09:28:36', pr:false, ph:25},
+ {id:'rc26', b:'Rider Camp', k:'camp', f:25,t:26, food:76.1, z:45.7, time:null, pr:true, ph:26},
+ {id:'rc27', b:'Rider Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:null, pr:true, ph:27},
+ {id:'cw25', b:'City Walls', k:'walls', f:24,t:25, food:108.8, z:43.5, time:null, pr:false, ph:25},
+ {id:'ac25', b:'Alliance Center', k:'ac', f:24,t:25, food:167.7, z:21.8, time:null, pr:false, ph:25},
+ {id:'as25', b:'Assaulter Camp', k:'camp', f:24,t:25, food:54.4, z:32.6, time:'26d 09:28:36', pr:false, ph:25},
+ {id:'sh25', b:'Shooter Camp', k:'camp', f:24,t:25, food:54.4, z:32.6, time:'26d 09:28:36', pr:false, ph:25},
+ // fase 26
+ {id:'hq27', b:'HQ', k:'hq', f:26,t:27, food:606.4, z:119.0, time:null, pr:false, ph:26},
+ {id:'lab26', b:'Laboratory', k:'lab', f:25,t:26, food:409.3, z:81.9, time:null, pr:false, ph:26},
+ {id:'cw26', b:'City Walls', k:'walls', f:25,t:26, food:148.5, z:59.4, time:null, pr:true, ph:26},
+ {id:'ac26', b:'Alliance Center', k:'ac', f:25,t:26, food:234.8, z:30.5, time:'24d 11:30:42', pr:false, ph:26},
+ {id:'as26', b:'Assaulter Camp', k:'camp', f:25,t:26, food:76.1, z:45.7, time:null, pr:true, ph:26},
+ {id:'sh26', b:'Shooter Camp', k:'camp', f:25,t:26, food:76.1, z:45.7, time:null, pr:true, ph:26},
+ // fase 27 (hito T9)
+ {id:'hq28', b:'HQ', k:'hq', f:27,t:28, food:806.5, z:157.7, time:null, pr:false, ph:27},
+ {id:'lab27', b:'Laboratory', k:'lab', f:26,t:27, food:505.6, z:100.7, time:'47d 21:38:52', pr:false, ph:27},
+ {id:'as27', b:'Assaulter Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:'47d 21:00:00', pr:false, ph:27, t9:true},
+ {id:'ac27', b:'Alliance Center', k:'ac', f:26,t:27, food:290.0, z:37.6, time:null, pr:false, ph:27},
+ {id:'sh27', b:'Shooter Camp', k:'camp', f:26,t:27, food:99.0, z:57.4, time:null, pr:false, ph:27},
+ // fase 28
+ {id:'hq29', b:'HQ', k:'hq', f:28,t:29, food:1100, z:221.3, time:null, pr:false, ph:28},
+ {id:'lab28', b:'Laboratory', k:'lab', f:27,t:28, food:633.3, z:126.6, time:null, pr:true, ph:28},
+ {id:'as28', b:'Assaulter Camp', k:'camp', f:27,t:28, food:117.8, z:70.7, time:null, pr:true, ph:28},
+ {id:'sh28', b:'Shooter Camp', k:'camp', f:27,t:28, food:117.8, z:70.7, time:null, pr:true, ph:28},
+ // fase 29
+ {id:'hq30', b:'HQ', k:'hq', f:29,t:30, food:1400, z:277.1, time:null, pr:false, ph:29},
+ {id:'lab29', b:'Laboratory', k:'lab', f:28,t:29, food:990.9, z:198.6, time:'80d 20:08:41', pr:true, ph:29, timeOK:true},
+ {id:'sh29', b:'Shooter Camp', k:'camp', f:28,t:29, food:164.9, z:98.6, time:null, pr:true, ph:29},
+ // RUTA T10: Lab 30 abre el árbol UST (popup in-game confirmado: "Lv.30 Laboratory Required").
+ // Costo/tiempo [EST] por progresión (ratio 1.299/nivel, ancla Lab29 real) — corregir cuando sea visible in-game.
+ {id:'lab30', b:'Laboratory', k:'lab', f:29,t:30, food:1300, z:258, time:'105d 00:00:00', pr:true, ph:29, est:true, t10:true},
+];
+const PHASE_REQ = {24:'HQ 25 pide: Lab 24 + Shooter 24 (listos ✓)',25:'HQ 26 pide: Lab 25 + Rider 25',
+ 26:'HQ 27 pide: Lab 26 + City Walls 26',27:'HQ 28 pide: Lab 27 + Alliance 27',
+ 28:'HQ 29 pide: Lab 28 + Assaulter 28',29:'HQ 30 pide: Lab 29 + Shooter 29'};
+// para qué HQ es requisito directo cada tarea (ajuste 2 y 3)
+const PHASE_TITLE = {
+ 24:{hq:'AHORA · HQ 24', next:25, req:['lab24 ✓','Shooter 24 ✓'], reqIds:[]},
+ 25:{hq:'CUANDO HQ = 25', next:26, req:['Lab 25','Rider 25'], reqIds:['lab25','rc25']},
+ 26:{hq:'CUANDO HQ = 26', next:27, req:['Lab 26','City Walls 26'], reqIds:['lab26','cw26']},
+ 27:{hq:'CUANDO HQ = 27', next:28, req:['Lab 27','Alliance 27','+ Assaulter/Shooter/Rider Camp a 27 (política Miguel: todas las tropas T9 antes de seguir)'], reqIds:['lab27','ac27']},
+ 28:{hq:'CUANDO HQ = 28', next:29, req:['Lab 28','Assaulter 28'], reqIds:['lab28','as28']},
+ 29:{hq:'CUANDO HQ = 29', next:30, req:['Lab 29','Shooter 29'], reqIds:['lab29','sh29']},
+};
+// conjunto de IDs que son REQ HQ directo
+const REQ_IDS = new Set(Object.values(PHASE_TITLE).flatMap(p=>p.reqIds));
+// Camps/Alliance que no son requisito directo ni el objetivo T9 son "relleno": se recomiendan
+// SOLO cuando no hay tarea de camino crítico disponible (así el builder nunca queda idle),
+// priorizando lo que más acerca a T9 (Assaulter/Shooter camps entrenan tropas T8/T9).
+function isFiller(t){
+  if(t.status==='completado') return false;
+  if(REQ_IDS.has(t.id) || t.t9) return false;
+  return t.k==='camp' || t.k==='ac' || t.k==='hosp';
+}
+function fillerRank(t){
+  if(t.b==='Shooter Camp') return 0;
+  if(t.b==='Assaulter Camp') return 1;
+  if(t.k==='ac') return 2;
+  if(t.k==='hosp') return 3;
+  if(t.b==='Rider Camp') return 4;
+  return 5;
+}
+// déficit exacto de abiertos para pagar una tarea AHORA MISMO (no proyectado, con lo que hay hoy)
+function deficitNow(t){
+  ensureRes();
+  if(t.food==null) return {needF:0,needZ:0,ok:true};
+  const haveFW = Math.min(state.res.food, state.res.wood);
+  const needF = Math.max(t.food - haveFW, 0);
+  const needZ = Math.max((t.z||0) - state.res.zents, 0);
+  return {needF, needZ, ok: needF<=0 && needZ<=0};
+}
+// ¿cuál recurso está más apretado de cara al próximo pago de HQ? 'zent' | 'fw' | null (parejo)
+function recursoEscaso(){
+  ensureRes();
+  const nextHqId = ['hq25','hq26','hq27','hq28','hq29','hq30'].find(id=>!done(id));
+  const nextHq = nextHqId?task(nextHqId):null;
+  if(!nextHq || nextHq.food==null) return null;
+  const haveFW = Math.min(state.res.food, state.res.wood);
+  const ratioF = nextHq.food? Math.max(nextHq.food-haveFW,0)/nextHq.food : 0;
+  const ratioZ = nextHq.z? Math.max(nextHq.z-state.res.zents,0)/nextHq.z : 0;
+  if(ratioZ>ratioF+0.05) return 'zent';
+  if(ratioF>ratioZ+0.05) return 'fw';
+  return null;
+}
+// ¿El próximo pago de HQ queda en riesgo REAL si tomo 'top' ahora?
+// T9 es prioridad #1: solo se protege el recurso si NO da tiempo de recolectar el déficit antes del pago.
+// Tasas reales de Miguel: zent ~ mina(lun-mar)+tiles+loot ~7-10M/día sostenible; F/W sáb+lun full 680M + entre semana.
+function hqEnRiesgo(top, escaso){
+  ensureRes();
+  const fmtF = x=>new Date(x).toLocaleDateString('es-PR',{day:'numeric',month:'short'});
+  const nextHqId = ['hq25','hq26','hq27','hq28','hq29','hq30'].find(id=>!done(id));
+  const nextHq = nextHqId?task(nextHqId):null;
+  if(!nextHq || nextHq.food==null) return {enRiesgo:false};
+  const sched = simulate();
+  const s = sched[nextHqId];
+  // fecha en que el HQ ARRANCA (cuando se pagará) — si ya corre, es ya; si no, su start proyectado
+  const pagoT = s ? s.start : Date.now();
+  const dias = Math.max((pagoT - Date.now())/86400000, 0.5);
+  if(escaso==='zent'){
+    const zTrasTop = state.res.zents - (top.z||0);
+    const falta = Math.max(nextHq.z - zTrasTop, 0);
+    const ritmoNec = falta/dias;                       // M/día de zent que habría que recolectar
+    const RITMO_SOSTENIBLE = 10;                        // ~10M/día zent es lo alcanzable con mina+tiles+loot
+    // en riesgo solo si el ritmo necesario supera lo sostenible Y aún tras abrir margen normal
+    return {enRiesgo: ritmoNec > RITMO_SOSTENIBLE, hq:'HQ '+(nextHq.t), fecha:fmtF(pagoT),
+            faltaTrasTop:falta, ritmoNec, dias};
+  } else {
+    const fwHave = Math.min(state.res.food, state.res.wood);
+    const fwTrasTop = fwHave - (top.food||0);
+    const falta = Math.max(nextHq.food - fwTrasTop, 0);
+    const ritmoNec = falta/dias;
+    const RITMO_SOSTENIBLE = 90;                        // F/W: sáb+lun full ~680M/sem ≈ 90M/día equivalente
+    return {enRiesgo: ritmoNec > RITMO_SOSTENIBLE, hq:'HQ '+(nextHq.t), fecha:fmtF(pagoT),
+            faltaTrasTop:falta, ritmoNec, dias};
+  }
+}
+function taskLabels(t){
+  const L=[];
+  if(t.status==='completado') L.push({txt:'DONE',cls:'done'});
+  else {
+    if(t.k==='hq') L.push({txt:'HQ',cls:'hq'});
+    else if(REQ_IDS.has(t.id)){
+      // ¿para qué HQ?
+      const forHQ = Object.values(PHASE_TITLE).find(p=>p.reqIds.includes(t.id));
+      L.push({txt:'REQ HQ'+(forHQ?forHQ.next:''),cls:'req'});
+    } else if(t.t9) {} // T9 se añade abajo
+    else L.push({txt:'PREP',cls:'prep'});
+    // LOCKED si supera el HQ actual
+    if(t.k!=='hq' && t.t>hqLevel() && t.status!=='encurso') L.push({txt:'LOCKED',cls:'locked'});
+  }
+  if(t.t9) L.push({txt:'★ T9',cls:'t9'});
+  if(t.pr) L.push({txt:'PR',cls:'pr'});
+  return L;
+}
+function labelHTML(t){
+  return taskLabels(t).map(l=>`<span class="tlab tl-${l.cls}">${l.txt}</span>`).join('');
+}
+function timeHTML(t){
+  if(!t.time) return '⏱ tiempo pendiente';
+  const base=parseBase(t.time);
+  const real=base?fmtDur(base*state.factor):'';
+  return `⏱ ${t.time} base${real?' · ~'+real+' real':''}`;
+}
+function resHTML(t){
+  if(t.food==null && t.z==null) return '';
+  return `F/W ${fmtM(t.food)} · Z ${fmtM(t.z)}${t.pr?' · PR':''}`;
+}
+
+let state = null;
+const KEY='lastz-roadmap-v1';
+
+/* ================= STORAGE (nube en Claude, local fuera) ================= */
+const CLOUD = typeof window.storage !== 'undefined';
+async function stGet(k){
+  if(CLOUD) return (await window.storage.get(k)).value;
+  const v=localStorage.getItem(k); if(v==null) throw new Error('vacío'); return v;
+}
+async function stSet(k,v){
+  if(CLOUD) return window.storage.set(k,v);
+  localStorage.setItem(k,v);
+}
+async function load(){
+  try{
+    state = JSON.parse(await stGet(KEY));
+    if(state.factor===0.3282) state.factor=0.3261; // factor exacto medido (captura Lab 24→25)
+    // merge nuevas tareas si el default creció
+    DEFAULT_TASKS.forEach(d=>{ if(!state.tasks.find(t=>t.id===d.id)) state.tasks.push({...d,status:'pendiente'}); });
+    const a27=state.tasks.find(t=>t.id==='as27'); if(a27) a27.b='Assaulter Camp'; // fix fila duplicada
+  }catch(e){
+    state = { tasks: DEFAULT_TASKS.map(t=>({...t,status:'pendiente'})),
+      builders:[{id:1,taskId:null,end:null},{id:2,taskId:null,end:null},{id:3,taskId:null,end:null}],
+      factor:0.3261 };
+  }
+  // ===== SEED v2: estado real al 3 jul 2026 (capturas de Macarr) =====
+  if(!state.seedV || state.seedV<2){
+    const S=(id,st,doneAt)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.status=st; if(doneAt)t.doneAt=doneAt;}};
+    S('rc24','completado','2026-07-03T02:00:00-04:00');
+    S('ac23','completado','2026-07-03T15:40:00-04:00');
+    S('hq25','encurso'); S('ac24','encurso'); S('mc23','encurso');
+    state.builders=[
+      {id:1,taskId:'hq25',end:'2026-07-13T00:45:00-04:00'},
+      {id:2,taskId:'mc23',end:'2026-07-05T13:00:00-04:00'},
+      {id:3,taskId:'ac24',end:'2026-07-07T09:16:00-04:00'}];
+    state.res={food:100,wood:100,zents:32.7,updated:'2026-07-03T18:00:00-04:00'};
+    state.seedV=2;
+  }
+  // ===== SEED v3: ApocAid Monthly Pass comprado (4ta formación) =====
+  if(!state.seedV || state.seedV<3){
+    if(!state.res) state.res={food:100,wood:100,zents:32.7,updated:null};
+    state.res.marchas=4; state.res.ingresoBase=1;
+    state.seedV=3;
+  }
+  if(!state.seedV || state.seedV<4){
+    state.res.income = {food:15, wood:15, zents:12.7}; // zents: medido real, resto estimado
+    state.res.zentRateNote = '~252.7k/h por marcha · 3 marchas activas · 4ta libre (+6.1M/d si se suma)';
+    state.seedV=4;
+  }
+  // ===== SEED v5: camps 24→25 y Walls 21→22 confirmados con capturas (4 jul) =====
+  if(!state.seedV || state.seedV<5){
+    ['rc25','as25','sh25'].forEach(id=>{ const t=state.tasks.find(x=>x.id===id);
+      if(t){ t.food=54.4; t.z=32.6; t.time='26d 09:28:36'; t.pr=false; } });
+    const w=state.tasks.find(x=>x.id==='cw22');
+    if(w){ w.food=40.96; w.z=16.4; w.time='14d 12:25:29'; w.pr=false; }
+    state.seedV=5;
+  }
+  // ===== SEED v6: Cheetah Armored Vehicle (5 jul) =====
+  if(!state.vehSeedV || state.vehSeedV<2){
+    state.vehicle = {power:1434133, elite:27, level:75, bp:36700, wrench:141,
+      slots:[
+        {name:'★ Magnetic Storm Shield (Upgrade Lv.65)', cost:0, done:false},
+        {name:'Weapon Mod (Modify)', cost:1444, done:false},
+        {name:'Chassis Mod (Modify)', cost:0, done:false},
+        {name:'Wheels Mod (Modify)', cost:0, done:false},
+      ]};
+    state.vehSeedV=2;
+  }
+  // ===== SEED v7: Military Center 22→23 completado, City Walls 21→22 en curso (5 jul) =====
+  if(!state.seedV || state.seedV<7){
+    const mc=state.tasks.find(x=>x.id==='mc23');
+    if(mc){ mc.status='completado'; mc.doneAt='2026-07-05T13:03:00-04:00'; }
+    const cw=state.tasks.find(x=>x.id==='cw22');
+    if(cw) cw.status='encurso';
+    const b2=state.builders.find(b=>b.taskId==='mc23');
+    if(b2){ b2.taskId='cw22'; b2.end='2026-07-09T18:08:42-04:00'; }
+    const b1=state.builders.find(b=>b.taskId==='hq25');
+    if(b1) b1.end='2026-07-13T00:44:42-04:00';
+    const b3=state.builders.find(b=>b.taskId==='ac24');
+    if(b3) b3.end='2026-07-07T09:05:46-04:00';
+    state.seedV=7;
+  }
+  // ===== SEED v8: refinar horas de builders con ayuda de alianza aplicada (5 jul 9:50pm) =====
+  if(!state.seedV || state.seedV<8){
+    const b1=state.builders.find(b=>b.taskId==='hq25');
+    if(b1) b1.end='2026-07-13T00:44:42-04:00';
+    const b2=state.builders.find(b=>b.taskId==='cw22');
+    if(b2) b2.end='2026-07-09T18:08:42-04:00';
+    const b3=state.builders.find(b=>b.taskId==='ac24');
+    if(b3) b3.end='2026-07-07T09:05:46-04:00';
+    state.seedV=8;
+  }
+  // ===== SEED v9: HQ 25 termina martes 7 jul 9:00 PM (plan de speedups confirmado) =====
+  if(!state.seedV || state.seedV<9){
+    const b1=state.builders.find(b=>b.taskId==='hq25');
+    if(b1) b1.end='2026-07-07T21:00:00-04:00';
+    state.seedV=9;
+  }
+  // ===== SEED v10: HQ 25 se adelanta a las 9:00 AM martes (sincroniza con Alliance Center) =====
+  if(!state.seedV || state.seedV<10){
+    const b1=state.builders.find(b=>b.taskId==='hq25');
+    if(b1) b1.end='2026-07-07T09:00:00-04:00';
+    state.seedV=10;
+  }
+  // ===== SEED v11: % tech actualizados (6 jul), Lab 2 detectado inactivo =====
+  if(!state.seedV || state.seedV<11){
+    ensureTech();
+    state.techStatus.milstrat='17%';
+    state.techStatus.alliancerec='43% (Event Expert 18/20 — casi listo)';
+    state.techLabs=[{taskId:'milstrat',end:null},{taskId:null,end:null}]; // Lab2 vacío, detectado por captura
+    state.seedV=11;
+  }
+  // ===== SEED v12: HQ 25 completado, Lab 25 en curso (7 jul, 6:31am) =====
+  if(!state.seedV || state.seedV<12){
+    const hq=state.tasks.find(x=>x.id==='hq25');
+    if(hq){ hq.status='completado'; hq.doneAt='2026-07-07T06:00:00-04:00'; }
+    const b1=state.builders.find(b=>b.taskId==='hq25');
+    if(b1){ b1.taskId='lab25'; b1.end='2026-07-15T15:52:28-04:00'; }
+    const b2=state.builders.find(b=>b.taskId==='cw22');
+    if(b2) b2.end='2026-07-09T18:09:05-04:00';
+    const b3=state.builders.find(b=>b.taskId==='ac24');
+    if(b3) b3.end='2026-07-07T09:06:09-04:00';
+    state.res.food=61.6; state.res.wood=72.1; state.res.zents=52.6;
+    state.seedV=12;
+  }
+  // ===== SEED v13: HQ 25->26 tiempo base y costos confirmados por captura (7 jul) =====
+  if(!state.seedV || state.seedV<13){
+    const hq26=state.tasks.find(x=>x.id==='hq26');
+    if(hq26){ hq26.food=466.5; hq26.z=91.4; hq26.time='49d 03:28:39'; }
+    state.seedV=13;
+  }
+  // ===== SEED v14: rc25/as25/sh25 confirmados con capturas reales, ya no PR (7 jul) =====
+  if(!state.seedV || state.seedV<14){
+    ['rc25','as25','sh25'].forEach(id=>{ const t=state.tasks.find(x=>x.id===id); if(t) t.pr=false; });
+    state.seedV=14;
+  }
+  // ===== SEED v15: costos HQ27/29 corregidos con lastz.stresswar.com/hq (validado contra tu captura de HQ26) =====
+  if(!state.seedV || state.seedV<15){
+    const hq27=state.tasks.find(x=>x.id==='hq27'); if(hq27){ hq27.food=606.4; hq27.z=119.0; }
+    const hq29=state.tasks.find(x=>x.id==='hq29'); if(hq29){ hq29.food=1100; hq29.z=221.3; hq29.pr=false; }
+    state.seedV=15;
+  }
+  // ===== SEED v16: recursos abiertos actualizados con captura (8 jul, tarde) =====
+  // Food 159.8M · Wood 162.9M · Zents 6.3K (~0 — recién pagado Rider Camp 25)
+  if(!state.seedV || state.seedV<16){
+    state.res.food=159.8; state.res.wood=162.9; state.res.zents=0;
+    state.res.updated='2026-07-08T18:15:00-04:00';
+    state.res.zentRateNote='~252.7k/h por marcha · zents en 0 tras pagar Rider 25 · 4ta marcha a mina = +6.1M/d';
+    state.seedV=16;
+  }
+  // ===== SEED v17: HUD 8 jul (F 165.4 / W 168.6 / Z 45.4K) + política: cofres NO cuentan =====
+  // Regla de Macarr: upgrades se pagan SOLO con abiertos; cofres = reserva de emergencia.
+  if(!state.seedV || state.seedV<17){
+    state.res.food=165.4; state.res.wood=168.6; state.res.zents=0;
+    state.res.updated='2026-07-08T18:30:00-04:00';
+    state.res.zentRateNote='Solo abiertos cuentan (cofres = emergencia) · mina 252.7k/h · F/W tile 515k/h por marcha';
+    state.seedV=17;
+  }
+  // ===== SEED v18: sync con panel Builder real (captura 8 jul ~6:35pm) =====
+  // AC 24 completado; B1=Lab 25 (6d 06:58 rest.), B2=Walls 21→22 (21:08 rest.), B3=Rider 25 (6d 12:50 rest.)
+  if(!state.seedV || state.seedV<18){
+    const ac=state.tasks.find(x=>x.id==='ac24');
+    if(ac && ac.status!=='completado'){ ac.status='completado'; ac.doneAt='2026-07-07T09:06:09-04:00'; }
+    const rc=state.tasks.find(x=>x.id==='rc25'); if(rc) rc.status='encurso';
+    state.builders=[
+      {id:1,taskId:'lab25',end:'2026-07-15T01:33:00-04:00'},
+      {id:2,taskId:'cw22',end:'2026-07-09T15:43:00-04:00'},
+      {id:3,taskId:'rc25',end:'2026-07-15T07:25:00-04:00'}];
+    state.seedV=18;
+  }
+  // ===== SEED v19: HUD noche 8 jul tras loot · marchas dejadas en Zent Mine =====
+  if(!state.seedV || state.seedV<19){
+    state.res.food=179.6; state.res.wood=187.6; state.res.zents=10.9;
+    state.res.updated='2026-07-08T23:00:00-04:00';
+    state.seedV=19;
+  }
+  // ===== SEED v20: HUD mañana 9 jul (recolección nocturna) =====
+  if(!state.seedV || state.seedV<20){
+    state.res.food=184.3; state.res.wood=190.3; state.res.zents=14.9;
+    state.res.updated='2026-07-09T08:00:00-04:00';
+    state.seedV=20;
+  }
+  // ===== SEED v21: HUD mediodía 9 jul =====
+  if(!state.seedV || state.seedV<21){
+    state.res.food=192.9; state.res.wood=201.5; state.res.zents=16.7;
+    state.res.updated='2026-07-09T13:30:00-04:00';
+    state.seedV=21;
+  }
+  // ===== SEED v22: panel Builder 9 jul 8:32 AM — fines exactos desde hora real =====
+  if(!state.seedV || state.seedV<22){
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw22','2026-07-09T18:09:05-04:00');
+    B('lab25','2026-07-15T03:59:31-04:00');
+    B('rc25','2026-07-15T09:50:59-04:00');
+    state.seedV=22;
+  }
+  // ===== SEED v23: Walls 22 hecho y 22→23 INICIADO (9 jul ~10:45am) — pagado con abiertos =====
+  if(!state.seedV || state.seedV<23){
+    const w22=state.tasks.find(x=>x.id==='cw22');
+    if(w22){ w22.status='completado'; w22.doneAt='2026-07-09T10:30:00-04:00'; }
+    const w23=state.tasks.find(x=>x.id==='cw23');
+    if(w23){ w23.status='encurso'; w23.time='19d 17:30:00'; w23.pr=false; }
+    const b2=state.builders.find(b=>b.taskId==='cw22');
+    if(b2){ b2.taskId='cw23'; b2.end='2026-07-15T21:18:24-04:00'; }
+    state.res.food=143.8; state.res.wood=149.9; state.res.zents=0.08;
+    state.res.updated='2026-07-09T10:59:00-04:00';
+    state.seedV=23;
+  }
+  // ===== SEED v24: HUD noche 9 jul — ritmo real detectado ≠ plan (F/W alto, Z bajo) =====
+  if(!state.seedV || state.seedV<24){
+    state.res.food=162.4; state.res.wood=173.1; state.res.zents=2.2;
+    state.res.updated='2026-07-09T20:00:00-04:00';
+    state.seedV=24;
+  }
+  // ===== SEED v25: HUD 9 jul 11:20pm — salto grande no explicado solo por marchas =====
+  if(!state.seedV || state.seedV<25){
+    state.res.food=182.7; state.res.wood=195.0; state.res.zents=20.9;
+    state.res.updated='2026-07-09T23:20:00-04:00';
+    state.seedV=25;
+  }
+  // ===== SEED v26: sync 10 jul ~7am — Rider ya cierra el martes en la noche sin speedup =====
+  if(!state.seedV || state.seedV<26){
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-15T08:24:25-04:00');
+    B('rc25','2026-07-14T22:50:32-04:00');
+    B('lab25','2026-07-15T03:59:09-04:00');
+    state.res.food=206.6; state.res.wood=206.3; state.res.zents=31.4;
+    state.res.updated='2026-07-10T06:58:00-04:00';
+    state.seedV=26;
+  }
+  // ===== SEED v27: Lab 25 recibió speedup accidental grande (10 jul) — cierra domingo, no martes =====
+  if(!state.seedV || state.seedV<27){
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-15T08:24:38-04:00');
+    B('rc25','2026-07-14T22:50:45-04:00');
+    B('lab25','2026-07-12T06:12:20-04:00');
+    state.seedV=27;
+  }
+  // ===== SEED v28: stock de speedups tras uso accidental — Construction agotado, Universal 103.7h =====
+  if(!state.seedV || state.seedV<28){
+    state.speedups = {universal:103.67, training:43.03, construction:0, research:104.75, healing:162.17, updated:'2026-07-10T00:00:00-04:00'};
+    state.seedV=28;
+  }
+  // ===== SEED v29: HUD tarde 10 jul ~5pm — ritmo por encima del plan base (posible ayuda/evento) =====
+  if(!state.seedV || state.seedV<29){
+    state.res.food=235.0; state.res.wood=237.6; state.res.zents=43.7;
+    state.res.updated='2026-07-10T17:08:00-04:00';
+    state.seedV=29;
+  }
+  // ===== SEED v30: HUD sábado 11 jul 9:28am — alerta: [ARU] 12sun invadió el Estado =====
+  if(!state.seedV || state.seedV<30){
+    state.res.food=347.8; state.res.wood=364.2; state.res.zents=58.3;
+    state.res.updated='2026-07-11T09:28:00-04:00';
+    state.seedV=30;
+  }
+  // ===== SEED v31: sync 11 jul ~5:44pm — offset del Lab aplicado a los 3 builders; Walls se adelantó ~12h extra (ayuda alianza) =====
+  if(!state.seedV || state.seedV<31){
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('lab25','2026-07-12T06:12:30-04:00');
+    B('cw23','2026-07-14T17:54:43-04:00');
+    B('rc25','2026-07-14T22:50:55-04:00');
+    state.res.food=365.9; state.res.wood=375.3; state.res.zents=57.2;
+    state.res.updated='2026-07-11T17:44:00-04:00';
+    state.seedV=31;
+  }
+  // ===== SEED v32: HUD 11 jul (más tarde) — zent bajó un poco (¿gasto puntual?) =====
+  if(!state.seedV || state.seedV<32){
+    state.res.food=367.0; state.res.wood=375.0; state.res.zents=54.9;
+    state.res.updated='2026-07-11T20:00:00-04:00';
+    state.seedV=32;
+  }
+  // ===== SEED v33: panel Resources&Speedups confirmado — cofre Zent 360.1M, abierto 55.0M =====
+  if(!state.seedV || state.seedV<33){
+    state.res.food=400.0; state.res.wood=300.0; state.res.zents=55.0; // abierto = Total RSS − Total Items: F 2.2G-1.8G=400M, W 2.3G-2.0G=300M, Z 415.1-360.1=55.0
+    state.res.updated='2026-07-11T21:00:00-04:00';
+    state.res.chests = {food:1800, wood:2000, zents:360.1}; // en M, reserva de emergencia (cofres)
+    state.seedV=33;
+  }
+  // ===== SEED v34: Lab 25 completado (12 jul ~2:40am) — builder1 libre =====
+  if(!state.seedV || state.seedV<34){
+    const lab=state.tasks.find(x=>x.id==='lab25');
+    if(lab && lab.status!=='completado'){ lab.status='completado'; lab.doneAt='2026-07-12T02:00:00-04:00'; }
+    const b1=state.builders.find(b=>b.taskId==='lab25');
+    if(b1){ b1.taskId=null; b1.end=null; }
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-14T17:54:33-04:00');
+    B('rc25','2026-07-14T22:50:45-04:00');
+    state.seedV=34;
+  }
+  // ===== SEED v35: Assaulter Camp 25 iniciado (12 jul ~7am) — recursos y speedups del estado de cuenta =====
+  if(!state.seedV || state.seedV<35){
+    const as=state.tasks.find(x=>x.id==='as25');
+    if(as) as.status='encurso';
+    const b1=state.builders.find(b=>!b.taskId);
+    if(b1){ b1.taskId='as25'; b1.end='2026-07-20T11:01:57-04:00'; }
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-14T18:01:57-04:00');
+    B('rc25','2026-07-14T23:01:57-04:00');
+    state.res.food=320.2; state.res.wood=318.4; state.res.zents=14.2;
+    state.res.updated='2026-07-12T07:01:00-04:00';
+    state.speedups = {universal:111.42, training:19.15, construction:10.1, research:140.83, healing:129.1, updated:'2026-07-12T07:01:00-04:00'};
+    state.seedV=35;
+  }
+  // ===== SEED v36: HUD domingo 12 jul 3:21pm — ritmo muy bajo (F/W casi plano, Z solo 1 mina) =====
+  if(!state.seedV || state.seedV<36){
+    state.res.food=320.7; state.res.wood=318.6; state.res.zents=16.3;
+    state.res.updated='2026-07-12T15:21:00-04:00';
+    state.seedV=36;
+  }
+  // ===== SEED v37: zent sube apenas a 16.9M — marchas grandes aún no regresan =====
+  if(!state.seedV || state.seedV<37){
+    state.res.zents=16.9;
+    state.res.updated='2026-07-12T16:00:00-04:00';
+    state.seedV=37;
+  }
+  // ===== SEED v38: marchas de zent regresaron, ritmo real ~1.15M/h · builders re-sync (12 jul 9:50pm) =====
+  if(!state.seedV || state.seedV<38){
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-14T17:54:39-04:00');
+    B('rc25','2026-07-14T22:50:51-04:00');
+    B('as25','2026-07-20T11:31:12-04:00');
+    state.res.food=318.2; state.res.wood=316.0; state.res.zents=23.6;
+    state.res.updated='2026-07-12T21:50:00-04:00';
+    state.seedV=38;
+  }
+  // ===== SEED v39: HUD 12 jul 11:20pm — tras loot doble de zent (17.7M) + F/W subió también =====
+  if(!state.seedV || state.seedV<39){
+    state.res.food=365.4; state.res.wood=365.9; state.res.zents=41.3;
+    state.res.updated='2026-07-12T23:20:00-04:00';
+    state.seedV=39;
+  }
+  // ===== SEED v40: HUD 13 jul 12:10am — recursos casi planos, tropas -219 por pérdidas en loot =====
+  if(!state.seedV || state.seedV<40){
+    state.res.food=404.7; state.res.wood=390.6; state.res.zents=41.5;
+    state.res.updated='2026-07-13T00:10:00-04:00';
+    state.seedV=40;
+  }
+  // ===== SEED v41: HUD 13 jul 1:04am =====
+  if(!state.seedV || state.seedV<41){
+    state.res.food=430.2; state.res.wood=419.6; state.res.zents=45.0;
+    state.res.updated='2026-07-13T01:04:00-04:00';
+    state.seedV=41;
+  }
+  // ===== SEED v42: HUD lunes 13 jul 6:55am — salto de zent (+22.5M/5.85h), lunes = loot disponible =====
+  if(!state.seedV || state.seedV<42){
+    state.res.food=450.2; state.res.wood=436.9; state.res.zents=67.5;
+    state.res.updated='2026-07-13T06:55:00-04:00';
+    state.seedV=42;
+  }
+  // ===== SEED v43: HUD lunes 13 jul 9:37am — buen ritmo, déficit ya chico =====
+  if(!state.seedV || state.seedV<43){
+    state.res.food=475.2; state.res.wood=462.7; state.res.zents=84.9;
+    state.res.updated='2026-07-13T09:37:00-04:00';
+    state.seedV=43;
+  }
+  // ===== SEED v44: ¡HQ 26 INICIADO! Rider Camp 25 completado, ese builder saltó a HQ (14 jul 6:33am) =====
+  if(!state.seedV || state.seedV<44){
+    const rc=state.tasks.find(x=>x.id==='rc25');
+    if(rc && rc.status!=='completado'){ rc.status='completado'; rc.doneAt='2026-07-14T05:00:00-04:00'; }
+    const hq=state.tasks.find(x=>x.id==='hq26');
+    if(hq) hq.status='encurso';
+    const bRider=state.builders.find(b=>b.taskId==='rc25');
+    if(bRider){ bRider.taskId='hq26'; bRider.end='2026-07-29T15:48:26-04:00'; }
+    const B=(tid,end)=>{const b=state.builders.find(x=>x.taskId===tid); if(b) b.end=end;};
+    B('cw23','2026-07-14T17:54:48-04:00');
+    B('as25','2026-07-20T11:31:21-04:00');
+    state.seedV=44;
+  }
+  // ===== SEED v45: HUD post-pago HQ26 — recursos casi agotados (14 jul) =====
+  if(!state.seedV || state.seedV<45){
+    state.res.food=27.6; state.res.wood=14.0; state.res.zents=12.2;
+    state.res.updated='2026-07-14T09:00:00-04:00';
+    state.seedV=45;
+  }
+  // ===== SEED v46: HUD martes 14 jul ~7am — zent ya cubre el pago de Walls24 =====
+  if(!state.seedV || state.seedV<46){
+    state.res.food=27.6; state.res.wood=14.1; state.res.zents=36.5;
+    state.res.updated='2026-07-14T07:04:00-04:00';
+    state.seedV=46;
+  }
+  // ===== SEED v47-49 consolidado: estado real 14 jul noche =====
+  if(!state.seedV || state.seedV<49){
+    const cw23=state.tasks.find(x=>x.id==='cw23');
+    if(cw23 && cw23.status!=='completado'){ cw23.status='completado'; cw23.doneAt='2026-07-14T18:00:00-04:00'; }
+    const cw24=state.tasks.find(x=>x.id==='cw24'); if(cw24) cw24.status='encurso';
+    const as25=state.tasks.find(x=>x.id==='as25'); if(as25) as25.status='encurso';
+    const hq26=state.tasks.find(x=>x.id==='hq26'); if(hq26) hq26.status='encurso';
+    // reconstruir builders: B1 cw24, B2 hq26, B3 as25
+    state.builders=[
+      {id:1,taskId:'cw24',end:'2026-07-20T12:36:00-04:00'},
+      {id:2,taskId:'hq26',end:'2026-07-29T14:50:00-04:00'},
+      {id:3,taskId:'as25',end:'2026-07-20T11:30:00-04:00'}];
+    state.res.food=92.4; state.res.wood=101.5; state.res.zents=24.4;
+    state.res.updated='2026-07-14T22:00:00-04:00';
+    state.seedV=49;
+  }
+  // ===== SEED v50: HUD 15 jul — F/W ya cubren Walls24, falta poco zent =====
+  if(!state.seedV || state.seedV<50){
+    state.res.food=163.8; state.res.wood=195.8; state.res.zents=35.57;
+    state.res.updated='2026-07-15T00:00:00-04:00';
+    state.seedV=50;
+  }
+  // ===== SEED v51-53 consolidado: estado real 19 jul =====
+  if(!state.seedV || state.seedV<53){
+    if(!state.tasks.find(t=>t.id==='mc24')){
+      state.tasks.push({id:'mc24', b:'Military Center', k:'ac', f:23,t:24, food:98.67, z:12.80, time:null, status:'encurso', pr:false, ph:24, doneAt:null});
+    }
+    state.builders=[
+      {id:1,taskId:'cw24',end:'2026-07-20T12:46:00-04:00'},
+      {id:2,taskId:'hq26',end:'2026-07-29T15:01:00-04:00'},
+      {id:3,taskId:'mc24',end:'2026-07-20T19:06:00-04:00'}];
+    state.res.food=215.8; state.res.wood=262.9; state.res.zents=72.2;
+    state.res.updated='2026-07-19T12:00:00-04:00';
+    state.seedV=53;
+  }
+  // ===== SEED v54: costos HQ 28-30 confirmados con tabla KOKP (jugador coreano) =====
+  if(!state.seedV || state.seedV<54){
+    const upd=(id,food,z)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.food=food; t.z=z; t.pr=false;}};
+    upd('hq28', 721.6, 141.4);
+    upd('hq29', 1000, 198);
+    upd('hq30', 1600, 293);
+    // guardar tabla de referencia futura (HQ 30+, con steel)
+    state.hqTableKOKP = {
+      note:'Costos confirmados tabla KOKP. Steel aparece en HQ30->31.',
+      hq31:{fw:1200,z:241.4,steel:2.2}, hq32:{fw:1400,z:289.8,steel:3.1},
+      hq33:{fw:1700,z:347.6,steel:4.1}, hq34:{fw:2000,z:399.5,steel:5.3}, hq35:{fw:2400,z:449,steel:6.2}
+    };
+    state.seedV=54;
+  }
+  // ===== SEED v55: estado real 22 jul 8PM (capturas) + plan dia triple mar 28 =====
+  if(!state.seedV || state.seedV<55){
+    const C=(id,doneAt)=>{const t=state.tasks.find(x=>x.id===id); if(t&&t.status!=='completado'){t.status='completado'; t.doneAt=doneAt;}};
+    const E=(id)=>{const t=state.tasks.find(x=>x.id===id); if(t)t.status='encurso';};
+    // cerrados el lun 20 jul
+    C('cw24','2026-07-20T12:46:00-04:00');
+    C('as25','2026-07-20T11:30:00-04:00');
+    C('mc24','2026-07-20T19:06:00-04:00');
+    // en curso ahora (timers reales captura 22 jul ~8PM)
+    E('cw25'); E('hq26'); E('sh25');
+    state.builders=[
+      {id:1,taskId:'cw25',end:'2026-07-29T11:00:00-04:00'}, // natural; PLAN: quemar ~27h (25h Constr + ~2h Univ) el MAR 28 AM -> cierra martes + ~135K pts VS
+      {id:2,taskId:'hq26',end:'2026-07-28T18:49:00-04:00'}, // cierra MARTES solo, sin speedups
+      {id:3,taskId:'sh25',end:'2026-07-29T02:08:00-04:00'}]; // holgura, cero speedups
+    // costos confirmados con capturas in-game 22 jul
+    const R=(id,food,z)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.food=food; t.z=z; t.pr=false;}};
+    R('lab26',409.38,81.90); R('ac25',167.74,21.80);
+    R('as26',76.16,45.70); R('sh26',76.16,45.70); R('rc26',76.16,45.70);
+    state.res.food=330.4; state.res.wood=380.1; state.res.zents=205.9;
+    state.res.updated='2026-07-22T20:00:00-04:00';
+    // Plan mar 28 noche: arranque TRIPLE al cerrar HQ26 -> lab26 + cw26 + sh26 (zent ya cubre los 3: 187M).
+    // ~9 ago: hq27 + as26 + rc26. ~21 ago: 3 camps en 26. HQ27 ~28 ago (jalar con Univ). T9 ~8-14 sep.
+    // Fillers builder libre: Villa 20->21 (23.6 F/W + 4.7 Z, +2% constr) luego Bookstore 22->23 (19.2 F/W, 0 Z).
+    state.seedV=55;
+  }
+  // ===== SEED v56: PLAN ALL-IN oficial (recorte ~2 semanas, meta stretch 3) =====
+  if(!state.seedV || state.seedV<56){
+    state.planT9 = {
+      nombre:'ALL-IN v56 (22 jul)',
+      regla:'Toda la reserva Universal+Constr va a tramos SERIALES 1:1 (HQ27 y Shooter 26->27). El tramo paralelo Lab26+Walls26 NO recibe speedups (2:1, mala compra).',
+      hitos:[
+        {q:'Dia triple: Walls25 (quemar ~27h AM) + HQ26 cierra 6:49PM + arranque Lab26/Walls26; Shooter25 cierra mie 2AM -> sh26 arranca mie AM', f:'2026-07-28'},
+        {q:'Cierran Lab26+Walls26+Sh26 -> ARRANCA HQ27 (+as26+rc26 en builders 2-3)', f:'2026-08-09'},
+        {q:'3 camps en 26 -> fillers Villa 20-21 (+2% constr) y Bookstore', f:'2026-08-21'},
+        {q:'HQ 27 LISTO (quemar ~120h Universal)', f:'2026-08-25'},
+        {q:'T9 DESBLOQUEADO via Shooter 26->27 (quemar ~120h restantes)', f:'2026-08-29 a 09-01'}
+      ],
+      stretch3sem:'T9 ~22-25 ago SOLO si se acumulan +150-250h extra de speedups en agosto (cofres VS martes, bounties, eventos). Revisar el 20 ago: si el pote extra >100h, quemar tambien en paralelo final.',
+      zentCritico:'Pagos: 187M mar 28 jul (OK) -> +210M para el 9 ago (HQ27 119 + as26/rc26 91.4) -> +57.4M para ~25 ago (sh27). Ritmo minimo: 17-18M/dia. ESTE es el riesgo del plan.',
+      postT9:'Assaulter/Rider 26->27 a ritmo natural (~med sep), reserva quedara en 0.'
+    };
+    state.seedV=56;
+  }
+  // ===== SEED v57: T9 ARRANCADO — estado real 28 jul (HQ ya en 26, Lab26+Walls26 corriendo) =====
+  if(!state.seedV || state.seedV<57){
+    const C=(id,doneAt)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.status='completado'; t.doneAt=doneAt;}};
+    const E=(id)=>{const t=state.tasks.find(x=>x.id===id); if(t)t.status='encurso';};
+    const P=(id)=>{const t=state.tasks.find(x=>x.id===id); if(t)t.status='pendiente';};
+    // HQ 26 cerrado (antes de lo previsto), Walls25 y Shooter25 cerrados
+    C('hq26','2026-07-28T12:00:00-04:00');
+    C('cw25','2026-07-28T09:00:00-04:00');
+    C('sh25','2026-07-28T02:00:00-04:00');
+    // AHORA corriendo: Lab26 + Walls26 (los 2 prereq de HQ27). 3er builder: filler Formation I -> luego Shooter26
+    E('lab26'); E('cw26');
+    P('sh26'); P('hq27'); P('as26'); P('rc26');
+    state.builders=[
+      {id:1,taskId:'lab26',end:'2026-08-09T00:00:00-04:00'},   // Lab 25->26, prereq HQ27
+      {id:2,taskId:'cw26',end:'2026-08-09T00:00:00-04:00'},    // Walls 25->26, prereq HQ27
+      {id:3,taskId:'filler',end:null}];                         // Formation I (~17h) -> luego Villa o Shooter26
+    // Costo HQ 26->27 CONFIRMADO in-game: 606.45 F/W / 119.0 zent (tabla KOKP clavada)
+    const R=(id,food,z)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.food=food; t.z=z; t.pr=false;}};
+    R('hq27',606.45,119.0);
+    // Recursos ABIERTOS post-pago Lab26+Walls26 (28 jul): F 70.6 / W 107.8 / Z 89.9 / E 1.0G
+    // Cofres (reserva emergencia, NO cuentan): zent 577M en items
+    state.res.food=70.6; state.res.wood=107.8; state.res.zents=89.9;
+    state.res.updated='2026-07-28T22:00:00-04:00';
+    // Speedups: Universal 283h (11d19h) INTACTO / Constr 5h / Research 10d / Training 13.5d / Healing 2d5h
+    state.reserva = {universal_h:283, construction_h:5, nota:'Universal intacto para HQ27. Al arrancar HQ27 (~9 ago) jala de 19d a ~7d -> HQ27 ~18 ago, T9 ~2 sep.'};
+    // PROX PASO (T9 = prioridad #1): al cerrar Formation I (~17h), meter SHOOTER 25->26.
+    // Adelanta T9: Shooter llega a 26 antes -> cuando HQ27 cierre (~18 ago) salta directo a 26->27 sin ventana de espera.
+    // Zent: 89.9-45.7=44.2M abierto; HQ27 (119M) arranca ~9 ago -> ~7M/dia para recolectar, ES alcanzable. HQ nunca en riesgo.
+    // Villa/filler barato SOLO si el zent amenazara el pago de HQ27 (no es el caso). Proteger recursos NO es #1; T9 lo es.
+    // ALERTA: invasores [STAX] y [PPAS] en estado #722. NAP protege lun-jue. Sabado SvS: pelear en zona Capital/Turret (bajas a hospital, no muerte).
+    state.planT9.hitos = [
+      {q:'HQ 26 cerrado. Lab26+Walls26 CORRIENDO (prereq HQ27). 3er builder filler.', f:'2026-07-28'},
+      {q:'Cierran Lab26+Walls26 -> ARRANCA HQ27 + Shooter26/Assaulter26/Rider26 en builders libres', f:'2026-08-09'},
+      {q:'HQ 27 LISTO (quemar 283h Universal, jala de 19d a ~7d)', f:'2026-08-18'},
+      {q:'3 camps en 26 (Shooter primero)', f:'2026-08-21'},
+      {q:'T9 DESBLOQUEADO via Shooter 26->27', f:'2026-09-02'}
+    ];
+    state.seedV=57;
+  }
+  // ===== SEED v58: RUTA T10 (30 jul) — tiempos APEX HQ28-30 + Lab30 [EST] + banco de badges =====
+  // Fuentes: chart APEX (tiempos base HQ 1-30, validado: HQ27 64d×0.3261=20.9d ✓ cuadra plan v57)
+  //          lastzwiki.com (árbol UST nodo a nodo: 1,488,270 badges, verificado vs DWD 1,488,100)
+  //          popup in-game: UST requiere SOLO Lab 30 (Field Research NO es prerequisito)
+  if(!state.seedV || state.seedV<58){
+    const T=(id,time,est)=>{const t=state.tasks.find(x=>x.id===id); if(t){t.time=time; if(est)t.est=true;}};
+    // CONFIRMADOS (APEX base × factor 0.3261):
+    T('hq28','27d 02:00:00'); T('hq29','34d 21:00:00'); T('hq30','45d 15:00:00');
+    // ESTIMADOS [EST] por progresión (ratio 1.299/nivel; anclas reales: Lab27 47.9d, Lab29 80.8d, AC26 24.5d):
+    T('lab28','62d 05:00:00',true); T('as28','62d 05:00:00',true); T('sh28','62d 05:00:00',true);
+    T('sh29','80d 20:00:00',true);
+    T('ac25','18d 21:00:00',true); T('ac27','31d 19:00:00',true);
+    T('sh26','34d 08:00:00',true); T('as26','34d 08:00:00',true); T('rc26','34d 08:00:00',true);
+    T('rc27','47d 21:00:00',true);
+    // BANCO DE BADGES — T10 se paga en badges (árbol UST), no solo en zent:
+    //   meta 1,488,270 · balance 0 (30 jul) · ingreso F2P 200-262K/mes → banco lleno ~feb-mar 2027
+    //   Regla: TODO badge entrante al banco. AR cerrado (multiplicadores hasta Super rewards ✓, Event King NO).
+    //   Urgent Rescue: pendiente popup del nodo final Peace Shield (máx ~85K; NO retrasa T10 — badges no son el limitante).
+    state.badges = {banco:0, meta:1488270, ingresoMesK:'200-262', updated:'2026-07-30',
+      regla:'Banco intacto hasta que Lab 30 abra el UST. Los badges llegan ANTES que el Lab: gastar en UR/AR baratos no mueve la fecha T10.'};
+    // LIMITANTE REAL DE T10 = TIEMPO DE BUILDER (no zent, no badges):
+    //   Camino natural: gate HQ28 ~1 nov (AC27 es el más lento) → HQ28 ~28 nov → HQ29 ~4 mar → HQ30 ~7 jul → Lab30 ~20 oct 2027
+    //   Comprimible: 213 días seriales 1:1 (HQ28+29+30+Lab30). Cada 24h de speedup = 1 día menos de T10.
+    //   Zent post-T9: 1,785M total; cofres (583.7M) cubren HQ28+29+30 (656.1M); abiertos ~1,129M en ~13 meses = ~2.9M/día → holgado.
+    state.planT9.hitos = [
+      {q:'HQ 26 cerrado. Lab26+Walls26 CORRIENDO (prereq HQ27). 3er builder filler.', f:'2026-07-28'},
+      {q:'Cierran Lab26+Walls26 -> ARRANCA HQ27 + Shooter26/Assaulter26/Rider26 en builders libres', f:'2026-08-09'},
+      {q:'HQ 27 LISTO (quemar Universal, 1:1) -> arrancan Lab 27 (B2) y AC 24->25 (B3)', f:'2026-08-18'},
+      {q:'T9 DESBLOQUEADO via Shooter 26->27. Builders libres -> Assaulter 26->27 + Rider 26->27', f:'2026-09-02'},
+      {q:'Lab 27 cierra (empujar a mar 6 oct, dia VS)', f:'2026-10-06'},
+      {q:'Camps 27 completos (regla: 3 camps a 27 antes de HQ 28)', f:'2026-10-19'},
+      {q:'AC 27 cierra (tramo mas lento del gate) -> ARRANCA HQ 28', f:'2026-11-01'},
+      {q:'HQ 28 (27d natural; quemar reserva -> cuadrar a martes/viernes)', f:'2026-11-28'},
+      {q:'Lab 28 + Assaulter 28 + Shooter 28 (paralelo, NO acelerar 2:1) -> HQ 29', f:'2027-01-29'},
+      {q:'HQ 29 (34.9d natural, quemar reserva)', f:'2027-03-04'},
+      {q:'~Banco de badges LLENO (1.49M) — llega antes que el Lab, esperar', f:'2027-03-01'},
+      {q:'Lab 29 + Shooter 29 (paralelo) -> HQ 30', f:'2027-05-23'},
+      {q:'HQ 30 (45.7d natural, quemar reserva)', f:'2027-07-07'},
+      {q:'LAB 30 [EST 105d] -> abre UST -> pagar 1,488,270 del banco -> T10', f:'2027-10-20'}
+    ];
+    state.seedV=58;
+  }
+  // ===== SEED v59: simulador con speedups (30 jul) — el motor ahora quema la reserva en tramos SERIALES =====
+  // Antes: proyección a ritmo natural puro → decía "T9 24 sept, 22d atrasado" contradiciendo el plan.
+  // Ahora: pool = Universal+Construction en mano + acumulación VS (accrualHdia, default 8h/día ≈ 250h/mes),
+  //        quemado 1:1 SOLO en seriales (HQ, Shooter/Assaulter 26→27, Lab 30), tope 70% por tramo.
+  //        Paralelos (Lab+Walls estilo) NUNCA se aceleran (2:1) — igual que la regla de siempre.
+  if(!state.seedV || state.seedV<59){
+    if(!state.reserva) state.reserva={universal_h:0,construction_h:0};
+    if(state.reserva.accrualHdia==null) state.reserva.accrualHdia=8;
+    state.reserva.nota=(state.reserva.nota||'')+' · v59: la proyección YA descuenta esta reserva en HQ27/sh27/HQs/Lab30 (tope 70%/tramo). Si el ritmo VS real difiere de 8h/día, ajustar accrualHdia.';
+    state.seedV=59;
+  }
+  // ===== SEED v60: reglas de eficiencia (30 jul) — mapeo tropa-nodo UST, excedente badges, reserva Research, checklist serial =====
+  if(!state.seedV || state.seedV<60){
+    if(state.reserva) state.reserva.nota=(state.reserva.nota||'')+' · v60: Research speedups = reserva UST (miercoles VS Ciencia). Checklist arranque serial: titulo gobierno + ayudas completas + martes VS/Full Prep.';
+    state.seedV=60;
+  }
+  // ===== SEED v61: sh27 con tiempo real (47.9d, igual que as27) — era invisible al simulador y es EL tramo T9.
+  //       Meta T9 recalibrada: mar 22 sep (VS). Plan original 2 sep obsoleto (camp 26->27 real = 47.9d). =====
+  if(!state.seedV || state.seedV<61){
+    const t=state.tasks.find(x=>x.id==='sh27'); if(t&&!t.time){t.time='47d 21:00:00'; t.t9=true;}
+    state.seedV=61;
+  }
+  // ===== SEED v62: FIX lab30 — el nombre 'Laboratory (→T10)' creaba un segundo edificio Laboratory
+  //       suelto (sin cadena con Lab 29 y sin serializar en el mismo builder). Ahora b:'Laboratory'. =====
+  if(!state.seedV || state.seedV<62){
+    const t=state.tasks.find(x=>x.id==='lab30'); if(t) t.b='Laboratory';
+    state.seedV=62;
+  }
+  // ===== SEED v63: FIX DE UNIDADES — los tiempos se guardan en BASE (el sim multiplica ×factor).
+  //       v58 guardó HQ28/29/30 ya multiplicados → el Gantt los mostraba ~3× más cortos.
+  //       Corregido a base APEX: 83d/107d/140d. Consecuencias: T9 meta vuelve a mar 1 sep (camp 26→27
+  //       = 15.6d reales) y Lab 30 natural ~22 mar 2027 → BANCO DE BADGES CONVERGE con Lab 30: co-limitante. =====
+  if(!state.seedV || state.seedV<63){
+    const T=(id,time)=>{const t=state.tasks.find(x=>x.id===id); if(t) t.time=time;};
+    T('hq28','83d 00:00:00'); T('hq29','107d 00:00:00'); T('hq30','140d 00:00:00');
+    state.planT9.hitos = [
+      {q:'HQ 26 cerrado. Lab26+Walls26 corriendo. Shooter 25→26 en builder 3.', f:'2026-07-28'},
+      {q:'Cierran Lab26+Walls26 → ARRANCA HQ27 (quemar 305h Universal, 1:1) + Assaulter/Rider 25→26', f:'2026-08-09'},
+      {q:'HQ 27 LISTO → arrancan Shooter 26→27 (tramo T9, serial, recibe pool) + Lab 27 + AC 24→25', f:'2026-08-18'},
+      {q:'★ T9 DESBLOQUEADO vía Shooter 27 (15.6d reales − pool) — meta martes VS', f:'2026-09-01'},
+      {q:'Lab 27 ✓ · AC 27 ✓ (~12 sep) · Assaulter+Rider 27 (~17 sep) → GATE HQ 28 completo', f:'2026-09-17'},
+      {q:'HQ 28 (27.1d natural − pool → cuadrar a martes VS)', f:'2026-10-14'},
+      {q:'Lab 28 + Assaulter 28 + Shooter 28 en paralelo (NO acelerar, 2:1)', f:'2026-11-03'},
+      {q:'HQ 29 (34.9d natural − pool)', f:'2026-12-07'},
+      {q:'Lab 29 + Shooter 29 en paralelo', f:'2027-01-02'},
+      {q:'HQ 30 (45.7d natural − pool)', f:'2027-02-16'},
+      {q:'🏦 Banco de badges LLENO (~1.49M) — CONVERGE con Lab 30: si no está lleno, T10 se retrasa', f:'2027-02-28'},
+      {q:'LAB 30 [EST 34.2d reales] → abre UST → pagar del banco (orden: Assaulter primero) → ★ T10', f:'2027-03-22'}
+    ];
+    state.seedV=63;
+  }
+  document.getElementById('syncstate').textContent = CLOUD?'Guardado en la nube':'Guardado en este dispositivo';
+  renderAll();
+}
+let saveTimer=null;
+function persist(){
+  document.getElementById('syncstate').textContent='Guardando…';
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(async ()=>{
+    try{ await stSet(KEY, JSON.stringify(state));
+      document.getElementById('syncstate').textContent = CLOUD?'Guardado en la nube':'Guardado en este dispositivo';
+    }catch(e){ document.getElementById('syncstate').textContent='⚠ Error al guardar'; }
+  },500);
+}
+function setStatus(id,s){ const t=state?state.tasks.find(x=>x.id===id):DEFAULT_TASKS.find(x=>x.id===id); if(t)t.status=s; }
+
+/* ================= HELPERS ================= */
+const fmtM = v => v==null?'Pend.':(v>=1000?(v/1000).toFixed(1).replace('.0','')+'G':v+'M');
+function parseBase(str){ // "26d 09:28:36" -> segundos
+  if(!str) return null;
+  const m=str.match(/(?:(\d+)d)?\s*(\d{1,2}):(\d{2}):(\d{2})/);
+  if(!m) return null;
+  return (+(m[1]||0))*86400+(+m[2])*3600+(+m[3])*60+(+m[4]);
+}
+function fmtDur(sec){
+  const d=Math.floor(sec/86400),h=Math.floor(sec%86400/3600),mi=Math.floor(sec%3600/60);
+  return (d?d+'d ':'')+h+'h '+mi+'m';
+}
+function task(id){ return state.tasks.find(t=>t.id===id); }
+function nextTuesday(){
+  const n=new Date(); const d=new Date(n);
+  d.setDate(n.getDate()+((9-n.getDay())%7||7)); d.setHours(0,0,0,0); return d;
+}
+
+/* ================= RENDER ROADMAP ================= */
+function renderAll(){ ensureRes(); renderFlag(); renderSimpleRoad(); renderT9Meter(); renderRoad(); renderBuilders(); renderStats(); renderGantt(); renderRes(); renderGoals(); renderVeh(); renderTech();
+  document.getElementById('factorShow').textContent=state.factor;
+  const hqEl=document.getElementById('hqNow'); if(hqEl) hqEl.textContent=hqLevel(); }
+
+function renderSimpleRoad(){
+  const box=document.getElementById('simpleRoad'); if(!box) return;
+  ensureRes();
+  const lvl=hqLevel();
+  const nextHqId='hq'+(lvl+1);
+  const nextHq=task(nextHqId);
+  const busyNow=state.builders.filter(b=>b.taskId).map(b=>{const t=task(b.taskId); return t?t.b+' '+t.f+'→'+t.t:null;}).filter(Boolean);
+  let bodyHTML='';
+  if(!nextHq){
+    bodyHTML=`<div style="font-size:15px">🏆 ¡Meta final alcanzada! HQ ${lvl}.</div>`;
+  } else if(nextHq.status==='encurso'){
+    bodyHTML=`<div style="font-size:14px">Estás construyendo <b>HQ ${lvl}→${lvl+1}</b> ahora mismo.</div>`;
+  } else {
+    const preIds=(HQ_PREREQ[nextHqId]||[]);
+    const preDone=preIds.filter(id=>done(id));
+    const prePend=preIds.filter(id=>!done(id)).map(id=>{const t=task(id); return t.b+' '+t.f+'→'+t.t;});
+    const d=deficitNow(nextHq);
+    bodyHTML=`<div style="font-size:14px;margin-bottom:6px">Estás en <b>HQ ${lvl}</b>. La meta inmediata es <b style="color:var(--yellow)">HQ ${lvl}→${lvl+1}</b>.</div>
+      <div style="font-size:13px;color:var(--dim);margin-bottom:4px">Antes de poder iniciarlo necesitas: ${preIds.length? preIds.map(id=>{const t=task(id); return (done(id)?'✅ ':'⏳ ')+t.b+' '+t.f+'→'+t.t;}).join(' · ') : 'nada más, ya puede iniciar'}</div>
+      <div style="font-size:13px;color:${d.ok?'var(--green)':'var(--orange)'}">Costo: F/W ${fmtM(nextHq.food)} · Z ${fmtM(nextHq.z)} — ${d.ok?'✓ ya tienes los abiertos para pagarlo':'con lo que tienes hoy faltan '+(d.needF>0?fmtM(Math.ceil(d.needF))+' F/W':'')+(d.needF>0&&d.needZ>0?' + ':'')+(d.needZ>0?fmtM(Math.ceil(d.needZ))+' Z':'')}</div>`;
+  }
+  box.innerHTML=`<div class="freebld" style="border-color:var(--yellow);margin-bottom:14px">
+    <h3 style="color:var(--yellow)">📍 Dónde estás parado</h3>
+    ${bodyHTML}
+    <div style="font-size:12px;color:var(--dim);margin-top:8px">Builders ahora mismo: ${busyNow.length?busyNow.join(' · '):'todos libres'}</div>
+  </div>`;
+}
+function renderRoad(){
+  const box=document.getElementById('phases'); box.innerHTML='';
+  const phases=[24,25,26,27,28,29];
+  const curPhase = Math.min(Math.max(hqLevel(),24),29);
+  phases.forEach(p=>{
+    const info=PHASE_TITLE[p];
+    const div=document.createElement('div');
+    div.className='phase'+(p===27?' hito':'')+(p===curPhase?' actual':'');
+    let tags='';
+    if(p===curPhase) tags+='<span class="tag aqui">Estás aquí</span>';
+    if(p===27) tags+='<span class="tag t9tag">★ Hito T9</span>';
+    const head = p===curPhase ? 'AHORA · HQ '+p : (p<curPhase ? 'HQ '+p+' ✓ · restos' : 'CUANDO HQ = '+p);
+    div.innerHTML=`<div class="phead"><h3>${head}</h3><div>${tags}</div></div>
+      <div class="colnext">PARA INICIAR HQ ${info.next}:<br><b>${info.req.join(' + ')}</b></div>
+      <div class="tasks"></div>`;
+    const tk=div.querySelector('.tasks');
+    const tareas=state.tasks.filter(t=>t.ph===p);
+    // ajuste 6: en columna actual, separar REQ / PREP PRIORITARIO (walls) / PREP SECUNDARIO
+    const render=t=>{
+      const el=document.createElement('div');
+      const isReq=REQ_IDS.has(t.id);
+      el.className=`task b-${t.k}${t.t9?' t9':''}${t.pr?' pr':''}${t.status==='completado'?' done':''}${t.status==='encurso'?' active':''}${isReq?' reqhq':''}`;
+      const bIdx = state.builders.findIndex(b=>b.taskId===t.id);
+      el.innerHTML=`<div style="margin-bottom:3px">${labelHTML(t)}</div>
+        <div class="tt"><span>${t.b}</span><span>${t.f} → ${t.t}</span></div>
+        <div class="cc">${resHTML(t)}</div>
+        <div class="tm">${timeHTML(t)}</div>
+        ${bIdx>=0?'<span class="chip bld">B'+(bIdx+1)+'</span>':''}`;
+      el.onclick=()=>openModal(t.id);
+      tk.appendChild(el);
+    };
+    if(p===24){
+      const req=tareas.filter(t=>t.k==='hq');
+      const walls=tareas.filter(t=>t.k==='walls');
+      const otros=tareas.filter(t=>t.k!=='hq'&&t.k!=='walls');
+      if(req.length){ tk.insertAdjacentHTML('beforeend','<div class="subsec">REQ HQ '+info.next+'</div>'); req.forEach(render); }
+      if(walls.length){ tk.insertAdjacentHTML('beforeend','<div class="subsec">PREP prioritario · cuello de botella</div>'); walls.forEach(render); }
+      if(otros.length){ tk.insertAdjacentHTML('beforeend','<div class="subsec prep">PREP secundario</div>'); otros.forEach(render); }
+    } else {
+      // resto: REQ primero, luego PREP
+      const reqs=tareas.filter(t=>REQ_IDS.has(t.id)||t.k==='hq');
+      const preps=tareas.filter(t=>!REQ_IDS.has(t.id)&&t.k!=='hq');
+      if(reqs.length){ tk.insertAdjacentHTML('beforeend','<div class="subsec">REQ HQ '+info.next+'</div>'); reqs.forEach(render); }
+      if(preps.length){ tk.insertAdjacentHTML('beforeend','<div class="subsec prep">PREP / adelanto</div>'); preps.forEach(render); }
+    }
+    box.appendChild(div);
+  });
+}
+function renderStats(){
+  const done=state.tasks.filter(t=>t.status==='completado').length;
+  const pr=state.tasks.filter(t=>t.pr && t.status!=='completado').length;
+  const cur = hqLevel();
+  document.getElementById('stFase').textContent = cur>=30?'¡HQ 30 logrado!':'HQ '+cur;
+  document.getElementById('stDone').textContent = done+' / '+state.tasks.length;
+  document.getElementById('stPR').textContent = pr;
+}
+
+/* ================= MODAL ================= */
+let editId=null;
+function openModal(id){
+  editId=id; const t=task(id);
+  document.getElementById('mTitle').textContent=`${t.b} ${t.f}→${t.t}`;
+  document.getElementById('mFood').value=t.food??'';
+  document.getElementById('mZents').value=t.z??'';
+  document.getElementById('mTime').value=t.time??'';
+  document.getElementById('mPR').checked=!!t.pr;
+  document.querySelectorAll('#mStatus button').forEach(b=>{
+    b.classList.toggle('sel', b.dataset.s===t.status);
+    b.onclick=()=>{document.querySelectorAll('#mStatus button').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');};
+  });
+  document.getElementById('modal').classList.add('on');
+}
+function closeModal(){document.getElementById('modal').classList.remove('on');}
+function saveModal(){
+  const t=task(editId);
+  const f=document.getElementById('mFood').value, z=document.getElementById('mZents').value;
+  t.food=f===''?null:+f; t.z=z===''?null:+z;
+  const tm=document.getElementById('mTime').value.trim(); t.time=tm||null;
+  t.pr=document.getElementById('mPR').checked;
+  const sel=document.querySelector('#mStatus button.sel'); if(sel) t.status=sel.dataset.s;
+  if(t.status==='completado'&&!t.doneAt) t.doneAt=new Date().toISOString();
+  if(t.status==='completado'){ // libera builder si lo tenía
+    state.builders.forEach(b=>{ if(b.taskId===t.id){b.taskId=null;b.end=null;} });
+  }
+  closeModal(); persist(); renderAll();
+}
+
+/* ================= MOTOR DE PRIORIDADES ================= */
+const HQ_PREREQ = {hq25:[], hq26:['lab25','rc25'], hq27:['lab26','cw26'],
+                   hq28:['lab27','ac27'], hq29:['lab28','as28'], hq30:['lab29','sh29']};
+// Retención estratégica de Miguel (no es requisito del juego, es decisión de build order):
+// después de HQ 27 quiere los 3 camps de tropa en nivel 27 (Assaulter/Shooter/Rider) para
+// poder entrenar TODAS las tropas T9, antes de seguir a HQ 28.
+const MIGUEL_HOLD = {hq28:['as27','sh27','rc27']};
+const PRIO = {hq:0, lab:1, walls:2, ac:3, camp:3, hosp:3};
+function done(id){ const t=task(id); return t && t.status==='completado'; }
+function hqLevel(){ let l=24; ['hq25','hq26','hq27','hq28','hq29','hq30'].forEach(id=>{ if(done(id)) l=task(id).t; }); return l; }
+function busy(t){ return t.status==='encurso' || state.builders.some(b=>b.taskId===t.id); }
+function buildingBusy(t){ return state.tasks.some(x=>x.b===t.b && x.id!==t.id && busy(x)); }
+function legal(t){
+  if(t.status==='completado' || busy(t) || buildingBusy(t)) return {ok:false};
+  if(t.k==='hq'){
+    const prevHQ = {hq25:null,hq26:'hq25',hq27:'hq26',hq28:'hq27',hq29:'hq28',hq30:'hq29'}[t.id];
+    if(prevHQ && !done(prevHQ)) return {ok:false};
+    const falta = [...(HQ_PREREQ[t.id]||[]), ...(MIGUEL_HOLD[t.id]||[])].filter(p=>!done(p));
+    if(falta.length) return {ok:false, wait:'espera '+falta.map(p=>task(p)?task(p).b+' '+task(p).t:p).join(' + ')};
+    return {ok:true};
+  }
+  // regla: ningún edificio supera al HQ
+  if(t.t > hqLevel()) return {ok:false, wait:'espera HQ '+t.t};
+  // secuencia del mismo edificio: nivel anterior debe estar hecho
+  const prev = state.tasks.find(x=>x.b===t.b && x.t===t.f);
+  if(prev && prev.status!=='completado') return {ok:false};
+  return {ok:true};
+}
+function queue(){
+  const cand = state.tasks
+    .filter(t=>t.status!=='completado' && !busy(t))
+    .map(t=>({t, chk:legal(t)}))
+    .filter(c=>c.chk.ok);
+  const criticos = cand.filter(c=>!isFiller(c.t))
+    .sort((a,b)=> (REQ_IDS.has(b.t.id)?1:0)-(REQ_IDS.has(a.t.id)?1:0) || PRIO[a.t.k]-PRIO[b.t.k] || a.t.ph-b.t.ph || a.t.t-b.t.t);
+  const relleno = cand.filter(c=>isFiller(c.t))
+    .sort((a,b)=> fillerRank(a.t)-fillerRank(b.t) || a.t.ph-b.t.ph || a.t.t-b.t.t);
+  const listos = criticos.length? criticos.slice(0,3) : relleno.slice(0,3);
+  const esRelleno = !criticos.length && relleno.length>0;
+  const bloqueados = state.tasks.filter(t=>t.status!=='completado' && !busy(t))
+    .map(t=>({t, chk:legal(t)})).filter(c=>!c.chk.ok && c.chk.wait).slice(0,2);
+  return {listos, esRelleno, relleno, bloqueados};
+}
+function renderNext(){
+  const box=document.getElementById('nextBox'); if(!box) return;
+  ensureRes();
+  const q=queue();
+  let html=`<h3>🎯 Cuando se libere un builder, asignar en este orden (HQ actual: ${hqLevel()})</h3>`;
+  if(!q.listos.length) html+=`<div class="nq"><span class="pos">—</span> Nada disponible: todo al tope del HQ o en curso. Buen momento para speedups al HQ (martes).</div>`;
+  if(q.esRelleno && q.listos.length){
+    html+=`<div style="font-size:11.5px;color:var(--orange);margin-bottom:4px">🔧 Sin tarea de camino crítico ahora mismo — relleno productivo hacia T9 (Assaulter/Shooter primero) para no dejar el builder idle. En cuanto HQ/Lab/Walls se vuelvan legales, el motor los prioriza automáticamente sobre esto.</div>`;
+  }
+  q.listos.forEach((c,i)=>{
+    const d=deficitNow(c.t);
+    const razon = c.t.k==='hq'?'camino crítico':c.t.k==='lab'?'requisito HQ '+(c.t.t+1):c.t.k==='walls'?'cuello de botella HQ27':REQ_IDS.has(c.t.id)?'requisito de HQ':c.t.t9?'★ objetivo T9':(c.t.b==='Assaulter Camp'?'relleno · adelanta T9':c.t.b==='Shooter Camp'?'relleno · tropas T9':'relleno productivo');
+    html+=`<div class="nq"><span class="pos">${i+1}</span> <b>${c.t.b} ${c.t.f}→${c.t.t}</b>
+      <span style="color:var(--dim)">F/W ${fmtM(c.t.food)} · Z ${fmtM(c.t.z)}</span>
+      <span style="font-size:11px;color:${d.ok?'var(--green)':'var(--red)'}">${d.ok?'✓ pagable ya':'⚠ faltan '+(d.needF>0?fmtM(Math.ceil(d.needF))+' F/W':'')+(d.needF>0&&d.needZ>0?' + ':'')+(d.needZ>0?fmtM(Math.ceil(d.needZ))+' Z':'')}</span>
+      <span class="why">${razon}</span></div>`;
+  });
+  if(q.esRelleno && q.listos.length){
+    const escaso = recursoEscaso();
+    if(escaso && q.relleno.length>1){
+      const top = q.listos[0].t;
+      const key = escaso==='zent' ? (t=>t.z||0) : (t=>t.food||0);
+      const masBarato = [...q.relleno].sort((a,b)=>key(a.t)-key(b.t))[0].t;
+      // T9 ES PRIORIDAD #1. Solo desviarse al filler barato si el pago del PRÓXIMO HQ está REALMENTE en riesgo:
+      // es decir, si tomar 'top' dejaría abierto insuficiente Y no da tiempo de recolectar el déficit antes del pago.
+      const riesgo = hqEnRiesgo(top, escaso);
+      if(masBarato.id!==top.id && riesgo.enRiesgo){
+        const ahorro = key(top)-key(masBarato);
+        html+=`<div style="font-size:11.5px;color:var(--red);margin-top:6px;padding:6px 8px;background:rgba(211,79,79,.08);border-left:3px solid var(--red);border-radius:4px">
+          ⚠ <b>Excepción — el pago de ${riesgo.hq} (${riesgo.fecha}) está en riesgo real:</b> tomar ${top.b} ahora te deja ${fmtM(riesgo.faltaTrasTop)} de ${escaso==='zent'?'Z':'F/W'} corto, y a ~${fmtM(riesgo.ritmoNec)}/día NO da tiempo de recolectar antes del pago. Solo AQUÍ conviene el filler barato ${masBarato.b} ${masBarato.f}→${masBarato.t} (${fmtM(ahorro)} menos de ${escaso==='zent'?'Z':'F/W'}) para no atrasar el HQ, que es la columna de T9.</div>`;
+      } else if(masBarato.id!==top.id){
+        html+=`<div style="font-size:11.5px;color:var(--green);margin-top:6px;padding:6px 8px;background:rgba(74,158,74,.08);border-left:3px solid var(--green);border-radius:4px">
+          🎯 <b>Ve con ${top.b} ${top.f}→${top.t} — es lo más rápido hacia T9.</b> Aunque cueste ${escaso==='zent'?'zent':'F/W'}, hay tiempo de recolectar el próximo pago de HQ antes de que toque. Proteger recursos solo pasa a ser prioridad si el HQ quedara en riesgo, y no lo está.</div>`;
+      }
+    }
+    html+=`<div style="font-size:11px;color:var(--dim);margin-top:6px">💡 Si por alguna razón este builder quedara idle, es buen lugar para speedups sobrantes (Training/Research/Healing, o Universal si sobra) sin atrasar el camino crítico.</div>`;
+  }
+  q.bloqueados.forEach(c=>{
+    html+=`<div class="nq blocked"><span class="pos">⏸</span> ${c.t.b} ${c.t.f}→${c.t.t}
+      <span class="why">${c.chk.wait}</span></div>`;
+
+  });
+  box.innerHTML=html;
+}
+
+function hoverPre(el){
+  el.classList.add('hq-hi');
+  const pre=(el.dataset.pre||'').split(',').filter(Boolean);
+  pre.forEach(id=>{ const b=document.querySelector(`.gbar[data-tid="${id}"]`); if(b) b.classList.add('pre-hi'); });
+}
+function clearPre(){
+  document.querySelectorAll('.gbar.pre-hi').forEach(b=>b.classList.remove('pre-hi'));
+  document.querySelectorAll('.gbar.hq-hi').forEach(b=>b.classList.remove('hq-hi'));
+}
+/* ================= SIMULADOR + GANTT ================= */
+// bases interpoladas (días) para tareas sin tiempo confirmado
+const EST_BASE = {hq26:49, hq27:64, hq28:80, hq29:100, hq30:125,
+  lab26:35, lab28:62, cw23:17, cw24:20, cw25:27.5, cw26:36.5,
+  ac25:17, ac27:30, as26:35, sh26:35, sh27:47.9, as28:62, sh28:62, sh29:80,
+  rc26:35, rc27:47.9};
+function baseDays(t){
+  if(t.time){ const s=parseBase(t.time); if(s) return s/86400; }
+  return EST_BASE[t.id] ?? null;
+}
+function simulate(){
+  const now=Date.now(), F=state.factor;
+  const comp={}, sched={}, bldFree={};
+  state.tasks.forEach(t=>{ if(t.status==='completado') comp[t.id]=now-1; });
+  let free=[now,now,now];
+  state.builders.forEach((b,i)=>{
+    if(b.taskId&&b.end){ const t=task(b.taskId), e=new Date(b.end).getTime();
+      sched[t.id]={start:now,end:e,run:true,est:false}; comp[t.id]=e; bldFree[t.b]=e; free[i]=e; }
+  });
+  const doneAt=(id,tm)=>comp[id]!=null&&comp[id]<=tm;
+  const hqAt=tm=>{ let l=24; ['hq25','hq26','hq27','hq28','hq29','hq30'].forEach(id=>{ if(doneAt(id,tm)) l=task(id).t; }); return l; };
+  const PREV_HQ={hq25:null,hq26:'hq25',hq27:'hq26',hq28:'hq27',hq29:'hq28',hq30:'hq29'};
+  function legalAt(t,tm){
+    if(t.k==='hq'){ if(PREV_HQ[t.id]&&!doneAt(PREV_HQ[t.id],tm)) return false;
+      return [...(HQ_PREREQ[t.id]||[]), ...(MIGUEL_HOLD[t.id]||[])].every(p=>doneAt(p,tm)); }
+    if(t.t>hqAt(tm)) return false;
+    const prev=state.tasks.find(x=>x.b===t.b&&x.t===t.f);
+    if(prev&&!doneAt(prev.id,tm)) return false;
+    return true;
+  }
+  const pending=state.tasks.filter(t=>t.status!=='completado'&&!sched[t.id]&&baseDays(t)!=null);
+  // ===== v59: POOL DE SPEEDUPS (regla Miguel: seriales 1:1 SÍ, paralelos 2:1 NO) =====
+  // Objetivo serial = HQ + tramo final T9 (sh27/as27) + Lab30. Pool = reserva actual + acumulación VS (editable).
+  const rv=state.reserva||{}; 
+  const accrualHdia = rv.accrualHdia!=null?rv.accrualHdia:8; // ~250h/mes de VS/bounties
+  let poolH0 = (rv.universal_h||0)+(rv.construction_h||0);
+  let poolSpentH = 0;
+  const esSerial = t => t.k==='hq' || t.id==='sh27' || t.id==='as27' || t.t10===true || t.id==='lab30';
+  const poolAt = tm => Math.max(0, poolH0 + accrualHdia*((tm-now)/86400000) - poolSpentH);
+  let guard=0;
+  while(pending.length&&guard++<400){
+    let bi=0; for(let i=1;i<3;i++) if(free[i]<free[bi]) bi=i;
+    const tm=free[bi];
+    const cands=pending.filter(t=>legalAt(t,tm)&&(bldFree[t.b]==null||bldFree[t.b]<=tm))
+      .sort((a,b)=>(REQ_IDS.has(b.id)?1:0)-(REQ_IDS.has(a.id)?1:0)||PRIO[a.k]-PRIO[b.k]||fillerRank(a)-fillerRank(b)||a.ph-b.ph||a.t-b.t);
+    if(!cands.length){
+      const ev=[...Object.values(comp),...Object.values(bldFree)].filter(x=>x>tm);
+      if(!ev.length) break;
+      free[bi]=Math.min(...ev)+1; continue;
+    }
+    const t=cands[0]; let dur=baseDays(t)*F*86400000;
+    if(esSerial(t)){ // quemar pool 1:1 (tope 70% del tramo — nunca proyectar magia)
+      const durH=dur/3600000;
+      const save=Math.min(poolAt(tm)+accrualHdia*(dur/86400000)*0.5, durH*0.70);
+      if(save>0){ dur-=save*3600000; poolSpentH+=save; }
+    }
+    sched[t.id]={start:tm,end:tm+dur,est:!t.time,builderIdx:bi};
+    comp[t.id]=tm+dur; bldFree[t.b]=tm+dur;
+    free[bi]=tm+dur;
+    pending.splice(pending.indexOf(t),1);
+  }
+  reasignarPorContinuidad(sched);
+  return sched;
+}
+// Reasigna builderIdx SOLO para que la UI muestre continuidad realista (mismo builder sigue la misma
+// construcción cuando es posible) — no cambia ninguna fecha de inicio/fin, solo la etiqueta de qué builder.
+function reasignarPorContinuidad(sched){
+  const bBuilding=[null,null,null], bFreeAt=[0,0,0];
+  state.builders.forEach((b,i)=>{
+    if(b.taskId&&b.end){ bBuilding[i]=task(b.taskId)?task(b.taskId).b:null; bFreeAt[i]=new Date(b.end).getTime(); }
+  });
+  const futuras=Object.entries(sched).filter(([id,s])=>!s.run).map(([id,s])=>({id,...s}))
+    .sort((a,b)=>a.start-b.start);
+  // agrupar en "oleadas" (mismo instante, tolerancia 2s) para no dejar que el orden de
+  // procesamiento le robe la continuidad a una tarea que sí tenía builder dedicado disponible
+  let i=0;
+  while(i<futuras.length){
+    let j=i+1;
+    while(j<futuras.length && futuras[j].start-futuras[i].start<2000) j++;
+    const ola=futuras.slice(i,j);
+    const pendientes=[...ola];
+    // 1ª pasada: asignar dentro de la oleada las que SÍ tienen continuidad disponible
+    for(let k=pendientes.length-1;k>=0;k--){
+      const f=pendientes[k], t=task(f.id); if(!t) continue;
+      const disp=[0,1,2].filter(x=>bFreeAt[x]<=f.start+1000);
+      const cont=disp.find(x=>bBuilding[x]===t.b);
+      if(cont!=null){
+        sched[f.id].builderIdx=cont; bBuilding[cont]=t.b; bFreeAt[cont]=f.end;
+        pendientes.splice(k,1);
+      }
+    }
+    // 2ª pasada: el resto, por orden normal (más tiempo libre primero)
+    pendientes.forEach(f=>{
+      const t=task(f.id); if(!t) return;
+      const disp=[0,1,2].filter(x=>bFreeAt[x]<=f.start+1000);
+      const elegido = disp.length? disp.sort((a,b)=>bFreeAt[a]-bFreeAt[b])[0] : [0,1,2].sort((a,b)=>bFreeAt[a]-bFreeAt[b])[0];
+      sched[f.id].builderIdx=elegido; bBuilding[elegido]=t.b; bFreeAt[elegido]=f.end;
+    });
+    i=j;
+  }
+}
+function idleRow(sched,now,pct,gridHTML,laneW){
+  const segs=Object.values(sched).map(s=>({s:Math.max(s.start,now),e:s.end})).filter(x=>x.e>now);
+  if(!segs.length) return '';
+  const fin=Math.max(...segs.map(x=>x.e));
+  const evs=[...new Set([now,fin,...segs.flatMap(x=>[x.s,x.e])])].sort((a,b)=>a-b);
+  let bars='';
+  for(let i=0;i<evs.length-1;i++){
+    const a=evs[i], b=evs[i+1]; if(b-a<3600000) continue;
+    const ocupados=segs.filter(x=>x.s<b&&x.e>a).length;
+    const libres=3-ocupados;
+    if(libres>0){
+      bars+=`<div class="gbar" title="${libres} builder(s) sin tarea legal en la ruta: ${new Date(a).toLocaleDateString('es-PR',{day:'numeric',month:'short'})} → ${new Date(b).toLocaleDateString('es-PR',{day:'numeric',month:'short'})} — úsalos fuera de ruta o aplica speedups al HQ"
+        style="left:${pct(a)}%;width:${(pct(b)-pct(a)).toFixed(3)}%;background:repeating-linear-gradient(45deg,#3a2a2a 0 6px,#241a1a 6px 12px);color:var(--orange);font-size:9px;overflow:visible;white-space:nowrap">${libres} libre${libres>1?'s':''}</div>`;
+    }
+  }
+  if(!bars) return '';
+  return `<div class="grow"><div class="gnm" style="color:var(--orange)">⚠ Builders<br><span style="font-size:10px">sin tarea legal</span></div><div class="glane" style="min-width:${laneW}px">${gridHTML}${bars}</div></div>`;
+}
+function renderGantt(){
+  const box=document.getElementById('ganttBox'); if(!box) return;
+  const sched=simulate(), now=Date.now();
+  const fechas=Object.values(sched);
+  const dones=state.tasks.filter(t=>t.status==='completado'&&t.doneAt).map(t=>new Date(t.doneAt).getTime());
+  const min=Math.min(now-3*86400000, ...(dones.length?[Math.min(...dones)-2*86400000]:[]));
+  const max=fechas.length? Math.max(...fechas.map(s=>s.end))+5*86400000 : now+30*86400000;
+  const pct=x=>Math.max(0,Math.min(100,(x-min)/(max-min)*100));
+  const fD=x=>new Date(x).toLocaleDateString('es-PR',{day:'numeric',month:'short'});
+  // Semanas martes a martes (día de VS Building) en vez de meses
+  let mh='', mgrid=[];
+  const d0=new Date(min);
+  // retroceder al martes más cercano en o antes de 'min' (0=domingo,1=lunes,2=martes...)
+  const back=(d0.getDay()-2+7)%7;
+  d0.setDate(d0.getDate()-back); d0.setHours(0,0,0,0);
+  for(let d=new Date(d0); d.getTime()<max; d.setDate(d.getDate()+7)){
+    if(d.getTime()>=min){ const px=pct(d.getTime());
+      mh+=`<span style="left:${px}%">${d.toLocaleDateString('es-PR',{day:'numeric',month:'short'})}</span>`;
+      mgrid.push(px); }
+  }
+  const gridHTML=mgrid.map(px=>`<div style="position:absolute;top:0;bottom:0;left:${px}%;width:1px;background:#23232f"></div>`).join('');
+  const laneW=Math.max(700, mgrid.length*66); // ancho dinámico: ~66px por semana, mínimo 700px
+  const ORDEN=['HQ','Laboratory','City Walls','Alliance Center','Military Center','Rider Camp','Assaulter Camp','Shooter Camp','Hospital'];
+  const edificios=[...new Set(state.tasks.map(t=>t.b))].sort((a,b)=>{
+    const ia=ORDEN.findIndex(o=>a.startsWith(o)), ib=ORDEN.findIndex(o=>b.startsWith(o));
+    return (ia<0?99:ia)-(ib<0?99:ib);});
+  const totT=state.tasks.length, doneT=state.tasks.filter(t=>t.status==='completado').length;
+  let rows='';
+  edificios.forEach(b=>{
+    const del=state.tasks.filter(t=>t.b===b);
+    // nivel actual del edificio = mayor t completado, o f mínimo
+    let lvl=Math.min(...del.map(t=>t.f));
+    del.forEach(t=>{ if(t.status==='completado') lvl=Math.max(lvl,t.t); });
+    let bars='';
+    del.forEach(t=>{
+      if(t.status==='completado'){
+        if(t.doneAt){ const e=new Date(t.doneAt).getTime();
+          bars+=`<div class="gbar g-${t.k} gdone" title="${t.b} ${t.f}→${t.t} ✓ ${fD(e)}" style="left:${Math.max(pct(e)-2,0)}%;width:2%">✓${t.t}</div>`; }
+        return;
+      }
+      const s=sched[t.id]; if(!s) return;
+      const cls=t.t9?'g-t9':'g-'+t.k;
+      let label=`${t.f}→${t.t}${t.t9?' ★':''}`;
+      if(s.run){ label=`${t.f}→${t.t} ⏳ fin ${fD(s.end)}`; }
+      // si es una tarea HQ, marcar qué prereqs resalta al pasar el mouse
+      const hqPre = t.k==='hq' ? (HQ_PREREQ[t.id]||[]) : [];
+      const hoverAttr = hqPre.length ? ` data-pre="${hqPre.join(',')}" onmouseenter="hoverPre(this)" onmouseleave="clearPre()" ontouchstart="clearPre();hoverPre(this);setTimeout(clearPre,2500)"` : '';
+      bars+=`<div class="gbar ${cls}${s.est?' gest':''}${s.run?' grun':''}" data-tid="${t.id}"${hoverAttr} title="${t.b} ${t.f}→${t.t}: ${fD(s.start)} → ${fD(s.end)}${hqPre.length?' · pasa el mouse para ver prerequisitos':''}"
+        style="left:${pct(s.start)}%;width:${(pct(s.end)-pct(s.start)).toFixed(3)}%">${label}</div>`;
+    });
+    if(!bars) return;
+    rows+=`<div class="grow"><div class="gnm">${b.replace(' ★T9','')}<br><span style="color:var(--yellow);font-size:10px">Lv ${lvl}</span></div><div class="glane" style="min-width:${laneW}px">
+      ${gridHTML}<div class="ghoy" style="left:${pct(now)}%"></div>${bars}
+      ${b==='HQ'&&sched['hq27']?`<div class="gmark mh" style="left:${pct(sched['hq27'].end)}%"></div>`:''}
+      ${b.startsWith('Assaulter')&&sched['as27']?`<div class="gmark" style="left:${pct(sched['as27'].end)}%"></div>`:''}
+    </div></div>`;
+  });
+  box.innerHTML=`<div style="font-size:12px;color:var(--dim);margin-bottom:8px">Progreso total: <b style="color:var(--yellow)">${doneT}/${totT} tareas</b> · HQ actual: <b style="color:var(--yellow)">${hqLevel()}</b> · <span style="color:var(--yellow)">pasa el mouse sobre un HQ para ver sus prerequisitos 🔒</span> · borde amarillo = en obra · ✓ tenue = hecho · línea roja = hoy</div>
+    <div class="gmonths" style="min-width:${laneW}px">${mh}</div>${idleRow(sched,now,pct,gridHTML,laneW)}${rows}`;
+  const set=(id,sid)=>{ const el=document.getElementById(id);
+    if(el) el.textContent = sched[sid]? '~'+fD(sched[sid].end) : (done(sid)?'✓ Logrado':'—'); };
+  set('gHq27','hq27'); set('gT9','as27'); set('gHq30','hq30');
+}
+
+const HINTS = [
+ "Verifica los <b>2 Labs</b> por separado de los builders: nunca deben quedar sin cola. Corre la cadena gratis Shelter Building → HQ Management → Rapid Growth en paralelo.",
+ "Guarda speedups para los tramos largos (HQ 25→26, HQ 26→27, Assaulter 27). Soltarlos ahí rinde más que en tareas cortas.",
+ "Completar en <b>martes (VS Building)</b> da recompensas con más speedups — círculo virtuoso hacia T9.",
+ "Prioriza marchas a tiles de <b>Zents</b>: es tu cuello de recursos, no el wood ni el food.",
+ "Builder libre sin tarea de ruta → Infirmary, generadores de recursos o Military Center. Nunca idle.",
+ "Mantén la cadena de <b>City Walls sin pausas</b> — es el cuello de botella para HQ 27.",
+ "Dos sistemas, dos reglas: 3/3 builders trabajando Y 2/2 labs investigando, siempre. Nunca gastes speedups en cerrar idle si hay algo fuera de ruta disponible.",
+];
+function renderT9Meter(){
+  const box=document.getElementById('t9meter'); if(!box) return;
+  const sched=simulate();
+  const cands=[['sh27','Shooter'],['as27','Assaulter']].filter(c=>sched[c[0]]).sort((a,b)=>sched[a[0]].end-sched[b[0]].end);
+  const t9=cands.length?sched[cands[0][0]]:null; const t9Camp=cands.length?cands[0][1]:'Shooter'; const now=Date.now();
+  const inicio=new Date('2026-07-03').getTime();
+  const natural=new Date('2026-09-01').getTime(); // meta: mar 1 sep (VS) — camp 26->27 real = 15.6d (47.9 base x factor). Plan original vigente.
+  if(!t9){ box.innerHTML=''; return; }
+  const fin=t9.end;
+  const totalDur=fin-inicio;
+  const prog=Math.max(0,Math.min(100,(now-inicio)/totalDur*100));
+  const dRecorte=Math.round((natural-fin)/86400000);
+  const fFin=new Date(fin).toLocaleDateString('es-PR',{day:'numeric',month:'long'});
+  const doneT=state.tasks.filter(t=>t.status==='completado').length, totT=state.tasks.length;
+  const hint=HINTS[new Date().getDate()%HINTS.length];
+  box.innerHTML=`<div class="t9box"><i class="rvt" style="left:20px;top:6px"></i><i class="rvt" style="right:6px;top:6px"></i><i class="rvt" style="left:6px;bottom:6px"></i><i class="rvt" style="right:20px;bottom:6px"></i>
+    <div class="t9head"><h3>★ Medidor a Tropas T9</h3>
+      <div style="text-align:right"><div class="t9date">~${fFin}</div>
+      <div class="t9sub">${t9Camp} Camp 27 · ${doneT}/${totT} tareas hechas</div></div></div>
+    <div class="t9track"><div class="t9fill" style="width:${prog}%"></div></div>
+    ${(()=>{const t9done=done('sh27')||done('as27');
+      const chain=[['HQ25',done('hq25')],['HQ26',done('hq26')],['HQ27',done('hq27')],['★T9',t9done,1],['HQ28',done('hq28')],['HQ29',done('hq29')],['HQ30',done('hq30')],['★T10',false,1]];
+      let curSet=false;
+      return '<div class="pips">'+chain.map((c,i)=>{
+        let cls=c[1]?'done':(!curSet?(curSet=true,'cur'):'');
+        return (i?'<span class="pipbar'+(c[1]?' fill':'')+'"></span>':'')+
+          '<span class="pip '+cls+(c[2]?' star':'')+'"><span class="dot"></span><span class="plb">'+c[0]+'</span></span>';
+      }).join('')+'</div>';})()}
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span class="t9delta ${dRecorte>=0?'good':'bad'}">${dRecorte>=0?'▲ '+dRecorte+' días de margen':'▼ '+Math.abs(dRecorte)+' días sobre la meta'} vs meta 1 sep (mar VS)</span>
+      <span class="t9sub">Camp 26→27 = 15.6d reales (47.9 base × 0.3261). La proyección descuenta reserva + acumulación VS en tramos seriales.</span>
+    </div>
+    <div class="t9hint">💡 <b>Hint del día:</b> ${hint}</div>
+  </div>`;
+}
+function renderFlag(){
+  const box=document.getElementById('topFlag'); if(!box) return;
+  ensureRes();
+  // ¿hay alerta crítica de recursos en próximos pagos?
+  const sched2=simulate(), now2=Date.now();
+  const pagos=state.tasks.filter(t=>t.status!=='completado'&&sched2[t.id]&&!sched2[t.id].run&&t.food!=null)
+    .map(t=>({t,start:sched2[t.id].start})).sort((a,b)=>a.start-b.start);
+  let accF=0,accZ=0,resAlert=null;
+  const mult=state.res.ingresoBase||1;
+  const netF2=Math.min(state.res.income.food,state.res.income.wood)*mult, netZ2=state.res.income.zents*mult;
+  for(const p of pagos){
+    accF+=p.t.food; accZ+=p.t.z||0;
+    const dias=(p.start-now2)/86400000;
+    const falF=accF-Math.min(state.res.food,state.res.wood)-netF2*Math.max(dias,0), falZ=accZ-state.res.zents-netZ2*Math.max(dias,0);
+    if((falF>0||falZ>0)&&dias<4){ resAlert={t:p.t,falF:Math.max(falF,0),falZ:Math.max(falZ,0),dias}; break; }
+  }
+  // builder libre AHORA
+  const libreYa=state.builders.find(b=>!b.taskId);
+  const q=queue();
+  if(libreYa && q.listos.length){
+    const t=q.listos[0].t;
+    const d=deficitNow(t);
+    const razon = q.esRelleno?'🔧 relleno hacia T9 (sin idle)':t.k==='hq'?'camino crítico':REQ_IDS.has(t.id)?'requisito de HQ':t.k==='walls'?'cuello de botella para HQ 27':'adelanto (PREP)';
+    box.className='libre';
+    box.innerHTML=`<span class="fico">🚨</span> <b>Builder LIBRE ahora</b> → asignar: <b>${t.b} ${t.f}→${t.t}</b>
+      <span style="color:var(--dim);font-size:12px">· razón: ${razon}</span>
+      <span class="fpay ${d.ok?'ok':'no'}">${d.ok?'✓ pagable con abiertos':'⚠ faltan '+(d.needF>0?fmtM(Math.ceil(d.needF))+' F/W':'')+(d.needF>0&&d.needZ>0?' + ':'')+(d.needZ>0?fmtM(Math.ceil(d.needZ))+' Z':'')}</span>`;
+    return;
+  }
+  // próximo en liberarse + qué tomará (de la simulación)
+  const sched=simulate();
+  const prox=Object.entries(sched).filter(([id,s])=>!s.run).sort((a,b)=>a[1].start-b[1].start)[0];
+  const t9=sched['as27'];
+  box.className='';
+  if(!prox){ box.innerHTML=`<span class="fico">🏁</span> Sin tareas próximas — plan al día.`; return; }
+  const t=task(prox[0]);
+  const f=new Date(prox[1].start);
+  const pay=(t.food==null)||(Math.min(state.res.food,state.res.wood)>=t.food&&state.res.zents>=(t.z||0));
+  const razon = t.k==='hq'?'camino crítico':REQ_IDS.has(t.id)?'requisito de HQ '+(Object.values(PHASE_TITLE).find(pp=>pp.reqIds.includes(t.id))||{}).next:t.k==='walls'?'cuello de botella para HQ 27':'adelanto (PREP)';
+  box.innerHTML=`<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;width:100%"><span class="fico">⚡</span> Próximo builder libre:
+    <b>${f.toLocaleString('es-PR',{weekday:'short',day:'numeric',month:'short',hour:'numeric',minute:'2-digit'})}</b>
+    → asignar: <b>${t.b} ${t.f}→${t.t}</b>
+    <span style="color:var(--dim);font-size:12px">· razón: ${razon} · F/W ${fmtM(t.food)} · Z ${fmtM(t.z)}</span>
+    <span class="fpay ${pay?'ok':'no'}">${pay?'✓ pagable':'⚠ recolectar antes'}</span>
+    ${t9?`<span class="ft9" style="margin-left:auto">★ T9: ~${new Date(t9.end).toLocaleDateString('es-PR',{day:'numeric',month:'short'})}</span>`:''}</div>
+    ${resAlert?`<div style="width:100%;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);font-size:12.5px;color:var(--red)">
+      💰 <b>Recursos:</b> para <b>${resAlert.t.b} ${resAlert.t.f}→${resAlert.t.t}</b> (en ${resAlert.dias<1?'menos de 1 día':Math.ceil(resAlert.dias)+' días'}) faltan
+      ${resAlert.falF>0?fmtM(Math.ceil(resAlert.falF))+' F/W':''}${resAlert.falF>0&&resAlert.falZ>0?' + ':''}${resAlert.falZ>0?fmtM(Math.ceil(resAlert.falZ))+' Z':''} abiertos
+      → recolectar ${resAlert.falF>0?(resAlert.falF/Math.max(resAlert.dias,0.5)).toFixed(1)+'M/d F/W ':''}${resAlert.falZ>0?(resAlert.falZ/Math.max(resAlert.dias,0.5)).toFixed(1)+'M/d Z':''} o abrir cofres.</div>`:''}`;
+}
+
+/* ================= TECH (2 LABS) ================= */
+const TECH_CATALOG = [
+ {id:'newhome', name:'New Home', kind:'free', note:'Obligatorio, base de todo. Ya completado.', status:'done'},
+ {id:'elitetroops', name:'Elite Troops', kind:'free', note:'PRIORIDAD temprana — desbloquea Military Strategies. Buffs de entrenamiento + ATK/DEF en campo y asedio. Ya completado.', status:'done'},
+ {id:'shelter', name:'Shelter Building', kind:'free', note:'Skillful Craftsman I (+30% construcción) + Max Parallel Work I (+10% research). Sin badges. Sin prisa, eventualmente se maxea solo.', status:'encurso'},
+ {id:'sheltermgr', name:'HQ Management', kind:'free', note:'Se abre al 100% Shelter Building (confirmado en tu captura: aún bloqueado). Velocidad de curación, protección de recursos, capacidad de hospital. Sin badges, research corto — ideal para AvA Día 3 (Age of Science).', status:'locked', req:'shelter'},
+ {id:'rapidgrowth', name:'Rapid Growth', kind:'free', note:'Se abre al 100% Shelter Manager. Más velocidad de construcción/research. Hazlo cuando te quedes sin badges.', status:'locked', req:'sheltermgr'},
+ {id:'milstrat', name:'Military Strategies', kind:'badge', note:'★ TU FOCO PRINCIPAL ahora. Requiere 100% Elite Troops (ya cumplido). No es caro, rápido de maxear. Al 40% abre Siege to Seize; al 45% (+ Shelter 50%) abre Peace Shield. Termínalo rápido.', status:'16%'},
+ {id:'peaceshield', name:'Peace Shield', kind:'badge', note:'★ PRIORIDAD. Se abre con Shelter Building 50% + Military Strategies 45%. Potente y barato. Contiene Urgent Rescue — maxéalo apenas puedas. Puede ser tu foco principal después de Military Strategies.', status:'locked', req:'milstrat'},
+ {id:'urgentrescue', name:'└ Urgent Rescue (dentro de Peace Shield)', kind:'badge', note:'★★ Contrarresta Annihilation del rival. Investiga hasta el último nodo de HP de tropa, luego regresa y maxea este. La inversión de combate más rentable que hay.', status:'locked', req:'peaceshield'},
+ {id:'siegeseize', name:'Siege to Seize', kind:'badge', note:'Se abre al 40% Military Strategies. Nodos de Destruction Value + Troop Load/March Speed (Propulsion). 4ta prioridad, después de Military Strategies + Peace Shield + Fully Armed Alliance. Maxear el buff de ATK ya es suficiente.', status:'0%'},
+ {id:'alliancerec', name:'Alliance Recognition', kind:'badge', note:'Recomendado por el juego, ya en curso. Meta F2P: maxear "Event Expert" cuanto antes (AvA es semanal y pesa para el derecho de invasión State vs State). Luego apunta a 85%, y a "Event King" (92%) para temporada 2.', status:'encurso'},
+ {id:'herotraining', name:'Hero Training', kind:'badge', note:'Llegar al nodo "Cockpit" ya es suficiente para F2P — más profundo es trampa de badges. Hazlo también durante AvA para puntos.', status:'8%'},
+ {id:'fullyarmed', name:'Fully Armed Alliance', kind:'badge', note:'Annihilation (Fatality): elimina tropas rivales de forma permanente al atacar en el día "Enemy Buster". Estilo ofensivo — baja prioridad si tu juego es más defensivo/económico.', status:'2%'},
+ {id:'armybuilding', name:'Army Building', kind:'badge', note:'Se abre al 100% Peace Shield. Detalles aún no confirmados (TBA en la fuente).', status:'locked', req:'peaceshield'},
+ {id:'field', name:'Field', kind:'badge', note:'Se abre al 100% Siege to Seize. Desbloquea 3 árboles nuevos: Shooter/Assaulter/Rider Training.', status:'locked', req:'siegeseize'},
+ {id:'shootertr', name:'Shooter Training', kind:'badge', note:'Se abre al 100% Field.', status:'locked', req:'field'},
+ {id:'assaultertr', name:'Assaulter Training', kind:'badge', note:'Se abre al 100% Field. Relevante para tu tropa principal (Assaulter/T9).', status:'locked', req:'field'},
+ {id:'ridertr', name:'Rider Training', kind:'badge', note:'Se abre al 100% Field.', status:'locked', req:'field'},
+ {id:'ust', name:'Unit Special Training (T10)', kind:'badge', note:'Se abre cuando el 2do Lab llega a nivel 30. El nodo T10 solo cuesta ~54,900 badges. Progreso de años — meta de muy largo plazo, no ahora.', status:'locked'},
+];
+function ensureTech(){
+  if(!state.techLabs) state.techLabs=[{taskId:'shelter',end:null},{taskId:'alliancerec',end:null}];
+  if(!state.techStatus || state.techStatusV<2){
+    const old=state.techStatus||{};
+    state.techStatus={};
+    TECH_CATALOG.forEach(t=>{ state.techStatus[t.id] = old[t.id] || t.status; });
+    state.techStatusV=2;
+  }
+}
+function techNext(){
+  // orden real (hoja "Last Z: List of Tech Trees and Tips"):
+  // cadena gratis (shelter->sheltermgr->rapidgrowth) en paralelo con el foco principal de badges:
+  // milstrat -> peaceshield/urgentrescue -> siegeseize -> alliancerec(event expert) -> herotraining(cockpit) -> fullyarmed -> resto
+  const order=['shelter','sheltermgr','rapidgrowth','milstrat','peaceshield','urgentrescue','siegeseize','alliancerec','herotraining','fullyarmed','armybuilding','field'];
+  for(const id of order){ if(state.techStatus[id]!=='done') return TECH_CATALOG.find(t=>t.id===id); }
+  return null;
+}
+function renderTechLabs(){
+  ensureTech();
+  const box=document.getElementById('labCards'); if(!box) return;
+  box.innerHTML=state.techLabs.map((l,i)=>{
+    const t=TECH_CATALOG.find(x=>x.id===l.taskId);
+    const nx=techNext();
+    return `<div class="bcard" style="border-color:var(--blue,#4a90c8)">
+      <h3><span class="bnum" style="background:var(--blue,#4a90c8)">L${i+1}</span> Lab ${i+1}</h3>
+      <div class="bcur">${t?t.name:'—'}</div>
+      <div style="font-size:11px;color:var(--dim);margin:4px 0">${t?t.note:''}</div>
+      <div class="brow"><select id="techSel${i}">${TECH_CATALOG.filter(x=>state.techStatus[x.id]!=='locked'&&state.techStatus[x.id]!=='done').map(x=>`<option value="${x.id}" ${l.taskId===x.id?'selected':''}>${x.name}</option>`).join('')}</select></div>
+      <div class="brow"><input type="datetime-local" id="techEnd${i}" value="${l.end?l.end.slice(0,16):''}"></div>
+      <div class="brow"><button class="act" style="flex:1" onclick="assignTechLab(${i})">Guardar</button></div>
+      ${(!t||t.id===nx?.id)?'<div style="font-size:10px;color:var(--yellow);margin-top:4px">⏭ Recomendado ahora</div>':''}
+    </div>`;
+  }).join('');
+}
+function assignTechLab(i){
+  const id=document.getElementById('techSel'+i).value;
+  const end=document.getElementById('techEnd'+i).value;
+  state.techLabs[i]={taskId:id,end:end?new Date(end).toISOString():null};
+  if(state.techStatus[id]==='pendiente'||/^\d+%$/.test(state.techStatus[id])) state.techStatus[id]='encurso';
+  persist(); renderTech();
+}
+function toggleTechDone(id){
+  state.techStatus[id]=state.techStatus[id]==='done'?'pendiente':'done';
+  persist(); renderTech();
+}
+function renderTechList(){ // FLOWCHART (seed v58/59): camino crítico T10 + mapa de árboles
+  ensureTech();
+  if(!state.badges) state.badges={banco:0,meta:1488270,ingresoMesK:'200-262',regla:''};
+  const box=document.getElementById('techList'); if(!box) return;
+  const b=state.badges;
+  const N=(label,cls,sub)=>`<div class="tfnode ${cls}"><b>${label}</b>${sub?`<span>${sub}</span>`:''}</div>`;
+  const A=`<div class="tfarr">↓</div>`;
+  // --- Sección 1: camino crítico ---
+  // ===== PLANNER UST nodo-a-nodo (concepto lastzguides research-planner, tablas del wiki) =====
+  if(!state.ust) state.ust={};
+  const C10A=[790,1740,2840,4140,5640,7540,9940,13040,16840,21540];
+  const C10B=[990,2090,3390,4990,6890,9290,12290,16090,20890,26790];
+  const C10C=[1300,2800,4600,6700,9300,12600,16700,21800,28200,36100];
+  const C10D=[1400,3100,5100,7500,10400,14000,18500,24100,31200,39900];
+  const C10E=[2100,4600,7500,11100,15300,20500,27000,35200,45500,58200];
+  const C5DC=[2900,6700,12000,20000,32700];
+  const C15=[2000,4400,7200,10500,14400,19100,24600,31100,38900,47900,58200,69900,83200,98600,116500];
+  const C20RS=[1900,4200,6800,9800,13400,17800,22900,29000,36200,44600,54100,65000,77400,91700,108300,125500,145400,166400,190300,219000];
+  const USTN=[
+    {s:'PASO 1-2 · Base',nodes:[['fu','Fire Up',C10A],['au','Armor Upgrade',C10A],['fp','Fast Production',C10B]]},
+    {s:'PASO 3 · ATK ×tipo — orden: 🩸Ass → 🎯Sh → 🐎Rd',nodes:[['mc','Melee Combat 🩸',C10C],['wu','Weapon Upgrading 🎯',C10C],['me','Mobility Enh. 🐎',C10C]]},
+    {s:'PASO 4 · DEF ×tipo — mismo orden',nodes:[['su','Shield Upgrade 🩸',C10C],['cc','Camo Coating 🎯',C10C],['sa','Stronger Armor 🐎',C10C]]},
+    {s:'PASO 5-6 · Utilidad y 25%',nodes:[['pr','Propulsion',C10D],['fp2','Fast Production 2',C10D],['fu2','Fire Up 2',C10E],['au2','Armor Upgrade 2',C10E]]},
+    {s:'PASO 7 · ⚠️ ÚLTIMO de todo (rompe farmeo)',nodes:[['dc','Demolition Crew',C5DC]]},
+    {s:'PASO 8 · 40% ×tipo — 47% del árbol · 🩸 primero',nodes:[['mc2','Melee Combat 2 🩸',C15],['su2','Shield Upgrade 2 🩸',C15],['wu2','Weapon Upg. 2 🎯',C15],['cc2','Camo Coating 2 🎯',C15],['me2','Mobility Enh. 2 🐎',C15],['sa2','Stronger Armor 2 🐎',C15]]},
+    {s:'PASO 9 · subir apenas disponible',nodes:[['rs','Recharge Shield (HP+50%)',C20RS]]},
+    {s:'PASO 10 · desbloqueo',nodes:[['sut','Special Unit Training → T10',[54900]]]},
+  ];
+  let ustSpent=0, ustTotal=0;
+  USTN.forEach(g=>g.nodes.forEach(n=>{ ustTotal+=n[2][n[2].length-1]; const l=state.ust[n[0]]||0; if(l>0) ustSpent+=n[2][Math.min(l,n[2].length)-1]; }));
+  const ustRest=ustTotal-ustSpent;
+  const ustGrid=USTN.map(g=>`<div style="width:100%;max-width:560px;text-align:left;font-family:'Oswald';font-size:11px;letter-spacing:.08em;color:var(--dim);margin:8px 0 4px">${g.s}</div>
+    <div class="tfgrid">${g.nodes.map(n=>{const max=n[2].length,l=Math.min(state.ust[n[0]]||0,max);
+      const sp=l>0?n[2][l-1]:0, tot=n[2][max-1];
+      return `<div class="tfstep ${tot>=100000?'big':''}"><b>${n[1]}</b>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:4px">
+          <button class="ustbtn" onclick="ustAdj('${n[0]}',-1)">−</button>
+          <span class="mono" style="font-size:12px;${l>=max?'color:var(--green)':''}">${l}/${max}</span>
+          <button class="ustbtn" onclick="ustAdj('${n[0]}',1)">+</button>
+        </div>
+        <span class="cost">🎖️ ${sp.toLocaleString()} / ${tot.toLocaleString()}</span>
+        <span class="cum">${l>=max?'✓ completo':'restan '+(tot-sp).toLocaleString()}</span></div>`;}).join('')}</div>`).join('');
+  const pct=Math.min(100,ustRest>0?b.banco/ustRest*100:100);
+  const s1=`<div class="tfwrap">
+    <div class="tfnode tf-bank"><b>🏦 BANCO DE BADGES vs ÁRBOL RESTANTE</b>
+      <div class="tfbar"><div style="width:${pct.toFixed(1)}%"></div></div>
+      <div class="tfrow"><input type="number" id="bancoIn" value="${b.banco}" onchange="saveBanco()"> / <b>${ustRest.toLocaleString()}</b> restantes · cubierto <b>${pct.toFixed(1)}%</b>${ustSpent>0?' · investigado '+ustSpent.toLocaleString():''}</div>
+      <span>Ingreso ${b.ingresoMesK}K/mes → lleno ~feb-mar 2027 · TODO badge entra aquí. AR cerrado ✓ · UR permitido (no retrasa T10)<br>📗 <b>Regla de excedente:</b> cuando la proyección marque "banco lleno ≥2 meses antes de Lab 30", el excedente se libera para nodos Assaulter de Military Strategies y Urgent Rescue.<br>🔬 <b>Research speedups:</b> reserva intacta para nodos UST (cuestan tiempo de lab, no solo badges) — quemar en miércoles VS Ciencia.</span></div>
+    ${A}
+    ${N('🔒 LAB 30','tf-lock','Única puerta del UST (popup ✓). Camino natural ~oct 2027, comprimible con speedups — ver Gantt')}
+    ${A}
+    ${N('🚁 ÁRBOL UST — 22 nodos · '+ustTotal.toLocaleString()+' 🎖️ total','tf-run','marca tus niveles con −/+ · restante: <b>'+ustRest.toLocaleString()+'</b> · nodos caros a miércoles VS Ciencia')}
+    ${ustGrid}
+    ${A}
+    ${N('🏆 T10 DESBLOQUEADO','tf-goal','todas las tropas · +~20M poder con árbol completo')}
+  </div>`;
+  // --- Sección 2: mapa de árboles con llevo/meta (rojo=falta · amarillo=excedente hundido · verde=en meta) ---
+  const s2=`<h3 style="margin:18px 0 6px">🌳 Mapa de árboles — llevo / meta recomendada</h3>
+  <div class="tflegend"><span><i style="background:rgba(220,70,70,.3)"></i>🔴 falta para la meta</span><span><i style="background:rgba(255,200,60,.3)"></i>🟡 excedente sobre meta (hundido — NI UN BADGE MÁS)</span><span><i style="background:rgba(80,200,120,.3)"></i>🟢 en meta</span></div>
+  <div class="tfwrap">
+    <div class="tftier">
+      ${N('New Home','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
+      ${N('Shelter Building','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
+      ${N('Elite Troops','tf-done','100% / meta 100% <span class="mchip mg">✓ en meta</span>')}
+    </div>
+    ${A}
+    <div class="tftier">
+      ${N('HQ Management','tf-run','en curso / meta 100% <span class="mchip mg">gratis (0 badges) — sigue en Lab 1</span>')}
+      ${N('Hero Training','tf-run','¿% actual? / meta ≈50% (Cockpit) <span class="mchip mr">📸 capturar % — al pasar Cockpit: PARAR</span>')}
+      ${N('Alliance Recognition','tf-done','64% / meta 64% <span class="mchip mg">✓ CERRADO — multiplicadores listos. Event King NO</span>')}
+    </div>
+    ${A}
+    <div class="tftier">
+      ${N('Military Strategies','tf-frozen','59% / meta 45% <span class="mchip my">+14% excedente ❄ congelado (destino del excedente futuro: nodos Assaulter)</span>')}
+      ${N('Siege to Seize','tf-frozen','16% / meta 0% <span class="mchip my">+16% excedente ❄ congelado</span>')}
+      ${N('Fully Armed Alliance','tf-frozen','2% / meta 0% <span class="mchip my">+2% excedente ❄ árbol de lujo</span>')}
+    </div>
+    ${A}
+    <div class="tftier">
+      ${N('Peace Shield','tf-warn','33% / meta = hasta Urgent Rescue <span class="mchip mr">falta: peaje Combat Policy 0/20 + Interceptions 0/20 — 📸 popup del chaleco define el número</span>')}
+    </div>
+    ${A}
+    <div class="tftier">
+      ${N('Urgent Rescue','tf-lock','0/10 / meta 10/10 <span class="mchip mr">si peaje total ≤ ~85K → hacerlo (−20% muertes SvS). No retrasa T10</span>')}
+    </div>
+    ${A}
+    <div class="tftier">
+      ${N('Field / Sh-Ass-Rd Training','tf-frozen','0% / meta 0% <span class="mchip mg">✓ en meta — NO son prerequisito de T10. Post-T10</span>')}
+      ${N('UST (T10)','tf-lock','0% / meta 100% <span class="mchip mr">falta 1,488,270 🎖️ — vía banco 🔒 Lab 30</span>')}
+    </div>
+  </div>`;
+  box.innerHTML=s1+s2+`<div class="tfnode tf-warn" style="width:100%;max-width:560px;text-align:left;margin-top:14px">
+    <b>🚀 CHECKLIST DE ARRANQUE — antes de iniciar cada tramo serial (HQ 28/29/30, Lab 30)</b>
+    <span>① Título de gobierno de CONSTRUCCIÓN activo (pedirlo tras Capital Clash — gratis, cualquier jugador puede)<br>
+    ② Ayudas de alianza COMPLETAS antes de quemar speedups (cada ayuda recorta gratis)<br>
+    ③ Quemar speedups en martes VS Construcción + ventana Full Preparedness (08:00/20:00 AT) = triple cobro: tiempo + pts VS + pts Full Prep<br>
+    ④ Cuadrar el cierre a martes o viernes VS</span></div>`;
+}
+function saveBanco(){ if(!state.badges) return; state.badges.banco=+document.getElementById('bancoIn').value||0; persist(); renderTech(); }
+function ustAdj(id,d){ if(!state.ust) state.ust={}; const MAXES={fu:10,au:10,fp:10,mc:10,wu:10,me:10,su:10,cc:10,sa:10,pr:10,fp2:10,fu2:10,au2:10,dc:5,mc2:15,su2:15,wu2:15,cc2:15,me2:15,sa2:15,rs:20,sut:1};
+  state.ust[id]=Math.max(0,Math.min(MAXES[id]||10,(state.ust[id]||0)+d)); persist(); renderTech(); }
+function renderTech(){ renderTechLabs(); renderTechList(); }
+
+/* ================= VEHÍCULO ================= */
+function ensureVeh(){ if(!state.vehicle) state.vehicle={power:0,elite:0,bp:0,wrench:0,slots:[]}; }
+function renderVeh(){
+  ensureVeh();
+  const p=document.getElementById('vPower'); if(!p) return;
+  if(document.activeElement!==p) p.value=state.vehicle.power;
+  const lv=document.getElementById('vLevel'); if(lv&&document.activeElement!==lv) lv.value=state.vehicle.level||'';
+  ['vElite','vBp','vWr'].forEach((id,i)=>{ const el=document.getElementById(id);
+    const key=['elite','bp','wrench'][i];
+    if(el&&document.activeElement!==el) el.value=state.vehicle[key]; });
+  const box=document.getElementById('vSlots'); if(!box) return;
+  box.innerHTML=state.vehicle.slots.map((s,i)=>`<div class="nq">
+    <input type="checkbox" ${s.done?'checked':''} onchange="toggleVehSlot(${i})">
+    <label style="font-size:13px">${s.name} <span style="color:var(--dim);font-size:11px">${s.cost?('· '+s.cost.toLocaleString()+' BP'):''}</span></label>
+    <button class="ghost" style="margin-left:auto;padding:2px 8px;font-size:11px" onclick="delVehSlot(${i})">✕</button></div>`).join('');
+}
+function saveVeh(){
+  ensureVeh();
+  state.vehicle.power=+document.getElementById('vPower').value||0;
+  state.vehicle.level=+document.getElementById('vLevel').value||0;
+  state.vehicle.elite=+document.getElementById('vElite').value||0;
+  state.vehicle.bp=+document.getElementById('vBp').value||0;
+  state.vehicle.wrench=+document.getElementById('vWr').value||0;
+  persist(); renderVeh();
+}
+function toggleVehSlot(i){ state.vehicle.slots[i].done=!state.vehicle.slots[i].done; persist(); renderVeh(); }
+function delVehSlot(i){ state.vehicle.slots.splice(i,1); persist(); renderVeh(); }
+function addVehSlot(){
+  const n=document.getElementById('vNewName').value.trim();
+  const c=+document.getElementById('vNewCost').value||0;
+  if(!n) return;
+  state.vehicle.slots.push({name:n,cost:c,done:false});
+  document.getElementById('vNewName').value=''; document.getElementById('vNewCost').value='';
+  persist(); renderVeh();
+}
+
+/* ================= METAS ================= */
+function renderGoals(){
+  const lights=document.getElementById('goalLights'); if(!lights) return;
+  ensureRes();
+  const sched=simulate(), now=Date.now();
+  const mult=state.res.ingresoBase||1;
+  const incF=Math.min(state.res.income.food,state.res.income.wood)*mult, incZ=state.res.income.zents*mult;
+  const pagos=state.tasks.filter(t=>t.status!=='completado'&&sched[t.id]&&!sched[t.id].run&&t.food!=null)
+    .map(t=>({t,d:(sched[t.id].start-now)/86400000})).filter(p=>p.d>=0&&p.d<=45).sort((a,b)=>a.d-b.d);
+  const HORIZON=45, STEP=0.25;
+  let fw=Math.min(state.res.food,state.res.wood), z=state.res.zents;
+  let sF=[],sZ=[],events=[],okAll=true,firstFail=null;
+  let pi=0;
+  for(let d=0;d<=HORIZON;d+=STEP){
+    while(pi<pagos.length&&pagos[pi].d<=d){
+      fw-=pagos[pi].t.food; z-=pagos[pi].t.z||0;
+      events.push({d:pagos[pi].d,t:pagos[pi].t,okF:fw>=0,okZ:z>=0});
+      if((fw<0||z<0)&&!firstFail){ firstFail={d:pagos[pi].d,t:pagos[pi].t,falF:Math.max(-fw,0),falZ:Math.max(-z,0)}; okAll=false; }
+      pi++;
+    }
+    sF.push({d,v:fw}); sZ.push({d,v:z});
+    fw+=incF*STEP; z+=incZ*STEP;
+  }
+  let lhtml='<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">';
+  const prox=pagos[0];
+  lhtml+=`<div class="stat" style="flex:1;min-width:200px;border-color:${okAll?'var(--green)':'var(--red)'}">
+    <div class="lb">${okAll?'🟢 EN RUTA':'🔴 AJUSTAR'}</div>
+    <div class="vl" style="font-size:13px">${okAll?'Todos los pagos de 45 días quedan cubiertos con tu ingreso actual':
+      `Falla en <b>${firstFail.t.b} ${firstFail.t.f}→${firstFail.t.t}</b> (día ${firstFail.d.toFixed(0)}): faltan ${firstFail.falF>0?fmtM(Math.ceil(firstFail.falF)):''}${firstFail.falF>0&&firstFail.falZ>0?' F/W + ':''}${firstFail.falZ>0?fmtM(Math.ceil(firstFail.falZ))+' Z':firstFail.falF>0?' F/W':''}${firstFail.t.k==='hq'?' <span style="color:var(--dim)">· es HQ: regla = abrir cofres, NUNCA retrasar. Los fillers sí se posponen.</span>':''}`}</div></div>`;
+  if(prox) lhtml+=`<div class="stat" style="flex:1;min-width:200px"><div class="lb">Próximo pago</div>
+    <div class="vl" style="font-size:13px">${prox.t.b} ${prox.t.f}→${prox.t.t} · en ${prox.d<1?'menos de 1 día':Math.ceil(prox.d)+' días'} · F/W ${fmtM(prox.t.food)} · Z ${fmtM(prox.t.z)}</div></div>`;
+  lhtml+=`<div class="stat" style="flex:1;min-width:200px"><div class="lb">Ingreso diario usado</div>
+    <div class="vl" style="font-size:13px">F/W ${incF.toFixed(1)}M · Z ${incZ.toFixed(1)}M <span style="color:var(--dim);font-size:11px">(editable en Recursos)</span></div></div>`;
+  lhtml+='</div>';
+  lights.innerHTML=lhtml;
+  const W=720,H=230,PL=52,PR=10,PT=12,PB=28;
+  const maxV=Math.max(...sF.map(p=>p.v),...sZ.map(p=>p.v),50);
+  const minV=Math.min(...sF.map(p=>p.v),...sZ.map(p=>p.v),0);
+  const x=d=>PL+(d/HORIZON)*(W-PL-PR);
+  const y=v=>PT+(1-(v-minV)/(maxV-minV))*(H-PT-PB);
+  const line=s=>s.map((p,i)=>(i?'L':'M')+x(p.d).toFixed(1)+','+y(p.v).toFixed(1)).join(' ');
+  let marks='';
+  events.forEach(e=>{
+    const ok=e.okF&&e.okZ;
+    marks+=`<line x1="${x(e.d)}" y1="${PT}" x2="${x(e.d)}" y2="${H-PB}" stroke="${ok?'#3a3a48':'#d34f4f'}" stroke-dasharray="3,3"/>
+      <text x="${x(e.d)}" y="${H-PB+11}" fill="${ok?'#8888a0':'#d34f4f'}" font-size="8" text-anchor="middle">${e.t.b.split(' ')[0]} ${e.t.t}</text>`;
+  });
+  let axis='';
+  [0,15,30,45].forEach(d=>{
+    const f=new Date(now+d*86400000).toLocaleDateString('es-PR',{day:'numeric',month:'short'});
+    axis+=`<text x="${x(d)}" y="${H-4}" fill="#8888a0" font-size="9" text-anchor="middle">${d===0?'hoy':f}</text>`;
+  });
+  [0, Math.round(maxV/2), Math.round(maxV)].forEach(v=>{
+    axis+=`<text x="${PL-6}" y="${y(v)+3}" fill="#8888a0" font-size="9" text-anchor="end">${v}M</text>
+      <line x1="${PL}" y1="${y(v)}" x2="${W-PR}" y2="${y(v)}" stroke="#1e1e28"/>`;
+  });
+  document.getElementById('goalChart').innerHTML=`<svg width="${W}" height="${H}" style="min-width:${W}px">
+    ${axis}
+    <line x1="${PL}" y1="${y(0)}" x2="${W-PR}" y2="${y(0)}" stroke="#555" stroke-width="1.5"/>
+    ${marks}
+    <path d="${line(sF)}" fill="none" stroke="#4aa354" stroke-width="2"/>
+    <path d="${line(sZ)}" fill="none" stroke="#f5b301" stroke-width="2"/>
+    <text x="${W-PR}" y="${y(sF[sF.length-1].v)-4}" fill="#4aa354" font-size="10" text-anchor="end">F/W</text>
+    <text x="${W-PR}" y="${y(sZ[sZ.length-1].v)+12}" fill="#f5b301" font-size="10" text-anchor="end">Zents</text>
+  </svg>`;
+  const t9=[sched['sh27'],sched['as27']].filter(Boolean).sort((a,b)=>a.end-b.end)[0];
+  if(t9){
+    const meta=new Date('2026-09-01').getTime(), natural=new Date('2026-09-15').getTime();
+    const dMeta=Math.round((t9.end-meta)/86400000), dNat=Math.round((natural-t9.end)/86400000);
+    const fT9=new Date(t9.end).toLocaleDateString('es-PR',{day:'numeric',month:'long'});
+    document.getElementById('goalT9').innerHTML=`<div class="card" style="border-color:var(--purple)">
+      <h3 style="color:var(--purple);margin-bottom:8px">★ Meta T9</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div class="stat" style="flex:1;min-width:150px"><div class="lb">Proyección actual</div><div class="vl">${fT9}</div></div>
+        <div class="stat" style="flex:1;min-width:150px;border-color:${dMeta<=0?'var(--green)':'var(--orange)'}"><div class="lb">vs meta 1 sep (mar VS)</div>
+          <div class="vl" style="color:${dMeta<=0?'var(--green)':'var(--orange)'}">${dMeta<=0?'✓ '+Math.abs(dMeta)+'d de margen':'+'+dMeta+'d — recortar con speedups/factor'}</div></div>
+        <div class="stat" style="flex:1;min-width:150px"><div class="lb">vs ritmo natural sin speedups (15 sep)</div>
+          <div class="vl" style="color:${dNat>=0?'var(--green)':'var(--red)'}">${dNat>=0?'▲ '+dNat+'d adelantado':'▼ '+Math.abs(dNat)+'d atrasado'}</div></div>
+      </div></div>`;
+  }
+}
+
+/* ================= RECURSOS ABIERTOS ================= */
+function ensureRes(){ if(!state.res) state.res={food:100,wood:100,zents:32.7,updated:null,marchas:4,ingresoBase:1.33,
+  income:{food:15,wood:15,zents:6}}; if(!state.res.income) state.res.income={food:15,wood:15,zents:6}; }
+function saveRes(){
+  ensureRes();
+  state.res.food=+document.getElementById('rFood').value||0;
+  state.res.wood=+document.getElementById('rWood').value||0;
+  state.res.zents=+document.getElementById('rZents').value||0;
+  state.res.updated=new Date().toISOString();
+  persist(); renderAll();
+}
+function saveIncome(){
+  ensureRes();
+  state.res.income.food=+document.getElementById('iFood').value||0;
+  state.res.income.wood=+document.getElementById('iWood').value||0;
+  state.res.income.zents=+document.getElementById('iZ').value||0;
+  persist(); renderAll();
+}
+function renderRes(){
+  ensureRes();
+  const fEl=document.getElementById('rFood'); if(!fEl) return;
+  if(document.activeElement!==fEl) fEl.value=state.res.food;
+  const wEl=document.getElementById('rWood'); if(document.activeElement!==wEl) wEl.value=state.res.wood;
+  const zEl=document.getElementById('rZents'); if(document.activeElement!==zEl) zEl.value=state.res.zents;
+  document.getElementById('rUpdated').textContent = state.res.updated?
+    'Actualizado: '+new Date(state.res.updated).toLocaleString('es-PR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Sin actualizar aún';
+  const iF=document.getElementById('iFood'), iW=document.getElementById('iWood'), iZ=document.getElementById('iZ');
+  if(iF&&document.activeElement!==iF) iF.value=state.res.income.food;
+  if(iW&&document.activeElement!==iW) iW.value=state.res.income.wood;
+  if(iZ&&document.activeElement!==iZ) iZ.value=state.res.income.zents;
+  const mult=state.res.ingresoBase||1;
+  const netF=state.res.income.food*mult, netW=state.res.income.wood*mult, netZ=state.res.income.zents*mult;
+  const mEl=document.getElementById('marchTxt'); if(mEl) mEl.textContent=(state.res.zentRateNote||`${state.res.marchas||3} marchas activas`);
+  // pagos próximos según simulación (se pagan al INICIAR)
+  const sched=simulate(), now=Date.now();
+  const pagos=state.tasks
+    .filter(t=>t.status!=='completado'&&sched[t.id]&&!sched[t.id].run&&t.food!=null)
+    .map(t=>({t,start:sched[t.id].start}))
+    .sort((a,b)=>a.start-b.start).slice(0,7);
+  let accF=0,accZ=0,rows='',critico=false;
+  pagos.forEach(p=>{
+    accF+=p.t.food; accZ+=p.t.z||0;
+    const dias=Math.max((p.start-now)/86400000,0.1);
+    const ingF=Math.min(netF,netW)*dias, ingZ=netZ*dias; // F/W limitado por el menor de los dos ingresos
+    const falF=Math.max(accF-Math.min(state.res.food,state.res.wood)-ingF,0);
+    const falZ=Math.max(accZ-state.res.zents-ingZ,0);
+    const ok=falF<=0&&falZ<=0;
+    if(!ok&&dias<2) critico=true;
+    rows+=`<div class="nq${ok?'':' '}" style="${ok?'':'border-left:3px solid '+(dias<2?'var(--red)':'var(--orange)')+';padding-left:8px'}">
+      <span style="min-width:64px;color:var(--dim);font-size:11px">${new Date(p.start).toLocaleDateString('es-PR',{day:'numeric',month:'short'})}</span>
+      <b>${p.t.b} ${p.t.f}→${p.t.t}</b>
+      <span style="color:var(--dim);font-size:11px">F/W ${fmtM(p.t.food)} · Z ${fmtM(p.t.z)}</span>
+      <span class="why">${ok?'✓ cubierto (con ingreso proyectado)':
+        '⚠ faltan '+(falF>0?fmtM(Math.ceil(falF*10)/10)+' F/W':'')+(falF>0&&falZ>0?' + ':'')+(falZ>0?fmtM(Math.ceil(falZ*10)/10)+' Z':'')+
+        ' → subir ingreso '+(falF>0?(falF/dias).toFixed(1)+'M/d F/W ':'')+(falZ>0?(falZ/dias).toFixed(1)+'M/d Z':'')}</span></div>`;
+  });
+  document.getElementById('resAlerts').innerHTML=`
+    ${critico?'<div class="nextbox" style="border-color:var(--red)"><h3 style="color:var(--red)">🔴 CRÍTICO: un pago en <48h no está cubierto ni con tu ingreso diario. Recolecta ya o tocará abrir cofres.</h3></div>':''}
+    <div class="nextbox"><h3>📅 Próximos pagos (acumulados) vs abiertos + ingreso proyectado</h3>${rows||'<div class="nq">Sin pagos pendientes proyectados.</div>'}
+    <p style="font-size:11px;color:var(--dim);margin-top:8px">Ingreso neto usado: F/W ~${Math.min(netF,netW).toFixed(1)}M/día · Z ~${netZ.toFixed(1)}M/día (base × marchas). Ajusta el ingreso base si tu ritmo real es distinto.</p></div>`;
+}
+
+function renderBuilders(){
+  const box=document.getElementById('builderCards'); box.innerHTML='';
+  const roles=['HQ / Laboratory (máxima prioridad)','Requisito crítico más urgente','Soporte / siguiente prioridad'];
+  // próxima tarea REAL por builder: usa el builderIdx que asignó la propia simulación, no un emparejamiento adivinado
+  const sched=simulate();
+  const nextFor={};
+  Object.entries(sched).filter(([id,s])=>!s.run&&s.builderIdx!=null).forEach(([id,s])=>{
+    const cur=nextFor[s.builderIdx];
+    if(!cur||s.start<cur.start) nextFor[s.builderIdx]={id,start:s.start};
+  });
+  state.builders.forEach((b,i)=>{
+    const card=document.createElement('div'); card.className='bcard b'+(i+1);
+    const t=b.taskId?task(b.taskId):null;
+    const nx=nextFor[i];
+    const nxT=nx?task(nx.id):null;
+    const nxD=nxT?deficitNow(nxT):null;
+    const nxHTML=nxT?`<div style="margin:6px 0;padding:6px 8px;background:rgba(245,179,1,.07);border-left:3px solid var(--yellow);border-radius:4px;font-size:12px">
+      ⏭ <b>Próxima tarea que se libera:</b> ${nxT.b} ${nxT.f}→${nxT.t}
+      <span style="color:var(--dim)">· ~${new Date(nx.start).toLocaleDateString('es-PR',{day:'numeric',month:'short'})} · F/W ${fmtM(nxT.food)} · Z ${fmtM(nxT.z)}</span>
+      <div style="margin-top:3px;font-size:11px;color:${nxD.ok?'var(--green)':'var(--orange)'}">${nxD.ok?'✓ ya pagable con lo que tienes hoy':'con recursos de hoy faltarían '+(nxD.needF>0?fmtM(Math.ceil(nxD.needF))+' F/W':'')+(nxD.needF>0&&nxD.needZ>0?' + ':'')+(nxD.needZ>0?fmtM(Math.ceil(nxD.needZ))+' Z':'')+' (hay tiempo para recolectar)'}</div></div>`
+      :`<div style="margin:6px 0;font-size:11px;color:var(--dim)">⏭ Sin tarea legal proyectada aún — fuera de ruta (Infirmary / Production Center)</div>`;
+    let opts='<option value="">— Asignar tarea —</option>';
+    state.tasks.filter(x=>x.status!=='completado').forEach(x=>{
+      const taken=state.builders.some(ob=>ob!==b&&ob.taskId===x.id);
+      if(!taken) opts+=`<option value="${x.id}" ${b.taskId===x.id?'selected':''}>${x.b} ${x.f}→${x.t} (fase HQ ${x.ph})</option>`;
+    });
+    card.innerHTML=`<h3><span class="bnum">B${i+1}</span> Builder ${i+1}</h3>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:6px">${roles[i]}</div>
+      <div class="count ${t&&b.end?'':'libre'}" id="cd${i}">${t?'':'LIBRE'}</div>
+      <div class="bcur">${t?t.b+' '+t.f+'→'+t.t:''}</div>
+      <div class="bmeta" id="bm${i}"></div>
+      ${nxHTML}
+      <div class="brow"><select id="sel${i}">${opts}</select></div>
+      <div class="brow"><input type="datetime-local" id="end${i}" value="${b.end?b.end.slice(0,16):''}"></div>
+      <div class="brow">
+        <button class="act" style="flex:1" onclick="assignB(${i})">Guardar</button>
+        ${t?`<button class="ghost" onclick="finishB(${i})">✓ Terminó</button>`:''}
+      </div>`;
+    box.appendChild(card);
+  });
+  renderNext(); renderMartes(); tick();
+}
+function assignB(i){
+  const b=state.builders[i];
+  const sel=document.getElementById('sel'+i).value;
+  const end=document.getElementById('end'+i).value;
+  b.taskId=sel||null; b.end=end?new Date(end).toISOString():null;
+  if(b.taskId){ const t=task(b.taskId); if(t.status==='pendiente') t.status='encurso'; }
+  persist(); renderAll();
+  document.querySelector('nav button[data-tab="build"]').click();
+}
+function finishB(i){
+  const b=state.builders[i]; if(!b.taskId)return;
+  const t=task(b.taskId); t.status='completado'; t.doneAt=new Date().toISOString();
+  b.taskId=null; b.end=null;
+  persist(); renderAll();
+  document.querySelector('nav button[data-tab="build"]').click();
+}
+function tick(){
+  const now=Date.now();
+  state.builders.forEach((b,i)=>{
+    const el=document.getElementById('cd'+i), meta=document.getElementById('bm'+i);
+    if(!el)return;
+    if(b.taskId&&b.end){
+      const diff=(new Date(b.end).getTime()-now)/1000;
+      el.classList.remove('libre');
+      if(diff<=0){ el.textContent='¡LISTO!'; el.classList.add('venci');
+        const q=queue();
+        const sig = q.listos.length? q.listos[0].t.b+' '+q.listos[0].t.f+'→'+q.listos[0].t.t : 'nada disponible (speedups al HQ)';
+        meta.textContent='Marca "Terminó" → siguiente: '+sig; }
+      else{ el.classList.remove('venci');
+        el.textContent=fmtDur(diff).replace('m',':'+String(Math.floor(diff%60)).padStart(2,'0'));
+        const endD=new Date(b.end);
+        meta.textContent='Termina: '+endD.toLocaleString('es-PR',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+      }
+    } else if(b.taskId&&!b.end){ el.classList.add('libre'); el.textContent='SIN FECHA'; meta.textContent='Agrega la fecha de fin que muestra el juego'; }
+  });
+}
+setInterval(tick,1000);
+function renderMartes(){
+  const nt=nextTuesday();
+  const box=document.getElementById('martesBox');
+  const antes=state.builders.filter(b=>b.taskId&&b.end&&new Date(b.end)<=new Date(nt.getTime()+86400000));
+  box.innerHTML=`📅 <b>Próximo martes de speedups:</b> ${nt.toLocaleDateString('es-PR',{weekday:'long',day:'numeric',month:'long'})}.
+   ${antes.length? antes.length+' builder(s) terminan antes o durante ese martes — planifica sus siguientes tareas.':'Ningún builder termina naturalmente antes del martes: buen día para acelerar la tarea del camino crítico (HQ → Lab → Walls).'}`;
+}
+
+/* ================= LECTOR IA ================= */
+const drop=document.getElementById('drop'), fileIn=document.getElementById('file');
+drop.onclick=()=>fileIn.click();
+fileIn.onchange=async e=>{
+  const f=e.target.files[0]; if(!f)return;
+  const b64=await new Promise((res,rej)=>{const r=new FileReader();
+    r.onload=()=>res(r.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(f);});
+  const prev=document.getElementById('preview');
+  prev.src='data:'+f.type+';base64,'+b64; prev.style.display='block';
+  document.getElementById('iaOut').innerHTML='';
+  drop.classList.add('busy'); drop.textContent='🔍 Analizando captura…';
+  try{
+    const resp=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1500,messages:[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:f.type,data:b64}},
+        {type:'text',text:`Captura del juego Last Z: Survival Shooter. Identifica el tipo de pantalla y responde SOLO JSON válido, sin markdown:
+TIPO A - pantalla de upgrade de un edificio:
+{"tipo":"upgrade","edificio":"HQ|Laboratory|City Walls|Alliance Center|Military Center|Assaulter Camp|Shooter Camp|Rider Camp|otro","nivel_desde":n,"nivel_hasta":n,"food_m":n|null,"wood_m":n|null,"zents_m":n|null,"tiempo_base":"Xd HH:MM:SS"|null,"tiempo_con_buff":"Xd HH:MM:SS"|null}
+TIPO B - panel "Builder" con lista de construcciones en curso:
+{"tipo":"builders","trabajos":[{"edificio":"...","nivel_actual":n,"restante":"Xd HH:MM:SS"}]}
+(el Lv. mostrado es el nivel ACTUAL; el destino es +1. Si no hay días usa "0d HH:MM:SS")
+TIPO C - panel "Resources & Speedups" pestaña Resources:
+{"tipo":"recursos","food_total_m":n,"food_items_m":n,"wood_total_m":n,"wood_items_m":n,"zents_total_m":n,"zents_items_m":n}
+(convierte G a M: 1.5G = 1500. Total RSS = columna derecha, Total Items = columna central)
+Si un dato no es visible usa null. NO inventes valores.`}]}]})});
+    const data=await resp.json();
+    const txt=(data.content||[]).filter(c=>c.type==='text').map(c=>c.text).join('');
+    const p=JSON.parse(txt.replace(/```json|```/g,'').trim());
+    showParsed(p);
+  }catch(err){
+    document.getElementById('iaOut').innerHTML='<div class="err">No pude leer la captura ('+err.message+'). Intenta con una imagen más nítida.</div>';
+  }
+  drop.classList.remove('busy');
+  drop.innerHTML='📷 Toca aquí para subir otra captura<br><small>PNG o JPG · pantalla de upgrade</small>';
+  fileIn.value='';
+};
+let lastParsed=null;
+function findTask(edif,hasta){
+  const n=(edif||'').toLowerCase();
+  return state.tasks.find(t=>t.b.toLowerCase().startsWith(n.split(' ')[0])&&t.t===hasta);
+}
+function showParsed(p){
+  lastParsed=p;
+  const out=document.getElementById('iaOut');
+  if(p.tipo==='upgrade'){
+    const m=findTask(p.edificio,p.nivel_hasta);
+    out.innerHTML=`<div class="result"><h3 style="color:var(--green);margin-bottom:8px">Pantalla de upgrade detectada</h3>
+      <table><tr><td>Edificio</td><td><b>${p.edificio} ${p.nivel_desde??'?'}→${p.nivel_hasta??'?'}</b></td></tr>
+      <tr><td>F/W</td><td>${p.food_m!=null?fmtM(p.food_m):'—'} / ${p.wood_m!=null?fmtM(p.wood_m):'—'}</td></tr>
+      <tr><td>Zents</td><td>${p.zents_m!=null?fmtM(p.zents_m):'—'}</td></tr>
+      <tr><td>Tiempo base</td><td>${p.tiempo_base??'—'}</td></tr></table>
+      ${m?`<p style="margin-top:8px;font-size:13px">Actualiza: <b>${m.b} ${m.f}→${m.t}</b>${m.pr?' <span style="color:var(--orange)">(quita PR)</span>':''} — ¿confirmas?</p>
+      <div class="mfoot"><button class="ghost" onclick="lastParsed=null;document.getElementById('iaOut').innerHTML=''">No</button>
+      <button class="act" onclick="applyUpgrade()">Sí, aplicar</button></div>`
+      :'<p style="margin-top:8px;color:var(--dim)">No coincide con ninguna tarea del plan.</p>'}</div>`;
+  }
+  else if(p.tipo==='builders'){
+    const now=Date.now();
+    const jobs=(p.trabajos||[]).map(j=>{
+      const t=findTask(j.edificio,(j.nivel_actual||0)+1);
+      const s=parseBase(j.restante);
+      return {j,t,end:s!=null?new Date(now+s*1000):null};
+    });
+    const enPantalla=jobs.filter(x=>x.t).map(x=>x.t.id);
+    const desaparecidos=state.tasks.filter(t=>t.status==='encurso'&&!enPantalla.includes(t.id));
+    let html=`<div class="result"><h3 style="color:var(--green);margin-bottom:8px">Panel Builder detectado — confirma para actualizar:</h3>`;
+    jobs.forEach((x,i)=>{
+      html+=`<div class="nq"><input type="checkbox" id="jb${i}" checked>
+        <label for="jb${i}" style="font-size:13px">${x.t?`<b>${x.t.b} ${x.t.f}→${x.t.t}</b> en curso · fin ${x.end?x.end.toLocaleString('es-PR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'?'}`:`<span style="color:var(--dim)">${x.j.edificio} (no está en el plan)</span>`}</label></div>`;
+    });
+    if(desaparecidos.length){
+      html+=`<p style="margin-top:8px;font-size:12px;color:var(--yellow)">Estas tareas estaban en curso y ya NO aparecen — ¿se completaron?</p>`;
+      desaparecidos.forEach((t,i)=>{ html+=`<div class="nq"><input type="checkbox" id="dn${i}" checked>
+        <label for="dn${i}" style="font-size:13px">✓ <b>${t.b} ${t.f}→${t.t}</b> completado</label></div>`; });
+    }
+    html+=`<div class="mfoot"><button class="ghost" onclick="lastParsed=null;document.getElementById('iaOut').innerHTML=''">Cancelar</button>
+      <button class="act" onclick="applyBuilders()">Confirmar y actualizar</button></div></div>`;
+    lastParsed={jobs,desaparecidos:desaparecidos.map(t=>t.id)};
+    out.innerHTML=html;
+  }
+  else if(p.tipo==='recursos'){
+    const of=(p.food_total_m??0)-(p.food_items_m??0), ow=(p.wood_total_m??0)-(p.wood_items_m??0), oz=(p.zents_total_m??0)-(p.zents_items_m??0);
+    lastParsed={of:+of.toFixed(1),ow:+ow.toFixed(1),oz:+oz.toFixed(1)};
+    out.innerHTML=`<div class="result"><h3 style="color:var(--green);margin-bottom:8px">Panel Resources detectado</h3>
+      <table><tr><td>Food abierto</td><td><b>${fmtM(lastParsed.of)}</b> (${fmtM(p.food_total_m)} − ${fmtM(p.food_items_m)} en cofres)</td></tr>
+      <tr><td>Wood abierto</td><td><b>${fmtM(lastParsed.ow)}</b></td></tr>
+      <tr><td>Zents abiertos</td><td><b>${fmtM(lastParsed.oz)}</b></td></tr></table>
+      <p style="margin-top:8px;font-size:13px">¿Actualizo los recursos abiertos con estos valores?</p>
+      <div class="mfoot"><button class="ghost" onclick="lastParsed=null;document.getElementById('iaOut').innerHTML=''">No</button>
+      <button class="act" onclick="applyRes()">Sí, actualizar</button></div></div>`;
+  }
+  else out.innerHTML='<div class="err">No reconocí el tipo de pantalla. Sube la pantalla de upgrade, el panel Builder o el panel Resources.</div>';
+}
+function applyUpgrade(){
+  const p=lastParsed; const m=findTask(p.edificio,p.nivel_hasta); if(!m)return;
+  if(p.food_m!=null)m.food=p.food_m; if(p.zents_m!=null)m.z=p.zents_m;
+  if(p.tiempo_base)m.time=p.tiempo_base;
+  m.pr=false; lastParsed=null;
+  persist(); renderAll();
+  document.getElementById('iaOut').innerHTML='<p style="color:var(--green);margin-top:8px">✓ Tarea actualizada — Gantt y proyecciones recalculados.</p>';
+}
+function applyBuilders(){
+  const {jobs,desaparecidos}=lastParsed;
+  jobs.forEach((x,i)=>{
+    if(!x.t||!document.getElementById('jb'+i)?.checked)return;
+    x.t.status='encurso';
+    let b=state.builders.find(bb=>bb.taskId===x.t.id) || state.builders.find(bb=>!bb.taskId||!state.tasks.find(tt=>tt.id===bb.taskId&&tt.status==='encurso'));
+    if(b){ b.taskId=x.t.id; if(x.end)b.end=x.end.toISOString(); }
+  });
+  desaparecidos.forEach((id,i)=>{
+    if(!document.getElementById('dn'+i)?.checked)return;
+    const t=task(id); t.status='completado'; t.doneAt=new Date().toISOString();
+    state.builders.forEach(b=>{ if(b.taskId===id){b.taskId=null;b.end=null;} });
+  });
+  lastParsed=null; persist(); renderAll();
+  document.getElementById('iaOut').innerHTML='<p style="color:var(--green);margin-top:8px">✓ Etapas y builders actualizados — revisa el Gantt y la próxima asignación.</p>';
+}
+function applyRes(){
+  ensureRes();
+  state.res.food=lastParsed.of; state.res.wood=lastParsed.ow; state.res.zents=lastParsed.oz;
+  state.res.updated=new Date().toISOString(); lastParsed=null;
+  persist(); renderAll();
+  document.getElementById('iaOut').innerHTML='<p style="color:var(--green);margin-top:8px">✓ Recursos abiertos actualizados — alertas de recolección recalculadas.</p>';
+}
+
+/* ================= NAV ================= */
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); document.getElementById('tab-'+b.dataset.tab).classList.add('on');
+});
+if(!CLOUD) document.getElementById('iaAviso').style.display='block';
+
+load();
+</script>
+</body>
+</html>
