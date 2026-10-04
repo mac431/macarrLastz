@@ -508,6 +508,9 @@ body:not(.ayuda) .apoyo, body:not(.ayuda) .vsnote, body:not(.ayuda) .hvo, body:n
 body:not(.ayuda) details.info, body:not(.ayuda) #topFlag, body:not(.ayuda) .tzps, body:not(.ayuda) .tzhead{display:none!important}
 #ayudaBtn{position:fixed;right:16px;bottom:16px;z-index:60;background:var(--panel2);color:var(--txt);border:1.5px solid var(--line);border-radius:22px;padding:9px 14px;font:700 14px 'Barlow',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:pointer}
 body.ayuda #ayudaBtn{border-color:var(--yellow);color:var(--yellow)}
+#recargaBtn{position:fixed;right:16px;bottom:68px;z-index:60;width:44px;height:44px;border-radius:50%;background:var(--panel2);color:var(--txt);border:1.5px solid var(--line);font:700 22px/1 'Barlow',sans-serif;box-shadow:0 4px 14px rgba(0,0,0,.5);cursor:pointer;display:flex;align-items:center;justify-content:center}
+#recargaBtn.gira{animation:giro .8s linear infinite;border-color:var(--yellow);color:var(--yellow)}
+@keyframes giro{to{transform:rotate(360deg)}}
 .tzback{position:fixed!important;left:16px;bottom:16px;z-index:60;padding:10px 16px!important;font-size:14px!important;box-shadow:0 4px 14px rgba(0,0,0,.5);border-color:var(--yellow)!important}
 .hbar{height:8px;background:var(--panel2);border-radius:4px;margin:6px 0 4px;overflow:hidden}.hbar i{display:block;height:100%;background:var(--red);border-radius:4px}
 .hv.ok .hbar i{background:var(--green)}.hfalta{color:var(--red)}
@@ -543,7 +546,7 @@ main{padding-bottom:80px}
   </div>
   <div class="hrow">
     <div class="hqbig"><span class="hqlbl">HQ<br>actual</span><span class="hqnum" id="hqNow">–</span><span class="hqarrow">→ 30 → T10</span></div>
-    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v113</b></span>
+    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v114</b></span>
   </div>
 </header>
 
@@ -555,6 +558,7 @@ main{padding-bottom:80px}
   <button data-tab="res"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="13" rx="1"/><path d="M4 12h16M9 7v13M15 7v13M8 4h8l1 3H7z"/></svg>Recursos</button>
 </nav>
 <div id="topFlag" class="apoyo"></div>
+<button id="recargaBtn" onclick="recargar()" aria-label="Recargar la última versión" title="Recargar la última versión">⟳</button>
 <button id="ayudaBtn" onclick="toggleAyuda()" aria-label="Mostrar u ocultar texto de apoyo">💬 <span>Ayuda</span></button>
 
 <main>
@@ -2979,7 +2983,7 @@ function builderFlowHTML(){
     } else st.push(`<div class="fs now libre"><i>🔨 AHORA</i><b>LIBRE</b></div>`);
     const n1=nx[0];
     if(n1){ const nt=task(n1.id), s=n1.s, tz=s.burnH>0?tuesBetween(Math.max(s.start,now),s.end).slice(-1):[];
-      st.push(`<div class="fs next"><i>⏭ SIGUE</i><b>${nt.b} ${nt.f}→${nt.t}</b><span>arranca ${fDiaH(s.start)} · termina ${fDia(s.end)}${vsDia(s.end)?' (VS)':''}</span>${tz.length?`<span class="facc">⚡ ${tz.map(fDia).join('')}: acelerar ${fmtHD(s.burnH)} y terminarlo</span>`:''}</div>`);
+      st.push(`<div class="fs next"><i>⏭ SIGUE</i><b>${nt.b} ${nt.f}→${nt.t}</b><span>arranca ${fDiaH(s.start)} · termina ${fDia(s.end)}${vsDia(s.end)?' (VS)':''}</span>${(fin&&s.start-fin>6*3600000)?`<span class="vsw">⏳ parado ${fmtHD((s.start-fin)/3600000)} esperando recursos (${fMM(nt.food)} F/W)</span>`:''}${tz.length?`<span class="facc">⚡ ${tz.map(fDia).join('')}: acelerar ${fmtHD(s.burnH)} y terminarlo</span>`:''}</div>`);
       const n2=nx[1]; if(n2){ const t2=task(n2.id); st.push(`<div class="fs later"><i>DESPUÉS</i><b>${t2.b} ${t2.f}→${t2.t}</b><span>${fDia(n2.s.start)}</span></div>`); }
     }
     return `<div class="bflow"><div class="bfh"><span class="bqn">B${i+1}</span></div><div class="fsteps">${st.join('')}</div></div>`;
@@ -3194,6 +3198,26 @@ function simulate(){
     if(burnH>dur/3600000*0.5 || burnH>poolAt(T)) return null;
     return {end:T, burnH, natEnd:nat};
   }
+  // v114 (Miguel): el plan ESPERA A TENER LOS RECURSOS. Libro de caja: abiertos de hoy + ritmo realista
+  //  (ritmoDia) − lo ya comprometido. Cofres: solo HQ y ruta crítica (preps/cuellos, Lab 30 → T10).
+  //  Los rellenos de poder (AC, Formations, Rally) se pagan con abiertos; mientras uno caro espera, solo
+  //  se cuelan rellenos ≤ 50M para no dejar el builder parado sin comerse lo que junta el caro.
+  const RK=['food','wood','zents'], cost=t=>({food:t.food||0,wood:t.food||0,zents:t.z||0});
+  const caja0={food:state.res.food||0,wood:state.res.wood||0,zents:state.res.zents||0};
+  const cofre={...(state.res.chests||{food:0,wood:0,zents:0})};
+  const gasto={food:0,wood:0,zents:0}, incCache={};
+  const ingreso=(tm)=>{ const key=Math.floor(tm/3600000); if(incCache[key]) return incCache[key];
+    const acc={food:0,wood:0,zents:0};
+    for(let d=new Date(now); d.getTime()<tm; d.setDate(d.getDate()+1)){
+      const ini=Math.max(now,new Date(d).setHours(0,0,0,0)), fin=Math.min(tm,new Date(d).setHours(24,0,0,0)), f=Math.max(0,(fin-ini)/86400000), r=ritmoDia(new Date(d));
+      RK.forEach(k=>acc[k]+=r[k]*f); }
+    return incCache[key]=acc; };
+  const caja=tm=>{ const i=ingreso(tm), o={}; RK.forEach(k=>o[k]=caja0[k]+i[k]-gasto[k]); return o; };
+  const usaCofre=t=>t.k==='hq'||esPrep(t);
+  const alcanza=(t,tm)=>{ const c=cost(t), b=caja(tm); return RK.every(k=>b[k]+(usaCofre(t)?cofre[k]:0)>=c[k]-0.01); };
+  const cuandoAlcanza=(t,tm)=>{ for(let x=tm;x<tm+200*86400000;x+=6*3600000) if(alcanza(t,x)) return x; return null; };
+  const pagar=(t,tm)=>{ const c=cost(t), b=caja(tm); RK.forEach(k=>{ const falta=Math.max(0,c[k]-Math.max(0,b[k]));
+      const deCofre=usaCofre(t)?Math.min(falta,cofre[k]):0; cofre[k]-=deCofre; gasto[k]+=c[k]-deCofre; }); };
   const finDe = (t,tm) => { const dur=baseDays(t)*(t.fac||F)*86400000, a=acelMartes(t,tm,dur), e=a?a.end:tm+dur, w=diaSrv(e); return w===6||w===0||w===1; };
   let guard=0;
   // v68: planificador consciente del GATE — las cadenas que alimentan el próximo HQ (prereqs del juego
@@ -3234,8 +3258,17 @@ function simulate(){
       const ok=cands.filter(t=>t.k==='hq'||!finDe(t,tm));
       if(ok.length<cands.length){ cands.length=0; cands.push(...ok); viernesEspera=true; }
     }
+    // v114: recursos — la primera opción que se pueda pagar; si la de arriba no alcanza, solo se cuela un relleno ≤50M.
+    let esperaRec=null;
+    if(cands.length&&!(state.reglaVS&&state.reglaVS.esperarRecursos===false)){
+      const top=cands[0];
+      if(!alcanza(top,tm)){ esperaRec=cuandoAlcanza(top,tm);
+        const ok=cands.filter(t=>t!==top&&(t.food||0)<=50&&alcanza(t,tm));
+        cands.length=0; cands.push(...ok); }
+    }
     if(!cands.length){
       const ev=[...Object.values(comp),...Object.values(bldFree)].filter(x=>x>tm);
+      if(esperaRec) ev.push(esperaRec);
       if(viernesEspera){ const sab=new Date(tm); sab.setHours(22,0,0,0); if(sab.getTime()<=tm) sab.setDate(sab.getDate()+1); ev.push(sab.getTime()); }
       if(!ev.length) break;
       free[bi]=Math.min(...ev)+1; continue;
@@ -3254,6 +3287,7 @@ function simulate(){
       const save=Math.min(poolAt(tm)+accrualHdia*(dur/86400000)*0.5, durH*0.70);
       if(save>0){ dur-=save*3600000; poolSpentH+=save; }
     }
+    pagar(t,tm);
     sched[t.id]={start:tm,end:tm+dur,est:!t.time,builderIdx:bi};
     if(vsInfo){ Object.assign(sched[t.id],{natEnd:vsInfo.natEnd,burnH:vsInfo.burnH,pct:vsInfo.pct,vs:vsInfo.vs,over70:vsInfo.over70,forced:vsInfo.forced,faltaH:vsInfo.faltaH,poolAlCierre:vsInfo.poolAlCierre,acel:vsInfo.acel}); }
     else if(!esSerial(t)){ sched[t.id].natEnd=tm+dur; }
@@ -4538,6 +4572,11 @@ document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
 });
 
 
+// v114: recargar desde el ícono de la pantalla de inicio (no hay botón de refresh). Pide la página
+// con ?r=<hora> para saltarse la caché de GitHub Pages; tus datos (localStorage) no se tocan.
+function recargar(){ const b=document.getElementById('recargaBtn'); if(b) b.classList.add('gira');
+  try{ if(window.caches) caches.keys().then(k=>k.forEach(n=>caches.delete(n))); }catch(e){}
+  setTimeout(()=>location.replace(location.pathname+'?r='+Date.now()+location.hash),150); }
 function toggleAyuda(){ document.body.classList.toggle('ayuda'); try{ localStorage.setItem('lzAyuda',document.body.classList.contains('ayuda')?'1':'0'); }catch(e){} }
 try{ if(localStorage.getItem('lzAyuda')==='1') document.body.classList.add('ayuda'); }catch(e){}
 load();
