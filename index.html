@@ -498,6 +498,10 @@ details.info p{margin-top:6px !important}
 .tzback{background:var(--panel2);border:1px solid var(--line);color:var(--txt);border-radius:16px;padding:6px 12px;font:600 13px 'Barlow',sans-serif;margin-bottom:8px;cursor:pointer}
 .gdays{height:16px}.gdays span{border-left:none!important;padding-left:0!important;font-weight:700;font-size:9.5px}
 .gdays .gmar{color:#4aa354}.gdays .gvie{color:#c9a227}
+.gmes{position:relative;height:18px;margin:0 0 2px 110px;box-sizing:content-box}
+.gmes span{position:absolute;top:0;height:16px;line-height:16px;font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--text,#eee);border-left:2px solid rgba(255,255,255,.35);padding-left:5px;box-sizing:border-box;overflow:hidden;white-space:nowrap}
+.gleyenda{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--dim);margin-top:10px;padding:8px 10px;border-top:1px solid rgba(255,255,255,.08)}
+.gleyenda i{display:inline-block;width:12px;height:10px;vertical-align:middle;margin-right:5px;border-radius:2px}
 
 /* v108: texto de apoyo oculto por defecto + botones fijos */
 body:not(.ayuda) .apoyo, body:not(.ayuda) .vsnote, body:not(.ayuda) .hvo, body:not(.ayuda) .rqleg,
@@ -539,7 +543,7 @@ main{padding-bottom:80px}
   </div>
   <div class="hrow">
     <div class="hqbig"><span class="hqlbl">HQ<br>actual</span><span class="hqnum" id="hqNow">–</span><span class="hqarrow">→ 30 → T10</span></div>
-    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v111</b></span>
+    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v112</b></span>
   </div>
 </header>
 
@@ -3317,13 +3321,20 @@ function renderGantt(){
   const totalDias=(max-min)/86400000;
   const dayPx=laneW/totalDias;                          // ancho de un día en px
   const dayPct=100/totalDias;                           // ancho de un día en %
-  let bandas='', dl='';
+  let bandas='', dl='', ml='';
+  { const MES=['ENE','FEB','MAR','ABR','MAY','JUN','JUL','AGO','SEP','OCT','NOV','DIC'];
+    const m=new Date(min); m.setHours(0,0,0,0); m.setDate(1);
+    for(; m.getTime()<max; m.setMonth(m.getMonth()+1)){
+      const a=Math.max(0,pct(m.getTime())), nx=new Date(m); nx.setMonth(nx.getMonth()+1);
+      const b=Math.min(100,pct(nx.getTime())); if(b<=0||a>=100) continue;
+      ml+=`<span style="left:${a}%;width:${(b-a).toFixed(3)}%">${MES[m.getMonth()]}${m.getMonth()===0?' '+m.getFullYear():''}</span>`;
+    } }
   { const d=new Date(min); d.setHours(0,0,0,0);
     for(; d.getTime()<max; d.setDate(d.getDate()+1)){
       const wd=d.getDay(); if(wd!==2 && wd!==5) continue;   // 2=martes 5=viernes
       const px=pct(d.getTime()); if(px<0||px>100) continue;
       const col = wd===2 ? 'rgba(74,163,84,.16)' : 'rgba(255,210,74,.10)';  // v106: martes VERDE · viernes ámbar
-      dl+=`<span class="${wd===2?'gmar':'gvie'}" style="left:${px}%">${wd===2?'mar':'vie'} ${d.getDate()}</span>`;
+      dl+=`<span class="${wd===2?'gmar':'gvie'}" style="left:${px}%">${d.getDate()}</span>`;
       bandas+=`<div style="position:absolute;top:0;bottom:0;left:${px}%;width:${dayPct}%;background:${col};pointer-events:none"></div>`;
     } }
   // rayitas diarias por gradiente (1 sola capa CSS en vez de ~150 divs por fila)
@@ -3373,7 +3384,8 @@ function renderGantt(){
     <span style="display:inline-block;width:11px;height:9px;background:rgba(74,163,84,.6);vertical-align:middle;margin-right:3px"></span>martes ·
     <span style="display:inline-block;width:11px;height:9px;background:rgba(255,210,74,.30);vertical-align:middle;margin:0 3px 0 6px"></span>viernes
     <span style="color:var(--dim)">= días VS, cada rayita es un día</span> · <span style="color:#FFD24A">⚠ = cierra fuera de día VS</span></div>
-    <div class="gmonths gdays" style="min-width:${laneW}px">${dl}</div>${idleRow(sched,now,pct,gridHTML,laneW,rejilla||'')}${rows}`;
+    <div class="gmes" style="min-width:${laneW}px">${ml}</div><div class="gmonths gdays" style="min-width:${laneW}px">${dl}</div>${idleRow(sched,now,pct,gridHTML,laneW,rejilla||'')}${rows}
+    <div class="gleyenda"><span><i style="background:rgba(74,163,84,.75)"></i><b style="color:#4aa354">Martes</b> (VS)</span><span><i style="background:rgba(255,210,74,.55)"></i><b style="color:#c9a227">Viernes</b> (VS)</span><span>Número = día del mes</span><span><i style="background:#e53935;width:2px"></i>Hoy</span></div>`;
   const set=(id,sid)=>{ const el=document.getElementById(id);
     if(el) el.textContent = sched[sid]? '~'+fD(sched[sid].end) : (done(sid)?'✓ Logrado':'—'); };
   set('gHq27','hq27'); set('gHq30','hq30');
