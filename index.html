@@ -543,7 +543,7 @@ main{padding-bottom:80px}
   </div>
   <div class="hrow">
     <div class="hqbig"><span class="hqlbl">HQ<br>actual</span><span class="hqnum" id="hqNow">–</span><span class="hqarrow">→ 30 → T10</span></div>
-    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v112</b></span>
+    <span class="callsign apoyo">MACARR <i>·</i> BLOOD ROSE <i>·</i> F2P <i>·</i> #727<br>FACTOR <b class="mono" id="factorShow" style="color:var(--txt)">0.29525</b> × BASE <i>·</i> SEED <b class="mono" style="color:var(--txt)">v113</b></span>
   </div>
 </header>
 
@@ -2351,6 +2351,20 @@ async function load(){
     state.planT9.nombre='v111 — ★HQ 30 mar 20 · luego FASE DE PODER (AC › Formations › Rally) + Lab 30';
     state.seedV=111;
   }
+  // ===== SEED v113 (4 oct, Miguel): Lab 29 y Shooter 29 se TERMINAN el martes 13 (VS) con speedups y el HQ 30
+  //  arranca ese mismo martes → cierra mar 20. Regla nueva: preps y cuellos de botella se terminan los MARTES
+  //  (se aceleran de semana en semana). Los VIERNES solo se arranca lo que no vaya a terminar sáb–lun. =====
+  if(!state.seedV || state.seedV<113){
+    const set=(id,end,nat)=>{ const b=state.builders.find(x=>x.taskId===id); if(b){ b.end=end; b.planNatural=nat; } };
+    set('lab29','2026-10-13T20:00:00-04:00','2026-10-15T08:29:00-04:00');
+    set('sh29','2026-10-13T20:00:00-04:00','2026-10-16T06:58:00-04:00');
+    state.hqTarget=Object.assign(state.hqTarget||{},{hq30:'2026-10-20T20:00:00-04:00'});
+    state.reglaVS=Object.assign(state.reglaVS||{},{prepsEnMartes:true, viernesSinFinde:true});
+    state.planT9.nombre='v113 — preps mar 13 · ★HQ 30 mar 20 · preps/cuellos se cierran en martes';
+    state.planT9.override='Mar 13 (VS): terminar Lab 29 y Shooter 29 con speedups y arrancar HQ 30 ese día. Mar 20: terminar el HQ 30. '
+      +'De ahí en adelante: preps y cuellos se terminan los martes; los viernes solo se arranca lo que no cierre sáb–lun.';
+    state.seedV=113;
+  }
 
 
   document.getElementById('syncstate').textContent = CLOUD?'Guardado en la nube':'Guardado en este dispositivo';
@@ -2957,7 +2971,7 @@ function builderFlowHTML(){
     const t=b.taskId?task(b.taskId):null, fin=b.end?new Date(b.end).getTime():null, nx=(byB[i]||[]);
     const st=[];
     if(t){
-      st.push(`<div class="fs now"><i>🔨 AHORA</i><b>${t.b} ${t.f}→${t.t}</b>${b.planNatural?`<span>sola cerraría ${fDia(new Date(b.planNatural).getTime())}</span>`:''}</div>`);
+      st.push(`<div class="fs now"><i>🔨 AHORA</i><b>${t.b} ${t.f}→${t.t}</b>${b.planNatural?`<span>termina <b>${fDia(new Date(b.end).getTime())}</b> acelerado · sola cerraría ${fDia(new Date(b.planNatural).getTime())}</span>`:''}</div>`);
       if(b.planNatural){ const ac=tuesBetween(now,fin).filter(x=>x<=fin).pop();
         const h=(new Date(b.planNatural)-fin)/3600000;
         st.push(`<div class="fs acc"><i>⚡ ACELERAR</i><b>${ac?fDia(ac):'ya'}</b><span>${fmtHD(h)} para terminarlo ese día</span></div>`); }
@@ -3000,8 +3014,13 @@ function renderBuildQuick(){
     const hq=Object.entries(sched).map(([id,s])=>({t:task(id),s})).find(x=>x.t&&x.t.k==='hq'&&!x.s.run&&x.s.burnH>0);
     const tues=[]; for(let d=new Date(now); tues.length<4; d.setDate(d.getDate()+1)) if(d.getDay()===2){ const e=new Date(d); e.setHours(20,0,0,0); if(e.getTime()>now) tues.push(e.getTime()); }
     const items=[];
-    if(pl.length){ const tot=pl.reduce((a,b)=>a+(new Date(b.planNatural)-new Date(b.end))/3600000,0);
-      items.push(`<div class="vsr" data-t="${tues[0]}"><div class="vsn">${fDia(tues[0])} · terminar ${pl.map(b=>task(b.taskId).b).join(' + ')} (${fmtHD(tot)})</div><div class="vsl apoyo">Aplica las aceleraciones planeadas: ${pl.map(b=>{const t=task(b.taskId); return `${t.b} <b>${fmtHD((new Date(b.planNatural)-new Date(b.end))/3600000)}</b>`;}).join(' + ')} = <b>${fmtHD(tot)}</b>. Cuentan para el VS del martes y aun así cierran el ${fDia(new Date(pl[0].end).getTime())}.</div></div>`); }
+    if(pl.length){ // v113: agrupar por el martes en que cierra cada obra (antes se juntaba todo en el primer martes)
+      const grp={}; pl.forEach(b=>{ const e=new Date(b.end).getTime(); const k=fDia(e); (grp[k]=grp[k]||{t:e,bs:[]}).bs.push(b); });
+      Object.values(grp).forEach(g=>{ const h=b=>(new Date(b.planNatural)-new Date(b.end))/3600000, tot=g.bs.reduce((a,b)=>a+h(b),0);
+        items.push(`<div class="vsr" data-t="${g.t}"><div class="vsn">${fDia(g.t)} · terminar ${g.bs.map(b=>{const t=task(b.taskId); return t.b+' '+t.f+'→'+t.t;}).join(' + ')} (${fmtHD(tot)})</div><div class="vsl apoyo">${g.bs.map(b=>{const t=task(b.taskId); return `${t.b} <b>${fmtHD(h(b))}</b> (sola cerraría ${fDia(new Date(b.planNatural).getTime())})`;}).join(' + ')}. Termínalos ese martes antes de las 10 PM para cobrar el VS.</div></div>`); }); }
+    // v113: preps y cuellos futuros que el plan termina en martes
+    Object.entries(sched).filter(([id,x])=>x.acel&&!x.run&&x.end<=tues[tues.length-1]+86400000*21).forEach(([id,x])=>{ const t=task(id);
+      items.push(`<div class="vsr" data-t="${x.end}"><div class="vsn">${fDia(x.end)} · terminar ${t.b} ${t.f}→${t.t} (${fmtHD(x.burnH)})</div><div class="vsl apoyo">Prep/cuello: sola cerraría ${fDia(x.natEnd)}; se termina el martes para cobrar el VS.</div></div>`); });
     if(hq){ const ts=tues.filter(t=>t>hq.s.start&&t<=hq.s.end+3600000).slice(-1), acc=(state.reserva||{}).accrualHdia||0;
       ts.forEach((t,i)=>{ const last=i===ts.length-1;
         items.push(`<div class="vsr hq" data-t="${t}"><div class="vsn">${fDia(t)} · HQ: acelerar ${fmtHD(hq.s.burnH)} y terminarlo</div><div class="vsl apoyo">${last?`Quema en el ${hq.t.b} ${hq.t.t} lo que le falte para cerrar hoy antes de las 10 PM (total del tramo ${fmtHD(hq.s.burnH)}).`:`Quema en el ${hq.t.b} ${hq.t.t} todos los speedups que tengas ese día (~${fmtHD(hq.s.poolAlCierre-acc*((hq.s.end-t)/86400000))}). Lo que acumules después va el martes siguiente.`}</div></div>`); }); }
@@ -3160,6 +3179,22 @@ function simulate(){
   state.builders.forEach(b=>{ if(b.planNatural&&b.end){ const d=(new Date(b.planNatural)-new Date(b.end))/3600000; if(d>0) poolSpentH+=d; } });
   const esSerial = t => t.k==='hq';  // v111: solo el HQ se acelera (y se termina el martes); el resto corre en tiempo natural
   const poolAt = tm => Math.max(0, poolH0 + accrualHdia*((tm-now)/86400000) - poolSpentH);
+  // v113 (Miguel): preps y cuellos de botella se TERMINAN EN MARTES con speedups (de semana en semana).
+  //  Se busca el último martes 8 PM (antes del reset VS de las 10 PM) entre el inicio y el cierre natural.
+  //  Tope: no quemar más del 50% del tramo ni más de lo que haya en el pool ese martes.
+  const diaSrv = x => new Date(x+(24-VS_RESET_H)*3600000).getDay();
+  const esPrep = t => t.k!=='hq' && !isFiller(t);
+  function acelMartes(t,tm,dur){
+    if(!esPrep(t)) return null;
+    const nat=tm+dur; if(diaSrv(nat)===2) return null;
+    const d=new Date(nat); d.setHours(20,0,0,0);
+    for(let k=0;k<8;k++){ if(d.getDay()===2&&d.getTime()<nat) break; d.setDate(d.getDate()-1); d.setHours(20,0,0,0); }
+    const T=d.getTime(); if(d.getDay()!==2||T<=tm+3600000) return null;
+    const burnH=(nat-T)/3600000;
+    if(burnH>dur/3600000*0.5 || burnH>poolAt(T)) return null;
+    return {end:T, burnH, natEnd:nat};
+  }
+  const finDe = (t,tm) => { const dur=baseDays(t)*(t.fac||F)*86400000, a=acelMartes(t,tm,dur), e=a?a.end:tm+dur, w=diaSrv(e); return w===6||w===0||w===1; };
   let guard=0;
   // v68: planificador consciente del GATE — las cadenas que alimentan el próximo HQ (prereqs del juego
   // + MIGUEL_HOLD) van primero, la de MÁS trabajo restante antes (LPT). Evita que el gate espere 2
@@ -3193,8 +3228,15 @@ function simulate(){
     const cands=pending.filter(t=>okRecurso(t)&&permitidoHQ30(t)&&legalAt(t,tm)&&(bldFree[t.b]==null||bldFree[t.b]<=tm)
         &&(misPin? misPin.includes(t.b) : !pinAjeno(t.b)))
       .sort((a,b)=>((b.t9?1:0)-(a.t9?1:0))||(REQ_IDS.has(b.id)?1:0)-(REQ_IDS.has(a.id)?1:0)||PRIO[a.k]-PRIO[b.k]||(gateFeed(b)-gateFeed(a))||fillerRank(a)-fillerRank(b)||a.ph-b.ph||a.t-b.t); // v70: T9 PRIMERO, sobre todo (el Lab espera; el gate no se mueve)
+    // v113: los VIERNES solo se arranca lo que NO vaya a terminar sábado, domingo o lunes.
+    let viernesEspera=false;
+    if(state.reglaVS&&state.reglaVS.viernesSinFinde&&diaSrv(tm)===5){
+      const ok=cands.filter(t=>t.k==='hq'||!finDe(t,tm));
+      if(ok.length<cands.length){ cands.length=0; cands.push(...ok); viernesEspera=true; }
+    }
     if(!cands.length){
       const ev=[...Object.values(comp),...Object.values(bldFree)].filter(x=>x>tm);
+      if(viernesEspera){ const sab=new Date(tm); sab.setHours(22,0,0,0); if(sab.getTime()<=tm) sab.setDate(sab.getDate()+1); ev.push(sab.getTime()); }
       if(!ev.length) break;
       free[bi]=Math.min(...ev)+1; continue;
     }
@@ -3204,13 +3246,16 @@ function simulate(){
       vsInfo=hqMartes(tm,dur,poolAt(tm)+accrualHdia*(dur/86400000)*0.5, x=>poolAt(tm)+accrualHdia*((x-tm)/86400000), fEnd&&fEnd>tm&&fEnd<tm+dur?fEnd:null);
       vsInfo.poolAlCierre=poolAt(tm)+accrualHdia*((vsInfo.end-tm)/86400000);
       poolSpentH+=vsInfo.burnH; dur=vsInfo.end-tm;
+    } else if(state.reglaVS&&state.reglaVS.prepsEnMartes&&acelMartes(t,tm,dur)){
+      const a=acelMartes(t,tm,dur); vsInfo={natEnd:a.natEnd,burnH:a.burnH,pct:a.burnH/(dur/3600000)*100,vs:'mar',acel:true};
+      poolSpentH+=a.burnH; dur=a.end-tm;
     } else if(esSerial(t)){ // quemar pool 1:1 (tope 70% del tramo — nunca proyectar magia)
       const durH=dur/3600000;
       const save=Math.min(poolAt(tm)+accrualHdia*(dur/86400000)*0.5, durH*0.70);
       if(save>0){ dur-=save*3600000; poolSpentH+=save; }
     }
     sched[t.id]={start:tm,end:tm+dur,est:!t.time,builderIdx:bi};
-    if(vsInfo){ Object.assign(sched[t.id],{natEnd:vsInfo.natEnd,burnH:vsInfo.burnH,pct:vsInfo.pct,vs:vsInfo.vs,over70:vsInfo.over70,forced:vsInfo.forced,faltaH:vsInfo.faltaH,poolAlCierre:vsInfo.poolAlCierre}); }
+    if(vsInfo){ Object.assign(sched[t.id],{natEnd:vsInfo.natEnd,burnH:vsInfo.burnH,pct:vsInfo.pct,vs:vsInfo.vs,over70:vsInfo.over70,forced:vsInfo.forced,faltaH:vsInfo.faltaH,poolAlCierre:vsInfo.poolAlCierre,acel:vsInfo.acel}); }
     else if(!esSerial(t)){ sched[t.id].natEnd=tm+dur; }
     comp[t.id]=tm+dur; bldFree[t.b]=tm+dur;
     free[bi]=tm+dur;
