@@ -2369,6 +2369,34 @@ async function load(){
       +'De ahí en adelante: preps y cuellos se terminan los martes; los viernes solo se arranca lo que no cierre sáb–lun.';
     state.seedV=113;
   }
+  // ===== SEED v115 (13 oct, lectura en el juego 8:35 AM): Lab 29, Shooter 29 y Military Center 27 TERMINADOS y
+  //  HQ 29→30 YA CORRIENDO (Builder: 38d 03:43 restantes → cierre natural ~vie 20 nov 12:17 PM). Plan intacto:
+  //  terminarlo el MAR 20 oct (VS). B2 y B3 quedan LIBRES (Michael y Claire "Available").
+  //  CORRIGE: Formation I (23), Formation II (22) y Formation IV (14) ya estaban más arriba de lo sembrado —
+  //  el planificador los reagendaba en el futuro. Recursos: HUD casi en cero (pago del HQ 30); cofres
+  //  F 3.8G / W 4.6G / Z 1.4G. Speedups: Universal 30d22h50m + Construcción 2d7h17m = 798h. =====
+  if(!state.seedV || state.seedV<115){
+    const NIV={'HQ':29,'Laboratory':29,'Shooter Camp':29,'Assaulter Camp':28,'Rider Camp':27,'City Walls':27,
+      'Alliance Center':27,'Military Center':27,'Hospital':24,'Hospital 2':23,'Rally Square':25,
+      'Formation I':23,'Formation II':22,'Formation III':16,'Formation IV':14};
+    state.tasks.forEach(t=>{ const lv=NIV[t.b]; if(lv==null) return;
+      if(t.t<=lv){ t.status='completado'; if(!t.doneAt) t.doneAt='2026-10-13'; }
+      else if(t.status==='completado'){ t.status='pendiente'; t.doneAt=null; } });
+    const hq=state.tasks.find(t=>t.id==='hq30'); if(hq){ hq.status='encurso'; hq.doneAt=null; }
+    state.builders=[
+      {id:1,taskId:'hq30',end:'2026-10-20T20:00:00-04:00',planNatural:'2026-11-20T12:17:00-05:00'},
+      {id:2,taskId:null,end:null},
+      {id:3,taskId:null,end:null}];
+    Object.assign(state.res,{food:0.2,wood:0.2,zents:0.1,updated:'2026-10-13T08:35:00-04:00',
+      chests:{food:3800,wood:4600,zents:1400}});
+    state.res.hist=(state.res.hist||[]).concat([{t:Date.parse('2026-10-13T08:35:00-04:00'),food:0.2,wood:0.2,zents:0.1}]);
+    Object.assign(state.reserva,{universal_h:742.83,construction_h:55.28,
+      nota:'v115: leído 13 oct 8:35 AM — Universal 30d22h50m + Construcción 2d7h17m = 798h. Universal +325h desde el 4 oct (~36 h/día).'});
+    state.planT9.nombre='v115 — HQ 30 corriendo · ★terminar MAR 20 oct · B2 y B3 libres';
+    state.planT9.override='HQ 30 corre en B1 (natural vie 20 nov). MAR 20 oct (VS): acelerar ~736h y terminarlo. '
+      +'Pool hoy 798h + ~34h/día → sobra margen. B2 y B3 libres desde hoy: rellenos baratos (Formation III) mientras se junta para Alliance Center 28.';
+    state.seedV=115;
+  }
 
 
   document.getElementById('syncstate').textContent = CLOUD?'Guardado en la nube':'Guardado en este dispositivo';
